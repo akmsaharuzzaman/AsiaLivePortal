@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Roles } from "@/constants/route.enum";
+import { useSocket } from "@/hook/useSocket";
 import { RoleContext } from "@/provider/role-provider";
 import { useAdminProfileQuery } from "@/redux/api/auth.api";
 import { useGetPortalProfileQuery } from "@/redux/api/power-shared";
@@ -39,7 +40,9 @@ const RootLayout = () => {
   // const isAdmin = role === Roles.Admin;
   // const { data: profileRes } = useMyProfileQuery(undefined, {skip: isAdmin});
   // const {data: portalProfileRes} = useGetPortalProfileQuery(undefined, {skip: !isAdmin});
-
+  const { videoHosts, audioData, errorMessage } = useSocket();
+  console.log({ videoHosts, audioData, errorMessage });
+  console.log("HIIIIIIIIII <3");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
