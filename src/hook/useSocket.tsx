@@ -15,6 +15,7 @@ export function useSocket() {
   const [videoHosts, setVideoHosts] = useState<VideoHostsResponse | null>(null);
   const [audioData, setAudioData] = useState<AudioResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [getRooms, setGetRooms] = useState([]);
 
   useEffect(() => {
     socket.connect();
@@ -26,9 +27,14 @@ export function useSocket() {
     });
 
     // 2️⃣ When backend sends "get-audio"
-    socket.on("get-rooms", (data: AudioResponse) => {
+    socket.on("get-audio-hosts", (data: AudioResponse) => {
       console.log("AUDIO DATA:", data);
       setAudioData(data);
+    });
+    // When backend sends "get-rooms"
+    socket.on("get-rooms", (data: any) => {
+      console.log("ROOM DATA:", data);
+      setGetRooms(data);
     });
 
     // 3️⃣ When backend sends error message
@@ -45,5 +51,5 @@ export function useSocket() {
     };
   }, []);
 
-  return { videoHosts, audioData, errorMessage };
+  return { videoHosts, audioData, errorMessage, getRooms };
 }

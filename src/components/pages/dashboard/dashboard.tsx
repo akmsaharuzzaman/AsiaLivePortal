@@ -1,6 +1,7 @@
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
+import { useSocket } from "@/hook/useSocket";
 import {
   useGetMidPortalManagementQuery,
   useGetPortalProfileQuery,
@@ -98,7 +99,7 @@ export const DashboardContent: FC<{
       type: Roles.CountryAdmin,
       // id: user!.id!,
     });
-
+  const { getRooms: activeRooms } = useSocket();
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error occurred: {(error as any).message}</div>;
 
@@ -131,8 +132,9 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
+    activeRooms: activeRooms ? activeRooms.length : 0,
   };
-
+  console.log(staticStatesData.activeRooms, "SSS");
   /**
    * dashboardConfigs: All dashboard stats, actions, and lists for each role.
    * This makes the dashboard fully config-driven and easy to extend.
@@ -163,6 +165,11 @@ export const DashboardContent: FC<{
         {
           title: "Total Country Admins",
           value: staticStatesData?.countryAdmins || 0,
+          link: ClientRoutes.CountryAdmins,
+        },
+        {
+          title: "Active Rooms",
+          value: staticStatesData?.activeRooms || 0,
           link: ClientRoutes.CountryAdmins,
         },
         // {
