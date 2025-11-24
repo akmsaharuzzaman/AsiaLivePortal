@@ -23,6 +23,8 @@ export enum ClientRoutes {
   CreateHost = "/create-host",
   CreateCountryAdmin = "/create-country-admin",
 
+  // realtime data
+  Rooms = "/rooms",
   // External Links
   GreedyGameDashboardPanel = "http://31.97.222.97:9001",
 }

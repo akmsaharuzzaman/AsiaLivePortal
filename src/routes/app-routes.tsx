@@ -143,4 +143,9 @@ export const appRoutes = [
     element: <StoreManagement backRoute={"/"} />,
     roles: [Roles.Admin],
   },
+  {
+    path: "/rooms",
+    element: <h1>Hello</h1>,
+    roles: [Roles.Admin],
+  },
 ];

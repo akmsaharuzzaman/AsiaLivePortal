@@ -170,7 +170,7 @@ export const DashboardContent: FC<{
         {
           title: "Active Rooms",
           value: staticStatesData?.activeRooms || 0,
-          link: ClientRoutes.CountryAdmins,
+          link: ClientRoutes.Rooms,
         },
         // {
         //   title: "Total Resellers",
