@@ -10,6 +10,7 @@ import { CreateMerchantPage } from "@/pages/CreateMerchant";
 import { CreateResellerPage } from "@/pages/CreateReseller";
 import { CreateSubAdminPage } from "@/pages/CreateSubAdmin";
 import { GiftListsPage } from "@/pages/GiftLIsts";
+import LiveListsPage from "@/pages/LiveLists";
 import Merchant from "@/pages/Merchant";
 import MerchantById from "@/pages/MerchantById";
 import { PortalsTransactionHistoryPage } from "@/pages/PortalsTransactionHistory";
@@ -144,8 +145,8 @@ export const appRoutes = [
     roles: [Roles.Admin],
   },
   {
-    path: "/rooms",
-    element: <h1>Hello</h1>,
+    path: "/live-lists",
+    element: <LiveListsPage />,
     roles: [Roles.Admin],
   },
 ];

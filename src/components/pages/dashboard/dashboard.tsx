@@ -1,7 +1,7 @@
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
-import { useSocket } from "@/hook/useSocket";
+import { UseSocket } from "@/hook/useSocket";
 import {
   useGetMidPortalManagementQuery,
   useGetPortalProfileQuery,
@@ -99,7 +99,9 @@ export const DashboardContent: FC<{
       type: Roles.CountryAdmin,
       // id: user!.id!,
     });
-  const { getRooms: activeRooms } = useSocket();
+  const { audioData: activeRooms } = UseSocket();
+  console.dir(activeRooms);
+  console.dir("dir");
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error occurred: {(error as any).message}</div>;
 
@@ -168,7 +170,7 @@ export const DashboardContent: FC<{
           link: ClientRoutes.CountryAdmins,
         },
         {
-          title: "Active Rooms",
+          title: "Active Live",
           value: staticStatesData?.activeRooms || 0,
           link: ClientRoutes.Rooms,
         },
