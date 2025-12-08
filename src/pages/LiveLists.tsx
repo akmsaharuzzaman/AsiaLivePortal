@@ -292,7 +292,7 @@ export const LiveListsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected]);
 
-  const selectedLive = videoHosts.find((l) => l.uid === selectedId) || null;
+  const selectedLive = videoHosts.find((l) => l._id === selectedId) || null;
   console.log(videoHosts, "video");
   console.log(audioHosts, "audio");
   return (
@@ -313,7 +313,7 @@ export const LiveListsPage = () => {
             {videoHosts.map((stream) => (
               <LiveStreamCard
                 key={stream._id}
-                uid={stream.uid} // Pass ID for the ban function
+                uid={stream._id} // Pass ID for the ban function
                 title={stream.name}
                 description={"Welcome everyone!"}
                 viewerCount={125}

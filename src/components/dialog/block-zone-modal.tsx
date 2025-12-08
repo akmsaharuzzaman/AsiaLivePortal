@@ -30,6 +30,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
+import { useUpdateActivityZoneMutation } from "@/redux/api/admin/user-activities";
+import { toast } from "sonner";
 
 // Local SVG icon to avoid external CDN issues
 const CalendarIconSVG = (props) => (
@@ -61,8 +63,9 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
   });
 
   const [openCalendar, setOpenCalendar] = React.useState(false);
-
-  const onSubmit = (values) => {
+  const [updateActivityZone, { updateActivityLoading }] =
+    useUpdateActivityZoneMutation();
+  const onSubmit = async (values) => {
     const dateVal = values.date_till
       ? values.date_till instanceof Date
         ? values.date_till.toISOString()
@@ -70,11 +73,34 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
       : null;
 
     const payload = {
-      _id: liveId,
+      id: liveId,
       zone: values.zone,
       date_till: dateVal,
     };
 
+    try {
+      const res = await updateActivityZone(payload).unwrap();
+      console.log("API success:", res);
+
+      // --------------------------------------------------
+      // 🔥 TOAST MESSAGES BASED ON ZONE TYPE
+      // --------------------------------------------------
+
+      if (values.zone === "temp_block") {
+        toast.warning(
+          `User is temporarily banned until ${format(
+            new Date(dateVal),
+            "PPP",
+          )}.`,
+        );
+      } else if (values.zone === "permanent_block") {
+        toast.warning("User has been permanently banned.");
+      }
+      form.reset();
+      setOpen(false);
+    } catch (err) {
+      console.error("API error:", err);
+    }
     // Show payload in console (replace with API call as needed)
     console.log("Submit payload:", payload);
 
