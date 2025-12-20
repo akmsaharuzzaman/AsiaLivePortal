@@ -1,5 +1,11 @@
+import { Tpagination, TResponse } from "@/types/api";
 import { onuliveCloneDashboardBaseApi } from "../base.api";
+import { TUser } from "@/types/api/auth";
 
+type TGetBannedUsers = TResponse<{
+  pagination: Tpagination;
+  users: TUser[];
+}>;
 const userActivityApi = onuliveCloneDashboardBaseApi.injectEndpoints({
   endpoints: (builder) => ({
     updateActivityZone: builder.mutation({
@@ -17,7 +23,14 @@ const userActivityApi = onuliveCloneDashboardBaseApi.injectEndpoints({
         },
       }),
     }),
+    getBannedUsers: builder.query<TGetBannedUsers, undefined>({
+      query: () => ({
+        url: `/admin/users/banned-users`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdateActivityZoneMutation } = userActivityApi;
+export const { useUpdateActivityZoneMutation, useGetBannedUsersQuery } =
+  userActivityApi;

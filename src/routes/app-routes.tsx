@@ -2,6 +2,7 @@ import { Roles } from "@/constants/route.enum";
 import { DashboardPage } from "@/pages";
 import AgencyById from "@/pages/AgencyById";
 import { AgencyWithdrawHistoryPage } from "@/pages/AgencyWithdrawHistory";
+import { BannedUsers } from "@/pages/BannedUsers";
 import CountryAdmin from "@/pages/CountryAdmin";
 import CountryAdminById from "@/pages/CountryAdminById";
 import { CreateAgencyPage } from "@/pages/CreateAgency";
@@ -147,6 +148,11 @@ export const appRoutes = [
   {
     path: "/live-lists",
     element: <LiveListsPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/banned-users",
+    element: <BannedUsers />,
     roles: [Roles.Admin],
   },
 ];

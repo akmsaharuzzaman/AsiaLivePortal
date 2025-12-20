@@ -14,6 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { ButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
+  Ban,
   Coins,
   DollarSign,
   Gamepad2,
@@ -235,6 +236,12 @@ export const DashboardContent: FC<{
           icon: Store,
           variant: "primary",
           link: ClientRoutes.StoreManagement,
+        },
+        {
+          label: "Banned Users",
+          icon: Ban,
+          variant: "danger",
+          link: ClientRoutes.BannedUsers,
         },
 
         // { label: "Create Sub-Admin", icon: UserPlus, modal: "createSubAdmin" },
