@@ -34,7 +34,7 @@ import { useUpdateActivityZoneMutation } from "@/redux/api/admin/user-activities
 import { toast } from "sonner";
 
 // Local SVG icon to avoid external CDN issues
-const CalendarIconSVG = (props) => (
+const CalendarIconSVG = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ const CalendarIconSVG = (props) => (
 );
 
 // --- Inline BlockZoneModal to avoid import path issues ---
-export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
+export function BlockZoneModal({ open, setOpen, liveId, liveTitle }: any) {
   const form = useForm({
     defaultValues: {
       zone: "",
@@ -63,9 +63,8 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
   });
 
   const [openCalendar, setOpenCalendar] = React.useState(false);
-  const [updateActivityZone, { updateActivityLoading }] =
-    useUpdateActivityZoneMutation();
-  const onSubmit = async (values) => {
+  const [updateActivityZone] = useUpdateActivityZoneMutation();
+  const onSubmit = async (values: any) => {
     const dateVal = values.date_till
       ? values.date_till instanceof Date
         ? values.date_till.toISOString()
@@ -176,7 +175,7 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
                         >
                           {field.value
                             ? format(
-                                field.value instanceof Date
+                                (field as any).value instanceof Date
                                   ? field.value
                                   : new Date(field.value),
                                 "PPP",
@@ -195,7 +194,7 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }) {
                       >
                         <Calendar
                           mode="single"
-                          selected={field.value}
+                          selected={field.value!}
                           onSelect={(date) => {
                             console.log("hello saju", date);
                             field.onChange(date);

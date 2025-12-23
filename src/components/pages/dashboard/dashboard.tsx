@@ -135,7 +135,7 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
-    activeRooms: activeRooms ? activeRooms.length : 0,
+    activeRooms: activeRooms ? activeRooms.audio.length : 0,
   };
   console.log(staticStatesData.activeRooms, "SSS");
   /**

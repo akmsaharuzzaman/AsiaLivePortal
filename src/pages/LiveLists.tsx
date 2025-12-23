@@ -135,41 +135,8 @@
 
 import { BlockZoneModal } from "@/components/dialog/block-zone-modal";
 import useLiveHosts from "@/hook/useLiveHosts";
-import React, { useEffect, useState } from "react";
-import { _cidrv4 } from "zod/v4/core";
-
-// Mock data based on the image structure
-const streams = [
-  {
-    id: 1,
-    title: "Adda Ghor",
-    description: "Welcome everyone!",
-    viewerCount: 0,
-    thumbnailUrl: "https://placehold.co/400x300/1e293b/ffffff?text=Stream+1",
-  },
-  {
-    id: 2,
-    title: "Adda Ghor",
-    description: "Welcome everyone!",
-    viewerCount: 1200, // Updated to 1200 for proper K formatting
-    thumbnailUrl: "https://placehold.co/400x300/4c0519/ffffff?text=Stream+2",
-  },
-  {
-    id: 3,
-    title: "Adda Ghor",
-    description: "Welcome everyone!",
-    viewerCount: 78,
-    thumbnailUrl: "https://placehold.co/400x300/065f46/ffffff?text=Stream+3",
-  },
-  // Adding a fourth card to demonstrate the responsive grid better
-  {
-    id: 4,
-    title: "Live Chat",
-    description: "Join the conversation now!",
-    viewerCount: 250,
-    thumbnailUrl: "https://placehold.co/400x300/075985/ffffff?text=Stream+4",
-  },
-];
+import { useEffect, useState } from "react";
+// import { _cidrv4 } from "zod/v4/core";
 
 // Helper component for the Live Stream Card
 const LiveStreamCard = ({
@@ -179,7 +146,7 @@ const LiveStreamCard = ({
   viewerCount,
   thumbnailUrl,
   handleBan,
-}) => {
+}: any) => {
   // Format viewer count to show K if over 1000
   const formattedViewers =
     viewerCount >= 1000 ? `${(viewerCount / 1000).toFixed(1)}K` : viewerCount;
@@ -206,11 +173,11 @@ const LiveStreamCard = ({
           alt={title}
           className="w-full h-full object-cover"
           // Fallback image in case the placeholder fails
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src =
-              "https://placehold.co/400x300/6b7280/ffffff?text=Error";
-          }}
+          // onError={(e) => {
+          //   e.target.onerror = null;
+          //   e.target.src =
+          //     "https://placehold.co/400x300/6b7280/ffffff?text=Error";
+          // }}
         />
 
         {/* Live Indicator (Top Left) */}
@@ -252,8 +219,7 @@ const LiveStreamCard = ({
         {/* Ban Button (Right side) */}
         <button
           onClick={() => handleBan(uid)}
-          className="text-xs font-semibold px-3 py-1 bg-red-600 text-white rounded-full
-                       hover:bg-red-700 transition duration-150 shadow-md flex-shrink-0"
+          className="text-xs font-semibold px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-150 shadow-md flex-shrink-0"
           title={`Ban stream ${uid}`}
         >
           Ban
@@ -267,9 +233,9 @@ const LiveStreamCard = ({
 export const LiveListsPage = () => {
   const [activeUserId] = useState<string | null>("ss");
   const [open, setOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<string>("");
 
-  const handleBan = (id) => {
+  const handleBan = (id: string) => {
     setSelectedId(id);
     setOpen(true);
   };
@@ -304,12 +270,7 @@ export const LiveListsPage = () => {
           </h1>
 
           {/* Responsive Grid */}
-          <div
-            className="grid gap-6
-                        sm:grid-cols-2
-                        lg:grid-cols-3
-                        xl:grid-cols-4"
-          >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {videoHosts.map((stream) => (
               <LiveStreamCard
                 key={stream._id}
@@ -331,16 +292,11 @@ export const LiveListsPage = () => {
           </h1>
 
           {/* Responsive Grid */}
-          <div
-            className="grid gap-6
-                        sm:grid-cols-2
-                        lg:grid-cols-3
-                        xl:grid-cols-4"
-          >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {audioHosts.map((stream) => (
               <LiveStreamCard
                 key={stream._id}
-                id={stream.uid} // Pass ID for the ban function
+                uid={stream.uid} // Pass ID for the ban function
                 title={stream.name}
                 description={"Welcome everyone!"}
                 viewerCount={125}

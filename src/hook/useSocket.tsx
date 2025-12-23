@@ -12,7 +12,7 @@ interface VideoHostsResponse {
 
 interface AudioResponse {
   status: number;
-  audio: any;
+  audio: [];
 }
 
 export function UseSocket() {
@@ -22,9 +22,10 @@ export function UseSocket() {
   const [audioData, setAudioData] = useState<AudioResponse | null>(null);
   // const [errorMessage, setErrorMessage] = useState<string | null>(null);
   // const [getRooms, setGetRooms] = useState([]);
+
   const [socket, setSocket] = useState<any>(null);
   // getting user persi
-
+  console.log(socket);
   useEffect(() => {
     if (!userId) return;
 
