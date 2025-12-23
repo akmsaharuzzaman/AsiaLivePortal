@@ -12,7 +12,7 @@ interface VideoHostsResponse {
 
 interface AudioResponse {
   status: number;
-  audio: [];
+  audio: any[];
 }
 
 export function UseSocket() {
@@ -58,7 +58,20 @@ export function UseSocket() {
     //   setErrorMessage(msg);
     // });
 
+    // Emit requests for initial data
+    newSocket.emit("get-video-hosts");
+    newSocket.emit("get-audio-hosts");
+
+    // Start polling for updates every 10 seconds
+    const interval = setInterval(() => {
+      if (newSocket.connected) {
+        newSocket.emit("get-video-hosts");
+        newSocket.emit("get-audio-hosts");
+      }
+    }, 10000);
+
     return () => {
+      clearInterval(interval);
       newSocket.off("get-video-hosts");
       newSocket.off("get-audio-hosts");
       // newSocket.off("error-message");

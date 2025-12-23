@@ -135,6 +135,7 @@
 
 import { BlockZoneModal } from "@/components/dialog/block-zone-modal";
 import useLiveHosts from "@/hook/useLiveHosts";
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 // import { _cidrv4 } from "zod/v4/core";
 
@@ -231,7 +232,8 @@ const LiveStreamCard = ({
 
 // Main App Component
 export const LiveListsPage = () => {
-  const [activeUserId] = useState<string | null>("ss");
+  const user = useAppSelector((state) => state.auth.user);
+  const activeUserId = user?.id || null;
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string>("");
 

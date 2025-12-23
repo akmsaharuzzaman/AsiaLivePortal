@@ -100,8 +100,7 @@ export const DashboardContent: FC<{
       type: Roles.CountryAdmin,
       // id: user!.id!,
     });
-  const { audioData: activeRooms } = UseSocket();
-  console.dir(activeRooms);
+  const { audioData, videoHosts } = UseSocket();
   console.dir("dir");
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error occurred: {(error as any).message}</div>;
@@ -135,7 +134,7 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
-    activeRooms: activeRooms ? activeRooms.audio.length : 0,
+    activeRooms: (audioData?.audio?.length || 0) + (videoHosts?.hosts?.length || 0),
   };
   console.log(staticStatesData.activeRooms, "SSS");
   /**
