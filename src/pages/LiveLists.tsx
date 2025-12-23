@@ -143,13 +143,13 @@ const LiveStreamCard = ({
   uid,
   title,
   description,
-  viewerCount,
+  // viewerCount,
   thumbnailUrl,
   handleBan,
 }: any) => {
   // Format viewer count to show K if over 1000
-  const formattedViewers =
-    viewerCount >= 1000 ? `${(viewerCount / 1000).toFixed(1)}K` : viewerCount;
+  // const formattedViewers =
+  //   viewerCount >= 1000 ? `${(viewerCount / 1000).toFixed(1)}K` : viewerCount;
 
   // Handler for the Ban button click
   // const handleBanClick = (e) => {
@@ -190,8 +190,8 @@ const LiveStreamCard = ({
         </div>
 
         {/* Viewer Count (Bottom Right) */}
-        <div className="absolute bottom-3 right-3 bg-black bg-opacity-60 text-white text-sm font-medium px-3 py-1 rounded-full flex items-center space-x-1">
-          {/* Eye Icon SVG */}
+        {/* <div className="absolute bottom-3 right-3 bg-black bg-opacity-60 text-white text-sm font-medium px-3 py-1 rounded-full flex items-center space-x-1">
+    
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
@@ -201,7 +201,7 @@ const LiveStreamCard = ({
             <path d="M12 4.5c4.71 0 8.87 2.37 10.87 5.5.17.27.17.6 0 .87-2 3.13-6.16 5.5-10.87 5.5S3.13 13.99 1.13 10.87c-.17-.27-.17-.6 0-.87C3.13 6.87 7.29 4.5 12 4.5zm0 10A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7z" />
           </svg>
           <span>{formattedViewers}</span>
-        </div>
+        </div> */}
       </div>
 
       {/* Content Area - Uses flex to align text and button */}
@@ -258,7 +258,7 @@ export const LiveListsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected]);
 
-  const selectedLive = videoHosts.find((l) => l._id === selectedId) || null;
+  const selectedLive = videoHosts.find((l) => l._id === selectedId) || audioHosts.find((l) => l._id === selectedId) || null;
   console.log(videoHosts, "video");
   console.log(audioHosts, "audio");
   return (
@@ -277,7 +277,7 @@ export const LiveListsPage = () => {
                 uid={stream._id} // Pass ID for the ban function
                 title={stream.name}
                 description={"Welcome everyone!"}
-                viewerCount={125}
+                // viewerCount={125}
                 thumbnailUrl={stream.avatar}
                 handleBan={handleBan}
               />
@@ -296,11 +296,12 @@ export const LiveListsPage = () => {
             {audioHosts.map((stream) => (
               <LiveStreamCard
                 key={stream._id}
-                uid={stream.uid} // Pass ID for the ban function
+                uid={stream._id} // Pass ID for the ban function
                 title={stream.name}
                 description={"Welcome everyone!"}
-                viewerCount={125}
+                // viewerCount={125}
                 thumbnailUrl={stream.avatar}
+                handleBan={handleBan}
               />
             ))}
           </div>
