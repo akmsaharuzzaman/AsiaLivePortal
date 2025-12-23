@@ -2,6 +2,7 @@ import { Roles } from "@/constants/route.enum";
 import { DashboardPage } from "@/pages";
 import AgencyById from "@/pages/AgencyById";
 import { AgencyWithdrawHistoryPage } from "@/pages/AgencyWithdrawHistory";
+import { BannedUsers } from "@/pages/BannedUsers";
 import CountryAdmin from "@/pages/CountryAdmin";
 import CountryAdminById from "@/pages/CountryAdminById";
 import { CreateAgencyPage } from "@/pages/CreateAgency";
@@ -10,6 +11,7 @@ import { CreateMerchantPage } from "@/pages/CreateMerchant";
 import { CreateResellerPage } from "@/pages/CreateReseller";
 import { CreateSubAdminPage } from "@/pages/CreateSubAdmin";
 import { GiftListsPage } from "@/pages/GiftLIsts";
+import LiveListsPage from "@/pages/LiveLists";
 import Merchant from "@/pages/Merchant";
 import MerchantById from "@/pages/MerchantById";
 import { PortalsTransactionHistoryPage } from "@/pages/PortalsTransactionHistory";
@@ -141,6 +143,16 @@ export const appRoutes = [
   {
     path: "/stores",
     element: <StoreManagement backRoute={"/"} />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/live-lists",
+    element: <LiveListsPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/banned-users",
+    element: <BannedUsers />,
     roles: [Roles.Admin],
   },
 ];

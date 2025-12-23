@@ -32,7 +32,7 @@ const sellCoinSchema = z.object({
 });
 type SellCoinFormValues = z.infer<typeof sellCoinSchema>;
 
-const PAYMENT_METHODS = ["Bkash", "Nagad", "Rocket"];
+const PAYMENT_METHODS = ["bkash", "nagad", "bank"];
 
 export const WithdrawApplyForm = () => {
   const form = useForm<SellCoinFormValues>({
@@ -84,7 +84,7 @@ export const WithdrawApplyForm = () => {
       console.error("Error:", error);
       toast.error(
         error?.data?.message ||
-          "Failed to submit withdraw request. Please try again."
+          "Failed to submit withdraw request. Please try again.",
       );
     }
   };

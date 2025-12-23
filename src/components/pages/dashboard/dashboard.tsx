@@ -1,6 +1,7 @@
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { DashboardCard } from "@/components/cards/dashboard-card";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
+import { UseSocket } from "@/hook/useSocket";
 import {
   useGetMidPortalManagementQuery,
   useGetPortalProfileQuery,
@@ -13,6 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { ButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
+  Ban,
   Coins,
   DollarSign,
   Gamepad2,
@@ -98,7 +100,9 @@ export const DashboardContent: FC<{
       type: Roles.CountryAdmin,
       // id: user!.id!,
     });
-
+  const { audioData: activeRooms } = UseSocket();
+  console.dir(activeRooms);
+  console.dir("dir");
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error occurred: {(error as any).message}</div>;
 
@@ -131,8 +135,9 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
+    activeRooms: activeRooms ? activeRooms.audio.length : 0,
   };
-
+  console.log(staticStatesData.activeRooms, "SSS");
   /**
    * dashboardConfigs: All dashboard stats, actions, and lists for each role.
    * This makes the dashboard fully config-driven and easy to extend.
@@ -164,6 +169,11 @@ export const DashboardContent: FC<{
           title: "Total Country Admins",
           value: staticStatesData?.countryAdmins || 0,
           link: ClientRoutes.CountryAdmins,
+        },
+        {
+          title: "Active Live",
+          value: staticStatesData?.activeRooms || 0,
+          link: ClientRoutes.Rooms,
         },
         // {
         //   title: "Total Resellers",
@@ -226,6 +236,12 @@ export const DashboardContent: FC<{
           icon: Store,
           variant: "primary",
           link: ClientRoutes.StoreManagement,
+        },
+        {
+          label: "Banned Users",
+          icon: Ban,
+          variant: "danger",
+          link: ClientRoutes.BannedUsers,
         },
 
         // { label: "Create Sub-Admin", icon: UserPlus, modal: "createSubAdmin" },

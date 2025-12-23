@@ -1,3 +1,9 @@
+import { ACTIVITY_ZONES } from "@/constants/constant";
+import { useGetPortalProfileQuery } from "@/redux/api/power-shared";
+import { selectUser } from "@/redux/features/auth.slice";
+import { useAppSelector } from "@/redux/hooks";
+import { Navigate } from "react-router-dom";
+
 // Mock Lucide icon (Lock for unauthorized access)
 const Lock = ({ className }: { className: string }) => (
   <span className={className} role="img" aria-label="Lock icon">
@@ -6,6 +12,30 @@ const Lock = ({ className }: { className: string }) => (
 );
 
 const RestrictPage = () => {
+  const user = useAppSelector(selectUser);
+
+  const isAdmin = user?.role === "admin";
+
+  // ✅ Safe way: hook always runs, but query is skipped if admin
+  const {
+    data: portalProfile,
+    isLoading,
+    isFetching,
+  } = useGetPortalProfileQuery(undefined, {
+    skip: isAdmin, // prevents the API call, hook still mounted
+  });
+
+  // Only show loader if the query actually runs
+  if (!isAdmin && (isLoading || isFetching)) {
+    return <h1>Please wait for your profile...</h1>;
+  }
+  // Restrict based on API result (only for non-admin users)
+  if (
+    // !isAdmin &&
+    portalProfile?.result?.activityZone?.zone == ACTIVITY_ZONES.SAFE
+  ) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gray-100">
       <div className="unauthorized-card max-w-md w-full text-center">
