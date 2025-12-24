@@ -121,8 +121,17 @@ export default function useLiveHosts(
     // also check if socket has already connected quickly
     if (s.connected) setConnected(true);
 
+    // Start polling for updates every 10 seconds
+    const interval = setInterval(() => {
+      if (s.connected) {
+        requestVideoHosts();
+        requestAudioHosts();
+      }
+    }, 10000); // 10 seconds
+
     return () => {
       if (!s) return;
+      clearInterval(interval);
       s.off("connect", onConnect);
       s.off("disconnect", onDisconnect);
       s.off("get-video-hosts", onGetVideoHosts);
