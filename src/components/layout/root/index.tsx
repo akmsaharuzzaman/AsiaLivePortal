@@ -14,7 +14,7 @@ import { useAdminProfileQuery } from "@/redux/api/auth.api";
 import { useGetPortalProfileQuery } from "@/redux/api/power-shared";
 import { logOut } from "@/redux/features/auth.slice";
 import { useAppDispatch } from "@/redux/hooks";
-import { LogOut } from "lucide-react";
+import { DollarSign, LogOut, Moon, Sparkles, Sun, User } from "lucide-react";
 import { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
@@ -59,7 +59,6 @@ const RootLayout = () => {
   // const fallbackName = profile?.name
   //   ? profile.name.charAt(0).toUpperCase()
   //   : "U";
-  const fallbackName = "U";
   const renderAdmin = isLoading ? "..." : adminProfileRes?.result?.coins || 0;
   const renderPortal = portalIsLoading
     ? "..."
@@ -67,17 +66,18 @@ const RootLayout = () => {
   // const renderAdmin = isLoading ? "..." : adminProfileRes?.result?.coins || 0;
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
+    <div className="min-h-screen font-sans">
       {/* Header with role switcher */}
       <Header
-        fallbackName={fallbackName}
+        // fallbackName={fallbackName}
         renderAdmin={renderAdmin}
         renderPortal={renderPortal}
         handleLogout={handleLogout}
         role={role}
       />
       {/* Main dashboard view */}
-      <main className="container mx-auto p-4 sm:p-6 lg:p-8">
+      {/*<main className="container mx-auto p-4 sm:p-6 lg:p-8">*/}
+      <main className="flex-grow p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-8">
         <Outlet />
       </main>
     </div>
@@ -86,100 +86,77 @@ const RootLayout = () => {
 export default RootLayout;
 
 const Header = ({
-  fallbackName,
+  // fallbackName,
   renderAdmin,
   renderPortal,
   handleLogout,
   role,
 }: any) => {
   return (
-    <header className="bg-white shadow-md sticky top-0 z-10">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <div>
-              {/* <h2 className="text-2xl font-semibold">{title}</h2> */}
-              <Link to="/" className="">
-                <img
-                  src="/logo.jpeg"
-                  alt="Logo"
-                  className="h-auto w-12 rounded-lg"
-                />
-              </Link>
-            </div>
-            <span className="ml-3 text-2xl font-bold text-gray-800">
-              Dlstar
-            </span>
+    <header className="bg-surface-light dark:bg-surface-dark shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-600 to-sky-100 flex items-center justify-center shadow-md">
+            <Sparkles className="text-purple-700 w-6 h-6" />
           </div>
-          <div className="flex gap-x-4 items-center">
-            {role === Roles.Admin && (
-              <div className="flex items-center gap-1 text-sm text-yellow-500 bg-gray-100 px-3 py-1 rounded-full">
-                <span className="text-base">🪙</span>{" "}
-                <span className="font-medium">{renderAdmin}</span>
-              </div>
-            )}
-            {role === Roles.Merchant && (
-              <div className="flex items-center gap-1 text-sm text-yellow-500 bg-gray-100 px-3 py-1 rounded-full">
-                <span className="text-base">🪙</span>{" "}
-                <span className="font-medium">{renderPortal}</span>
-              </div>
-            )}
-            {role === Roles.Reseller && (
-              <div className="flex items-center gap-1 text-sm text-yellow-500 bg-gray-100 px-3 py-1 rounded-full">
-                <span className="text-base">🪙</span>{" "}
-                <span className="font-medium">{renderPortal}</span>
-              </div>
-            )}
-            <NavDropdownMenu
-              fallbackName={fallbackName}
-              handleLogout={handleLogout}
-            />
-          </div>
+          <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-gray-500">
+            Asian Live Pro
+          </h1>
+        </div>
 
-          {/* <div className="flex items-center space-x-4">
-            <div className="flex justify-center gap-x-4">
-              <Link
-                to="/gifts"
-                className="text-gray-600 hover:text-blue-500 transition-colors"
-              >
-                Gifts
-              </Link>
+        <div className="flex items-center space-x-4">
+          {/*<div className="hidden md:flex items-center justify-center bg-yellow-100 dark:bg-yellow-900/30 px-4 py-1.5 rounded-full border border-yellow-200 dark:border-yellow-800/50">
+              <DollarSign className="text-yellow-600 dark:text-yellow-400 mr-2 w-5 h-5" />
+              <span className="text-base mr-2 w-5 h-5">🪙</span>{" "}
+              <span className="font-semibold text-yellow-800 dark:text-yellow-300">98,767,280</span>
+            </div>*/}
+          {role === Roles.Admin && (
+            <div className="hidden md:flex items-center justify-center bg-yellow-100 dark:bg-yellow-900/30 px-4 py-1.5 rounded-full border border-yellow-200 dark:border-yellow-800/50">
+              <span className="text-base mr-2 w-5 h-5">🪙</span>{" "}
+              <span className="font-semibold text-yellow-800 dark:text-yellow-300">
+                {renderAdmin}
+              </span>
             </div>
-            <span className="hidden sm:inline text-gray-600">
-              Viewing as:
-            </span>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value as Role)}
-              className="p-2 border rounded-md bg-gray-50 focus:ring-2 focus:ring-blue-500"
-            >
-              {roleOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
+          )}
+          {role === Roles.Merchant && (
+            <div className="hidden md:flex items-center justify-center bg-yellow-100 dark:bg-yellow-900/30 px-4 py-1.5 rounded-full border border-yellow-200 dark:border-yellow-800/50">
+              <span className="text-base mr-2 w-5 h-5">🪙</span>{" "}
+              <span className="font-medium">{renderPortal}</span>
+            </div>
+          )}
+          {role === Roles.Reseller && (
+            <div className="hidden md:flex items-center justify-center bg-yellow-100 dark:bg-yellow-900/30 px-4 py-1.5 rounded-full border border-yellow-200 dark:border-yellow-800/50">
+              <span className="text-base mr-2 w-5 h-5">🪙</span>{" "}
+              <span className="font-medium">{renderPortal}</span>
+            </div>
+          )}
+
+          <button
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 transition-colors"
+            onClick={() => document.documentElement.classList.toggle("dark")}
+          >
+            <Moon className="block dark:hidden w-5 h-5" />
+            <Sun className="hidden dark:block w-5 h-5" />
+          </button>
+          <NavDropdownMenu
+            // fallbackName={fallbackName}
+            handleLogout={handleLogout}
+          />
         </div>
       </div>
     </header>
   );
 };
 
-const NavDropdownMenu = ({ handleLogout, fallbackName }: any) => {
+const NavDropdownMenu = ({ handleLogout }: any) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center space-x-3 focus:outline-none">
-        <Avatar className="h-9 w-9">
-          <AvatarImage
-            src={
-              // profile?.avatar ||
-              "https://dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg"
-            }
-            alt="User"
-          />
-          <AvatarFallback>{fallbackName}</AvatarFallback>
-        </Avatar>
+        <div className="relative cursor-pointer">
+          <div className="h-9 w-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-300 dark:border-gray-600">
+            <User className="text-gray-500 dark:text-gray-300 w-6 h-6" />
+          </div>
+        </div>
         {/*<div className="hidden sm:flex flex-col text-left">
           <span className="text-sm font-medium text-gray-800">John</span>
           <span className="text-xs text-gray-500">john@example.com</span>
