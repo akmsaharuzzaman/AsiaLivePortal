@@ -14,7 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { ButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
-    ArrowLeftRight,
+  ArrowLeftRight,
   Ban,
   ChevronRight,
   Coins,
@@ -39,6 +39,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { ActionGroupHead } from "./action-group-head";
+import { StatusCard } from "./status-card";
 
 // Dashboard action button config
 interface DashboardAction {
@@ -51,9 +53,13 @@ interface DashboardAction {
 
 // Dashboard card config
 interface DashboardStat {
-  title: string;
-  value: ReactNode;
-  link?: string;
+  label: string;
+  value: number;
+  hoverText: string;
+  icon?: string;
+  iconWrapper: string;
+  bar: string;
+  link?: ClientRoutes.Users;
 }
 
 // Dashboard config for each role
@@ -140,7 +146,8 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
-    activeRooms: (audioData?.audio?.length || 0) + (videoHosts?.hosts?.length || 0),
+    activeRooms:
+      (audioData?.audio?.length || 0) + (videoHosts?.hosts?.length || 0),
   };
   console.log(staticStatesData.activeRooms, "SSS");
   /**
@@ -151,45 +158,60 @@ export const DashboardContent: FC<{
     admin: {
       stats: [
         {
-            label: "Total Users",
-            value: "1,412",
-            hoverText: "group-hover:text-primary",
-            icon: "group",
-            iconWrapper: "text-purple-600 dark:text-purple-400",
-            bar: "bg-primary",
-          },
-          {
-            label: "Total Sub-Admins",
-            value: "6",
-            hoverText: "group-hover:text-blue-500",
-            icon: "admin_panel_settings",
-            iconWrapper: "text-blue-600 dark:text-blue-400",
-            bar: "bg-blue-500",
-          },
-          {
-            label: "Total Merchants",
-            value: "3",
-            hoverText: "group-hover:text-green-500",
-            icon: "storefront",
-            iconWrapper: "text-green-600 dark:text-green-400",
-            bar: "bg-green-500",
-          },
-          {
-            label: "Country Admins",
-            value: "0",
-            hoverText: "group-hover:text-orange-500",
-            icon: "public",
-            iconWrapper: "text-orange-600 dark:text-orange-400",
-            bar: "bg-orange-500",
-          },
-          {
-            label: "Active Live",
-            value: "0",
-            hoverText: "group-hover:text-red-500",
-            icon: "live_tv",
-            iconWrapper: "text-red-600 dark:text-red-400",
-            bar: "bg-red-500",
-          },
+          label: "Total Users",
+          value: staticStatesData?.users || 0,
+          hoverText: "group-hover:text-primary",
+          icon: "group",
+          iconWrapper: "text-purple-600 dark:text-purple-400",
+          bar: "bg-primary",
+          link: ClientRoutes.Users,
+        },
+        {
+          label: "Total Sub-Admins",
+          value: staticStatesData?.subAdmins || 0,
+          hoverText: "group-hover:text-blue-500",
+          icon: "admin_panel_settings",
+          iconWrapper: "text-blue-600 dark:text-blue-400",
+          bar: "bg-blue-500",
+          link: ClientRoutes.SubAdmins,
+        },
+        {
+          label: "Total Merchants",
+          value: staticStatesData?.merchants || 0,
+          hoverText: "group-hover:text-green-500",
+          icon: "storefront",
+          iconWrapper: "text-green-600 dark:text-green-400",
+          bar: "bg-green-500",
+          link: ClientRoutes.Merchants,
+        },
+        {
+          label: "Country Admins",
+          value: staticStatesData?.countryAdmins || 0,
+          hoverText: "group-hover:text-orange-500",
+          icon: "public",
+          iconWrapper: "text-orange-600 dark:text-orange-400",
+          bar: "bg-orange-500",
+          link: ClientRoutes.CountryAdmins,
+        },
+        {
+          label: "Active Live",
+          value: staticStatesData?.activeRooms || 0,
+          hoverText: "group-hover:text-red-500",
+          icon: "live_tv",
+          iconWrapper: "text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+          link: ClientRoutes.Rooms,
+          value: staticStatesData?.activeRooms || 0,
+        },
+        {
+          label: "Total Resellers",
+          value: staticStatesData.totalReseller || 0,
+          hoverText: "group-hover:text-red-500",
+          icon: "live_tv",
+          iconWrapper: "text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+          link: ClientRoutes.Resellers,
+        },
         // {
         //   title: "Total Users",
         //   value: staticStatesData?.users || 0,
@@ -229,62 +251,62 @@ export const DashboardContent: FC<{
       actions: [
         {
           label: "Sell Coin to Merchant",
-          icon: Coins,
+          icon: <Coins/>,
           variant: "success",
           modal: "sellCoinToMerchant",
         },
         {
           label: "Agnecy Withdraw History",
-          icon: DollarSign,
+          icon: <DollarSign/>,
           variant: "primary",
           link: ClientRoutes.AgencyWithdrawHistory,
         },
         {
           label: "Host Withdraw History",
-          icon: DollarSign,
+          icon: <DollarSign/>,
           variant: "primary",
           link: ClientRoutes.hostWithdrawHistory,
         },
         {
           label: "Coin Transaction History",
-          icon: DollarSign,
+          icon: <DollarSign/>,
           variant: "primary",
           link: ClientRoutes.TransactionHistory,
         },
         {
           label: "Add Coin",
-          icon: Coins,
+          icon: <Coins/>,
           variant: "success",
           modal: "addCoin",
         },
         {
           label: "Salary Management",
-          icon: DollarSign,
+          icon: <DollarSign/>,
           variant: "primary",
           link: ClientRoutes.SalaryManagement,
         },
 
         {
           label: "Manage Gifts",
-          icon: Gift,
+          icon: <Gift/>,
           variant: "info",
           link: ClientRoutes.Gifts,
         },
         {
           label: "Greedy   Game Admin Panel",
-          icon: Gamepad2,
+          icon: <Gamepad2/>,
           variant: "secondary",
           link: ClientRoutes.GreedyGameDashboardPanel,
         },
         {
           label: "Stores Management",
-          icon: Store,
+          icon: <Store/>,
           variant: "primary",
           link: ClientRoutes.StoreManagement,
         },
         {
           label: "Banned Users",
-          icon: Ban,
+          icon: <Ban/>,
           variant: "danger",
           link: ClientRoutes.BannedUsers,
         },
@@ -322,23 +344,25 @@ export const DashboardContent: FC<{
     "sub-admin": {
       stats: [
         {
-           label: "Total Users",
-           value: staticStatesData?.users || 0,
-           link: ClientRoutes.Users,
-           hoverText: "group-hover:text-red-500",
-           // icon: "live_tv",
-           iconWrapper: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
-           bar: "bg-red-500",
-         },
-         {
-            label: "Total Agencies",
-            value: staticStatesData?.agencies, //TODO: staticStatesData?.agencies || 0,
-            link: `${ClientRoutes.SubAdmins}/${user?.id}`,
-            hoverText: "group-hover:text-green-500",
-            icon: "storefront",
-            iconWrapper: "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400",
-            bar: "bg-green-500",
-          },
+          label: "Total Users",
+          value: Number(staticStatesData?.users) || 0,
+          link: ClientRoutes.Users,
+          hoverText: "group-hover:text-red-500",
+          // icon: "live_tv",
+          iconWrapper:
+            "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+        },
+        {
+          label: "Total Agencies",
+          value: Number(staticStatesData?.agencies), //TODO: staticStatesData?.agencies || 0,
+          link: `${ClientRoutes.SubAdmins}/${user?.id}`,
+          hoverText: "group-hover:text-green-500",
+          icon: "storefront",
+          iconWrapper:
+            "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400",
+          bar: "bg-green-500",
+        },
         // {
         //   title: "Total Agencies",
         //   value: staticStatesData?.agencies, //TODO: staticStatesData?.agencies || 0,
@@ -384,22 +408,24 @@ export const DashboardContent: FC<{
     agency: {
       stats: [
         {
-           label: "Current Salary",
-           value: salary,
-           hoverText: "group-hover:text-red-500",
-           // icon: "live_tv",
-           iconWrapper: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
-           bar: "bg-red-500",
-         },
-         {
-            label: "Total Hosts",
-            value: isHostLoading ? "..." : hosts || 0,
-            link: `${ClientRoutes.Agencies}/${user?.id}`,
-            hoverText: "group-hover:text-red-500",
-            // icon: "live_tv",
-            iconWrapper: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
-            bar: "bg-red-500",
-          },
+          label: "Current Salary",
+          value: salary,
+          hoverText: "group-hover:text-red-500",
+          // icon: "live_tv",
+          iconWrapper:
+            "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+        },
+        {
+          label: "Total Hosts",
+          value: isHostLoading ? "..." : hosts || 0,
+          link: `${ClientRoutes.Agencies}/${user?.id}`,
+          hoverText: "group-hover:text-red-500",
+          // icon: "live_tv",
+          iconWrapper:
+            "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+        },
         // { title: "Current Salary", value: salary }, // TOD: here add the api response. not static data
         // {
         //   title: "Total Hosts",
@@ -477,13 +503,14 @@ export const DashboardContent: FC<{
     "re-seller": {
       stats: [
         {
-           label: "Available Reseller Coins",
-           value: 0,
-           hoverText: "group-hover:text-red-500",
-           // icon: "live_tv",
-           iconWrapper: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
-           bar: "bg-red-500",
-         },
+          label: "Available Reseller Coins",
+          value: 0,
+          hoverText: "group-hover:text-red-500",
+          // icon: "live_tv",
+          iconWrapper:
+            "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+        },
         // { title: "Available Reseller Coins", value: 0 }, //TODO: add the value from the api
         // { title: "Total Earning", value: "$1,250" },
       ],
@@ -535,19 +562,21 @@ export const DashboardContent: FC<{
       </div>*/}
 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {config?.stats?.map((card, index) => (
-              <StatusCard key={index}
-                 label={card.label}
-                 value={card.value}
-                 hoverText={card.hoverText}
-                 icon={card.icon}
-                 iconWrapper={card.iconWrapper}
-                 bar={card.bar}
-                />
-            ))}
-          </section>
+        {config?.stats?.map((card, index) => (
+          <StatusCard
+            key={index}
+            label={card.label}
+            value={card.value}
+            hoverText={card.hoverText}
+            icon={card.icon}
+            iconWrapper={card.iconWrapper}
+            bar={card.bar}
+            link={card.link}
+          />
+        ))}
+      </section>
       {/* Action Buttons */}
-      <Dashboard/>
+      <Dashboard actions={config?.actions} openModal={openModal} />
       {/*<div className="flex flex-wrap gap-4 mb-8">
         {config?.actions?.map((action) => {
           if (action.link) {
@@ -572,7 +601,7 @@ export const DashboardContent: FC<{
           );
         })}
       </div>*/}
-        {/*{role === Roles.Admin && (
+      {/*{role === Roles.Admin && (
           <Link to={ClientRoutes.Gifts}>
             <ActionTinyButton variant="info">
               <Gift size={16} className="mr-2" />
@@ -595,69 +624,28 @@ export const DashboardContent: FC<{
       )} */}
       {/* Visual Graph */}
       <div className="rounded-lg shadow p-4 md:p-6 mb-6 md:mb-8 w-full">
-        <ActionGroup title={'Statistics Overview'}>
-        {/*<h3 className="text-base md:text-lg font-semibold mb-2 md:mb-4">
+        <ActionGroupHead title={"Statistics Overview"}>
+          {/*<h3 className="text-base md:text-lg font-semibold mb-2 md:mb-4">
           Statistics Overview
         </h3>*/}
-        <div className="w-full h-[200px] md:h-[250px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
-              <Tooltip />
-              <Bar dataKey="value" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        </ActionGroup>
+          <div className="w-full h-[200px] md:h-[250px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
+                <Tooltip />
+                <Bar dataKey="value" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </ActionGroupHead>
       </div>
     </div>
   );
 };
 
-
-
-// =========================
-// Reusable Status Card
-// =========================
-const StatusCard = ({ label, value, hoverText, icon, iconWrapper, bar }) => {
-  return (
-    <div className="bg-surface-light dark:bg-surface-dark p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow group relative overflow-hidden">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</p>
-          <h3 className={`text-3xl font-bold mt-1 transition-colors ${hoverText}`}>
-            {value}
-          </h3>
-        </div>
-        <span className={`p-2 rounded-lg ${iconWrapper}`}>
-
-            <ChevronRight/>
-
-        </span>
-      </div>
-      <a
-        href="#"
-        className={`absolute bottom-0 left-0 w-full h-1 ${bar} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left`}
-      />
-    </div>
-  );
-};
-
-const ActionGroup = ({ title, children }) => (
-  <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
-    <h3 className="text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-4 border-b border-gray-200 dark:border-gray-600 pb-2">
-      {title}
-    </h3>
-    <div className="space-y-3">{children}</div>
-  </div>
-);
-
-
-
-
-const Dashboard = () => (
+const Dashboard = ({ actions , openModal}: { actions: DashboardAction[], openModal: any }) => (
   <section className="flex-grow p-4 w-full space-y-8">
     <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
       <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
@@ -666,7 +654,7 @@ const Dashboard = () => (
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <ActionGroup title="Finance & Coins">
+        <ActionGroupHead title="Finance & Coins">
           <button className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white rounded-lg shadow-sm transition-all hover:shadow-md group">
             <div className="flex items-center gap-3">
               <span className="bg-white/20 p-1.5 rounded-md">
@@ -692,32 +680,54 @@ const Dashboard = () => (
               <ArrowLeftRight className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               <span className="font-medium text-sm">Coin History</span>
             </div>
-            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform"><ChevronRight/></span>
+            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
+              <ChevronRight />
+            </span>
           </button>
-        </ActionGroup>
+        </ActionGroupHead>
 
-        <ActionGroup title="Management">
-          {[
-            { icon: <Store className="w-5 h-5" />, label: "Stores" },
-            { icon: <Gift className="w-5 h-5" />, label: "Gifts" },
-            { icon: <CreditCard className="w-5 h-5" />, label: "Salary" },
-          ].map((item) => (
-            <button
-              key={item.label}
-              className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-gray-300 group-hover:text-white transition-colors">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </div>
-              <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
-                <ChevronRight/>
-              </span>
-            </button>
-          ))}
-        </ActionGroup>
+        <ActionGroupHead title="Management">
+          {actions?.map((item) => {
+            if (item.link) {
+              return (
+                <Link
+                  to={item.link}
+                  key={item.label}
+                  className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-300 group-hover:text-white transition-colors">
+                      {item.icon}
+                    </span>
+                    <span className="font-medium">{item.label}</span>
+                  </div>
+                  <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
+                    <ChevronRight />
+                  </span>
+                </Link>
+              );
+            }
+            return(
+              <button
+                key={item.label}
+                onClick={()=> openModal(item.modal!)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-gray-300 group-hover:text-white transition-colors">
+                    {item.icon}
+                  </span>
+                  <span className="font-medium">{item.label}</span>
+                </div>
+                {/*<span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
+                  <ChevronRight />
+                </span>*/}
+              </button>
+            )
+          })}
+        </ActionGroupHead>
 
-        <ActionGroup title="History">
+        <ActionGroupHead title="History">
           {["Agency Withdraw", "Host Withdraw"].map((label, idx) => (
             <button
               key={label}
@@ -725,22 +735,30 @@ const Dashboard = () => (
             >
               <div className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-gray-500 dark:text-gray-400">
-                  {idx === 0 ? <HistoryIcon className="w-5 h-5" /> : <Receipt className="w-5 h-5" />}
+                  {idx === 0 ? (
+                    <HistoryIcon className="w-5 h-5" />
+                  ) : (
+                    <Receipt className="w-5 h-5" />
+                  )}
                 </span>
                 <span className="font-medium">{label}</span>
               </div>
-              <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform"><ChevronRight/></span>
+              <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
+                <ChevronRight />
+              </span>
             </button>
           ))}
-        </ActionGroup>
+        </ActionGroupHead>
 
-        <ActionGroup title="Admin Tools">
+        <ActionGroupHead title="Admin Tools">
           <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group">
             <div className="flex items-center gap-3">
               <Gamepad2 className="w-5 h-5 text-sky-400" />
               <span className="font-medium">Game Admin</span>
             </div>
-            <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300"><ChevronRight/></span>
+            <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
+              <ChevronRight />
+            </span>
           </button>
 
           <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg shadow-sm transition-all group">
@@ -748,9 +766,11 @@ const Dashboard = () => (
               <Ban className="w-5 h-5 text-red-500" />
               <span className="font-medium">Banned Users</span>
             </div>
-            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform"><ChevronRight/></span>
+            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
+              <ChevronRight />
+            </span>
           </button>
-        </ActionGroup>
+        </ActionGroupHead>
       </div>
     </section>
   </section>
