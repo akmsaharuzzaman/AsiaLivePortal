@@ -56,7 +56,7 @@ export const AddCoinForm = () => {
       <div>
         <label
           htmlFor="sell-amount"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Coin Amount
         </label>

@@ -109,7 +109,7 @@ export default function AdminLoginPage() {
           <div className="text-center mb-8">
             <Link to="/" className="text-center mb-8">
               <img
-                src="/logo.jpeg"
+                src="/logo.png"
                 alt="Logo"
                 className="h-16 w-16 mx-auto mb-4 rounded-lg"
               />

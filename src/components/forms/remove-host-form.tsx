@@ -7,7 +7,7 @@ export const RemoveHostForm = () => {
       <div>
         <label
           htmlFor="remove-host-email"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Search by Email
         </label>

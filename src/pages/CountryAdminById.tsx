@@ -25,22 +25,16 @@ const CountryAdminById = () => {
     alert("Create Sub Country Admin User button clicked");
   };
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-        }}
+        className="flex justify-between items-center mb-4"
       >
         <h3
-          className="text-lg font-semibold"
-          style={{ margin: 0, color: colors.textPrimary }}
+          className="text-lg font-semibold text-gray-900 dark:text-gray-100"
         >
           Sub Country Admins List
         </h3>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div className="flex gap-3 items-center">
           <SearchBar onChange={setQ} />
           <ActionTinyButton onClick={onCreate} variant="primary">
             Create Sub Country Admin
@@ -50,14 +44,9 @@ const CountryAdminById = () => {
 
       {filtered.length === 0 ? (
         <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
+          className="p-12 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
         >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No Sub Country Admin matched your search.
           </p>
           <ActionTinyButton onClick={onCreate} variant="primary">

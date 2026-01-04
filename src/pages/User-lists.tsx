@@ -20,9 +20,9 @@ export const UserListsPage = () => {
   const users = usersData?.result?.users || userData;
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div className="mb-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">User Lists</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">User Lists</h1>
       </div>
       <UserTable usersData={users as TUser[]} isLoading={isLoading} />
       <ShadcnPagination

@@ -15,7 +15,7 @@ export const BlockUserForm = () => {
       <div>
         <label
           htmlFor="block-email"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Search by Email
         </label>
@@ -23,19 +23,19 @@ export const BlockUserForm = () => {
       </div>
       <div className="flex items-center">
         <Checkbox id="kick-live" className="text-red-600" />
-        <label htmlFor="kick-live" className="ml-2 text-sm text-gray-900">
+        <label htmlFor="kick-live" className="ml-2 text-sm text-gray-900 dark:text-gray-100">
           Kick from live room
         </label>
       </div>
       <div>
         <label
           htmlFor="block-duration"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Blocked Duration
         </label>
         <Select>
-          <SelectTrigger className="mt-1 w-full p-2 border border-gray-300 rounded-md">
+          <SelectTrigger className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <SelectValue placeholder="Select duration" />
           </SelectTrigger>
           <SelectContent>

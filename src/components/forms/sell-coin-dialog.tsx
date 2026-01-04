@@ -109,20 +109,20 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
         <h2 className="text-xl font-bold mb-4 text-pink-500">Sell Coin</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Search User by Name
             </label>
             <input
               type="text"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-pink-400"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500"
               placeholder="Type user name..."
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
             />
             {searchName && (
-              <div className="mt-2 max-h-32 overflow-y-auto border rounded bg-white shadow">
+              <div className="mt-2 max-h-32 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
                 {isSearching ? (
-                  <div className="px-3 py-2 text-gray-400 text-sm text-center">
+                  <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm text-center">
                     Searching...
                   </div>
                 ) : (filteredUsers as TUser[]).length > 0 ? ( // Todo: need to remove the type assertion
@@ -131,7 +131,7 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
                     (user) => (
                       <div
                         key={user._id}
-                        className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-pink-50 text-sm"
+                        className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-pink-50 dark:hover:bg-pink-900/20 text-sm"
                         onClick={() => {
                           setValue("userId", user._id);
                           setSearchName(user.name);
@@ -142,21 +142,21 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
                           <img
                             src={user.avatar}
                             alt={user.name}
-                            className="w-8 h-8 rounded-full border border-gray-200 object-cover"
+                            className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
                           />
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 font-bold border border-gray-200">
+                          <div className="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 dark:text-pink-400 font-bold border border-gray-200 dark:border-gray-600">
                             {user.name?.charAt(0).toUpperCase()}
                           </div>
                         )}
                         <div className="flex flex-col">
-                          <span className="font-medium text-gray-800">
+                          <span className="font-medium text-gray-800 dark:text-gray-200">
                             {user.name}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
                             {user.email}
                           </span>
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-gray-400 dark:text-gray-500">
                             ID: {user._id}
                           </span>
                         </div>
@@ -164,7 +164,7 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
                     ),
                   )
                 ) : (
-                  <div className="px-3 py-2 text-gray-400 text-sm">
+                  <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm">
                     No user found
                   </div>
                 )}
@@ -172,12 +172,12 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               User ID
             </label>
             <input
               type="text"
-              className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 text-gray-600"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
               {...register("userId")}
               readOnly
             />
@@ -188,13 +188,13 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Coin Amount
             </label>
             <input
               type="number"
               min={1}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               {...register("coinAmount", { valueAsNumber: true })}
             />
             {errors.coinAmount && (

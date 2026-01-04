@@ -81,12 +81,12 @@ export function CreateMerchantForm() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="w-full mx-auto">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-8 rounded-xl shadow-sm"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm"
           >
             {/* Full Name */}
             <FormField
@@ -254,7 +254,7 @@ export function CreateMerchantForm() {
                                   }}
                                 />
                               </FormControl>
-                              <span className="text-sm text-gray-700">
+                              <span className="text-sm text-gray-700 dark:text-gray-300">
                                 {perm.label}
                               </span>
                             </FormItem>

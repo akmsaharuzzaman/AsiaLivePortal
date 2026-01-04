@@ -61,7 +61,7 @@ export function PageHeader() {
       <div>
         {/* <h2 className="text-2xl font-semibold">{title}</h2> */}
         <Link to="/" className="">
-          <img src="/logo.jpeg" alt="Logo" className="h-auto w-16 rounded-lg" />
+          <img src="/logo.png" alt="Logo" className="h-auto w-16 rounded-lg" />
         </Link>
       </div>
       <nav className="mt-4">

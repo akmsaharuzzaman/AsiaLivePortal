@@ -96,9 +96,11 @@ const Header = ({
     <header className="bg-surface-light dark:bg-surface-dark shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-600 to-sky-100 flex items-center justify-center shadow-md">
-            <Sparkles className="text-purple-700 w-6 h-6" />
-          </div>
+          {/* <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-600 to-sky-100 flex items-center justify-center shadow-md"> */}
+            <Link to="/" className="">
+          <img src="/logo.png" alt="Logo" className="h-auto w-16 rounded-lg" />
+        </Link>
+          {/* </div> */}
           <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-gray-500">
             Asian Live Pro
           </h1>
