@@ -28,25 +28,19 @@ const Merchant = () => {
     [merchantData, q]
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="text-gray-900 dark:text-gray-100">Loading...</div>;
 
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-        }}
+        className="flex justify-between items-center mb-4"
       >
         <h3
-          className="text-lg font-semibold"
-          style={{ margin: 0, color: colors.textPrimary }}
+          className="text-lg font-semibold text-gray-900 dark:text-gray-100"
         >
           Merchants List
         </h3>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div className="flex gap-3 items-center">
           <SearchBar onChange={setQ} />
           <Link to="/create-merchant">
             <ActionTinyButton variant="primary">
@@ -58,14 +52,9 @@ const Merchant = () => {
 
       {merchantData.length === 0 ? (
         <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
+          className="p-12 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
         >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No merchant found.
             <br />
             Please create a merchant to manage your platform.
@@ -78,14 +67,9 @@ const Merchant = () => {
         </div>
       ) : filtered.length === 0 ? (
         <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
+          className="p-12 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
         >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No merchant matched your search.
           </p>
           <Link to="/create-merchant">

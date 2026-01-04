@@ -19,9 +19,7 @@ export const LinkedButton = ({ variant, link, label, icon }: IApp_LinkedButtonPr
       className={`w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r ${variant ? COLOR_VARIANT[variant] : COLOR_VARIANT.primary} rounded-lg shadow-sm transition-all hover:shadow-md group`}
     >
         <div className="flex items-center gap-3">
-          <span className="text-gray-300 group-hover:text-white transition-colors">
-            {icon}
-          </span>
+          {icon}
           <span className="font-medium">{label}</span>
         </div>
         <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">

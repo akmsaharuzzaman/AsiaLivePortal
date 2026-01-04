@@ -162,7 +162,7 @@ const LiveStreamCard = ({
 
   return (
     <div
-      className="flex flex-col rounded-xl overflow-hidden bg-white shadow-lg
+      className="flex flex-col rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg
                     hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
       // Added an onClick to the card itself (simulating navigating to the stream)
       onClick={() => console.log(`Navigating to Stream ID ${uid}`)}
@@ -209,10 +209,10 @@ const LiveStreamCard = ({
       <div className="p-3 flex justify-between items-center">
         {/* Text Details (Left side) */}
         <div className="flex-grow min-w-0 pr-2">
-          <h2 className="text-lg font-semibold text-gray-900 leading-tight truncate">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 leading-tight truncate">
             {title}
           </h2>
-          <p className="text-green-600 text-base mt-1 leading-snug">
+          <p className="text-green-600 dark:text-green-400 text-base mt-1 leading-snug">
             {description}
           </p>
         </div>
@@ -220,7 +220,7 @@ const LiveStreamCard = ({
         {/* Ban Button (Right side) */}
         <button
           onClick={() => handleBan(uid)}
-          className="text-xs font-semibold px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-150 shadow-md flex-shrink-0"
+          className="text-xs font-semibold px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition duration-150 shadow-md flex-shrink-0"
           title={`Ban stream ${uid}`}
         >
           Ban
@@ -265,9 +265,9 @@ export const LiveListsPage = () => {
   console.log(audioHosts, "audio");
   return (
     <>
-      <div className="min-h-screen p-4 sm:p-8 font-inter">
+      <div className="min-h-screen p-4 sm:p-8 font-inter bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-extrabold text-gray-800 mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200 mb-8">
             Video Hosts Live Streams
           </h1>
 
@@ -289,7 +289,7 @@ export const LiveListsPage = () => {
 
         {/*AUDIO HOSTS LIVE STREAM*/}
         <div className="max-w-7xl mx-auto mt-20">
-          <h1 className="text-3xl font-extrabold text-gray-800 mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200 mb-8">
             Audio Hosts Live Streams
           </h1>
 

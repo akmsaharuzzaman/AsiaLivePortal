@@ -258,23 +258,23 @@ export const DashboardContent: FC<{
           modal: "sellCoinToMerchant",
         },
         {
-          label: "Agnecy Withdraw History",
+          label: "Agnecy Withdraws",
           category: "history",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.AgencyWithdrawHistory,
         },
         {
-          label: "Host Withdraw History",
+          label: "Host Withdraws",
           category: "history",
-          icon: <DollarSign />,
+          icon: <DollarSign className="w-4 h-4" />,
           variant: "info",
           link: ClientRoutes.hostWithdrawHistory,
         },
         {
-          label: "Coin Transaction History",
+          label: "Coin Transactions",
           category: "history",
-          icon: <DollarSign />,
+          icon: <DollarSign className="w-4 h-4" />,
           variant: "info",
           link: ClientRoutes.TransactionHistory,
         },
@@ -286,39 +286,39 @@ export const DashboardContent: FC<{
           modal: "addCoin",
         },
         {
-          label: "Salary Management",
+          label: "Salary",
           category: "management",
-          icon: <DollarSign />,
+          icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.SalaryManagement,
         },
 
         {
-          label: "Manage Gifts",
+          label: "Gifts",
           category: "management",
-          icon: <Gift />,
+          icon: <Gift className="w-4 h-4"/>,
           variant: "info",
           link: ClientRoutes.Gifts,
         },
         {
-          label: "Greedy Game Admin Panel",
+          label: "Greedy Panel",
           category: "tools",
-          icon: <Gamepad2 />,
+          icon: <Gamepad2 className="w-5 h-5 text-sky-400" />,
           variant: "secondary",
           link: ClientRoutes.GreedyGameDashboardPanel,
         },
         {
-          label: "Stores Management",
+          label: "Stores",
           category: "management",
-          icon: <Store />,
+          icon: <Store className="w-4 h-4" />,
           variant: "info",
           link: ClientRoutes.StoreManagement,
         },
         {
           label: "Banned Users",
           category: "tools",
-          icon: <Ban />,
-          variant: "danger",
+          icon: <Ban className="w-4 h-4 text-red-500" />,
+          variant: "secondary",
           link: ClientRoutes.BannedUsers,
         },
 
@@ -720,21 +720,12 @@ const Dashboard = ({
                 );
               }
               return (
-                <button
-                  key={item.label}
-                  onClick={() => openModal(item.modal!)}
-                  className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-300 group-hover:text-white transition-colors">
-                      {item.icon}
-                    </span>
-                    <span className="font-medium">{item.label}</span>
-                  </div>
-                  {/*<span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
-                  <ChevronRight />
-                </span>*/}
-                </button>
+                 <AppButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  link={item.link}
+                />
               );
             })}
         </ActionGroupHead>
@@ -744,12 +735,12 @@ const Dashboard = ({
             ?.filter((a) => a.category === "history")
             .map((item, idx) => {
               if(item.link){
-                <LinkedButton
+               return (<LinkedButton
                   label={item.label}
                   icon={item.icon}
                   variant={item.variant}
                   link={item.link}
-                />
+                />)
               }
               return (
                 <AppButton
@@ -763,7 +754,27 @@ const Dashboard = ({
         </ActionGroupHead>
 
         <ActionGroupHead title="Admin Tools">
-          <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group">
+          {actions
+            ?.filter((a) => a.category === "tools")
+            .map((item, idx) => {
+              if(item.link){
+               return (<LinkedButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  link={item.link}
+                />)
+              }
+              return (
+                <AppButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  link={item.link}
+                />
+              );
+            })}
+          {/* <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group">
             <div className="flex items-center gap-3">
               <Gamepad2 className="w-5 h-5 text-sky-400" />
               <span className="font-medium">Game Admin</span>
@@ -781,7 +792,7 @@ const Dashboard = ({
             <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
               <ChevronRight />
             </span>
-          </button>
+          </button> */}
         </ActionGroupHead>
       </div>
     </section>

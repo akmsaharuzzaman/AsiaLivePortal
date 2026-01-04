@@ -94,17 +94,17 @@ export const HostsWithdrawHistoryPage = ({
   };
 
   return (
-    <div className="mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="mx-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <header className="mb-8 flex justify-between items-center">
         {/*left side*/}
         <div>
           <Link
             to={onBack}
-            className="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
           >
             <ArrowLeft className="mr-2" /> Back to Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Hosts Withdraw History
           </h1>
         </div>
@@ -157,8 +157,8 @@ const HistoryTable = ({
   data: TWidrawRequest[];
   isLoading: boolean;
 }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md">
-    <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
+  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{title}</h2>
     <Alternative data={data} loading={isLoading} />
   </div>
 );
@@ -171,10 +171,10 @@ export const Alternative = ({
   data: any;
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-gray-600 border-b">
+          <tr className="text-left text-gray-600 dark:text-gray-400 border-b border-gray-200 dark:border-gray-600">
             <th className="py-3">Transaction ID</th>
             <th>Host</th>
             <th>Account</th>
@@ -194,14 +194,14 @@ export const Alternative = ({
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan={13} className="text-center py-6 text-gray-500">
+              <td colSpan={13} className="text-center py-6 text-gray-500 dark:text-gray-400">
                 Loading...
               </td>
             </tr>
           ) : (
             data.map((item: any) => (
-              <tr key={item._id} className="border-b hover:bg-gray-50">
-                <td className="py-3 text-xs text-gray-600">
+              <tr key={item._id} className="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td className="py-3 text-xs text-gray-600 dark:text-gray-400">
                   {item._id ?? "-"}
                 </td>
                 <td className="flex items-center gap-2 py-3">
@@ -210,32 +210,32 @@ export const Alternative = ({
                     alt="avatar"
                     className="w-8 h-8 rounded-full"
                   />
-                  <div className="truncate">{item.hostId?.name ?? "-"}</div>
+                  <div className="truncate text-gray-900 dark:text-gray-100">{item.hostId?.name ?? "-"}</div>
                 </td>
-                <td className="py-3">{item.accountNumber ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item.accountNumber ?? "-"}</td>
                 <td className="capitalize py-3">
                   <Badge variant="outline">{item.accountType ?? "-"}</Badge>
                 </td>
-                <td className="py-3">{item.day ?? "-"}</td>
-                <td className="py-3">{item.time ?? "-"}</td>
-                <td className="py-3">{item.audioHour ?? "-"}</td>
-                <td className="py-3">{item.videoHour ?? "-"}</td>
-                <td className="py-3">
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item.day ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item.time ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item.audioHour ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item.videoHour ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">
                   {item.totalDiamond != null
                     ? item.totalDiamond.toLocaleString()
                     : "-"}
                 </td>
-                <td className="py-3">
+                <td className="py-3 text-gray-900 dark:text-gray-100">
                   {item.totalSalary != null
                     ? `$${item.totalSalary.toFixed(2)}`
                     : "-"}
                 </td>
-                <td className="py-3">
+                <td className="py-3 text-gray-900 dark:text-gray-100">
                   {item.withdrawDate
                     ? new Date(item.withdrawDate).toLocaleString()
                     : "-"}
                 </td>
-                <td className="py-3">{item?.agencyId?.name ?? "-"}</td>
+                <td className="py-3 text-gray-900 dark:text-gray-100">{item?.agencyId?.name ?? "-"}</td>
                 <td className="py-3">
                   <Badge className={getStatusClass(item.status)}>
                     {item.status ?? "-"}

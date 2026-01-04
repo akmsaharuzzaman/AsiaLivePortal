@@ -81,7 +81,7 @@ export default function SalaryManagementPage() {
   });
 
   if (salariesLoading) {
-    return <h4>Please wait for salaries...</h4>;
+    return <h4 className="text-gray-900 dark:text-gray-100">Please wait for salaries...</h4>;
   }
   const salaries = salariesRes?.result;
   // const salaries = [
@@ -141,11 +141,11 @@ export default function SalaryManagementPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 px-6 py-10">
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900 px-6 py-10 text-gray-900 dark:text-gray-100">
       <div className="max-w-5xl mx-auto space-y-10">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Salary Management</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Salary Management</h1>
           <ActionTinyButton
             disabled={autoDistributionLoading}
             onClick={handleAutoDistribution}

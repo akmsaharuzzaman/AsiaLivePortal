@@ -27,7 +27,7 @@ const RestrictPage = () => {
 
   // Only show loader if the query actually runs
   if (!isAdmin && (isLoading || isFetching)) {
-    return <h1>Please wait for your profile...</h1>;
+    return <h1 className="text-gray-900 dark:text-gray-100">Please wait for your profile...</h1>;
   }
   // Restrict based on API result (only for non-admin users)
   if (
@@ -37,15 +37,15 @@ const RestrictPage = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gray-100">
-      <div className="unauthorized-card max-w-md w-full text-center">
-        <Lock className="h-16 w-16 text-red-500 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gray-100 dark:bg-gray-900">
+      <div className="unauthorized-card max-w-md w-full text-center bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+        <Lock className="h-16 w-16 text-red-500 dark:text-red-400 mx-auto mb-4" />
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">
           Restricted Access
         </h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
           You have{" "}
-          <span className="text-red-400 font-medium">estricted/blocked</span> to
+          <span className="text-red-400 dark:text-red-300 font-medium">estricted/blocked</span> to
           access this website. Please wait for unblock account or contact
           support for assistance.
         </p>
@@ -63,11 +63,11 @@ const RestrictPage = () => {
             Back to Home
           </ActionTinyButton>
         </div>*/}
-        <p className="mt-6 text-sm text-gray-500">
+        <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
           Need help?{" "}
           <a
             href="mailto:support@gameapp.com"
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
           >
             Contact Support
           </a>

@@ -131,13 +131,14 @@ const Header = ({
             </div>
           )}
 
-          <button
+          {/* If needed toggle of the light and dark theme then it will help to make it */}
+          {/* <button
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 transition-colors"
             onClick={() => document.documentElement.classList.toggle("dark")}
           >
             <Moon className="block dark:hidden w-5 h-5" />
             <Sun className="hidden dark:block w-5 h-5" />
-          </button>
+          </button> */}
           <NavDropdownMenu
             // fallbackName={fallbackName}
             handleLogout={handleLogout}

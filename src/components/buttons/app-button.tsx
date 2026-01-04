@@ -2,7 +2,7 @@ import { IApp_LinkedButtonProps, TVariants } from "@/types/buttons";
 
 export const AppButton = ({
   variant,
-  onclick,
+  onClick,
   label,
   icon,
 }: IApp_LinkedButtonProps) => {
@@ -16,7 +16,7 @@ export const AppButton = ({
   return (
     <button
       className={`w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r ${variant ? COLOR_VARIANT[variant] : COLOR_VARIANT.primary} rounded-lg shadow-sm transition-all hover:shadow-md group`}
-      onClick={onclick}
+      onClick={onClick}
     >
       <div className="flex items-center gap-3">
         <span className="bg-white/20 p-1.5 rounded-md">{icon && icon}</span>

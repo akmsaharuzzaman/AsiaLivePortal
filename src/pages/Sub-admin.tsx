@@ -25,26 +25,15 @@ const SearchBar = ({
   value: string;
   onChange: Dispatch<React.SetStateAction<string>>;
 }) => (
-  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <div className="flex gap-2 items-center">
     <input
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder="Search users by name, email or uid..."
-      style={{
-        padding: "10px 12px",
-        borderRadius: 8,
-        border: "1px solid #E5E7EB",
-        width: 320,
-      }}
+      className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg w-80 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
     />
     <button
-      style={{
-        padding: "9px 12px",
-        borderRadius: 8,
-        border: "1px solid #E5E7EB",
-        background: "white",
-        cursor: "pointer",
-      }}
+      className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer text-gray-900 dark:text-gray-100"
     >
       🔎
     </button>
@@ -73,7 +62,7 @@ const SubAdmin = () => {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>; // You can replace this with a spinner or skeleton loader
+    return <div className="text-gray-900 dark:text-gray-100">Loading...</div>; // You can replace this with a spinner or skeleton loader
   }
   // const onCreate = () => {
   //   // Logic to handle user creation
@@ -81,22 +70,16 @@ const SubAdmin = () => {
   //   alert("Create User button clicked");
   // };
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-        }}
+        className="flex justify-between items-center mb-4"
       >
         <h3
-          className="text-lg font-semibold"
-          style={{ margin: 0, color: colors.textPrimary }}
+          className="text-lg font-semibold text-gray-900 dark:text-gray-100"
         >
           Sub Admin List
         </h3>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div className="flex gap-3 items-center">
           <SearchBar value={q} onChange={setQ} />
           <Link to="/create-sub-admin">
             <ActionTinyButton variant="primary">
@@ -108,14 +91,9 @@ const SubAdmin = () => {
 
       {subAdminData.length === 0 ? (
         <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
+          className="p-12 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
         >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No sub-admins found.
             <br />
             Please create a sub-admin to manage your platform.
@@ -128,14 +106,9 @@ const SubAdmin = () => {
         </div>
       ) : filtered.length === 0 ? (
         <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
+          className="p-12 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
         >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No sub-admin matched your search.
           </p>
           <Link to="/create-sub-admin">

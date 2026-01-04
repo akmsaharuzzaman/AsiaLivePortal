@@ -114,15 +114,15 @@ const Dialog: React.FC<DialogProps> = ({
   if (!isOpen) return null;
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 z-50 flex justify-center items-center p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-md"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6 border-b">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
         </div>
         <div className="p-6">{children}</div>
       </div>
@@ -196,19 +196,19 @@ export const StoreManagement: React.FC<StoreManagementProps> = ({
   // if (isLoading) return <p>Hello Loading</p>;
 
   if (getCategoryLoading) {
-    return <h1>Please wait for getting all categories</h1>;
+    return <h1 className="text-gray-900 dark:text-gray-100">Please wait for getting all categories</h1>;
   }
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <header className="flex items-center justify-between mb-8">
         <div>
           <Link
             to={backRoute}
-            className="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
           >
             <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Stores Management
           </h1>
         </div>
@@ -219,7 +219,7 @@ export const StoreManagement: React.FC<StoreManagementProps> = ({
       <div className="space-y-10">
         {categories.map((category) => (
           <section key={category._id}>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4 border-b border-gray-200 dark:border-gray-600 pb-2">
               {category?.title}
             </h2>
 

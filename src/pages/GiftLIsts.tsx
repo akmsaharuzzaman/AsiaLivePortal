@@ -195,16 +195,16 @@ export const GiftListsPage: React.FC<GiftListsPageProps> = ({
   if (isLoading) return <p>Hello Loading</p>;
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <header className="flex items-center justify-between mb-8">
         <div>
           <Link
             to={backRoute}
-            className="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
           >
             <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Gift Management</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Gift Management</h1>
         </div>
         <Button variant="success" onClick={() => setCreateModalOpen(true)}>
           <PlusCircle size={16} className="mr-2" /> Create Gift
@@ -213,7 +213,7 @@ export const GiftListsPage: React.FC<GiftListsPageProps> = ({
       <div className="space-y-10">
         {Object.entries(groupedGifts).map(([category, giftList]) => (
           <section key={category}>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4 border-b border-gray-200 dark:border-gray-600 pb-2">
               {category}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
