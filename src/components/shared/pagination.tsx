@@ -77,7 +77,7 @@ export const AppPagination: React.FC<PaginationProps> = ({
           className={`w-10 h-10 ${
             currentPage === i
               ? "pagination-btn-active"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
           }`}
           aria-label={`Go to page ${i}`}
           aria-current={currentPage === i ? "page" : undefined}

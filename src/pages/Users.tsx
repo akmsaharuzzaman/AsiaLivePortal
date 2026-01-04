@@ -37,35 +37,18 @@ const Users = () => {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-        }}
-      >
-        <h3
-          className="text-lg font-semibold"
-          style={{ margin: 0, color: colors.textPrimary }}
-        >
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           All Users List
         </h3>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div className="flex gap-3 items-center">
           <SearchBar onChange={setQ} />
         </div>
       </div>
 
       {userData.length === 0 ? (
-        <div
-          style={{
-            padding: 48,
-            background: colors.card,
-            borderRadius: 12,
-            textAlign: "center",
-          }}
-        >
-          <p style={{ color: colors.textMuted, marginBottom: 16 }}>
+        <div className="p-12 bg-white dark:bg-gray-800 rounded-xl text-center shadow-sm">
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
             No users matched your search.
           </p>
         </div>

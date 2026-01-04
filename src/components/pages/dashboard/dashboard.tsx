@@ -11,7 +11,7 @@ import {
 } from "@/redux/api/power-shared";
 import { useAppSelector } from "@/redux/hooks";
 
-import { ButtonProps } from "@/types/buttons";
+import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
   ArrowLeftRight,
@@ -41,12 +41,13 @@ import {
 } from "recharts";
 import { ActionGroupHead } from "./action-group-head";
 import { StatusCard } from "./status-card";
+import { AppButton, LinkedButton } from "@/components/buttons";
 
 // Dashboard action button config
 interface DashboardAction {
   label: string;
   icon: LucideIcon;
-  variant?: ButtonProps["variant"];
+  variant?: IApp_LinkedButtonProps["variant"];
   modal?: ModalName;
   link?: string;
 }
@@ -251,62 +252,72 @@ export const DashboardContent: FC<{
       actions: [
         {
           label: "Sell Coin to Merchant",
-          icon: <Coins/>,
-          variant: "success",
+          category: "coins",
+          icon: <Coins className="w-4 h-4" />,
+          variant: "primary",
           modal: "sellCoinToMerchant",
         },
         {
           label: "Agnecy Withdraw History",
-          icon: <DollarSign/>,
-          variant: "primary",
+          category: "history",
+          icon: <DollarSign className="w-4 h-4" />,
+          variant: "secondary",
           link: ClientRoutes.AgencyWithdrawHistory,
         },
         {
           label: "Host Withdraw History",
-          icon: <DollarSign/>,
-          variant: "primary",
+          category: "history",
+          icon: <DollarSign />,
+          variant: "info",
           link: ClientRoutes.hostWithdrawHistory,
         },
         {
           label: "Coin Transaction History",
-          icon: <DollarSign/>,
-          variant: "primary",
+          category: "history",
+          icon: <DollarSign />,
+          variant: "info",
           link: ClientRoutes.TransactionHistory,
         },
         {
           label: "Add Coin",
-          icon: <Coins/>,
-          variant: "success",
+          category: "coins",
+          icon: <Coins className="w-4 h-4" />,
+          variant: "info",
           modal: "addCoin",
         },
         {
           label: "Salary Management",
-          icon: <DollarSign/>,
-          variant: "primary",
+          category: "management",
+          icon: <DollarSign />,
+          variant: "secondary",
           link: ClientRoutes.SalaryManagement,
         },
 
         {
           label: "Manage Gifts",
-          icon: <Gift/>,
+          category: "management",
+          icon: <Gift />,
           variant: "info",
           link: ClientRoutes.Gifts,
         },
         {
-          label: "Greedy   Game Admin Panel",
-          icon: <Gamepad2/>,
+          label: "Greedy Game Admin Panel",
+          category: "tools",
+          icon: <Gamepad2 />,
           variant: "secondary",
           link: ClientRoutes.GreedyGameDashboardPanel,
         },
         {
           label: "Stores Management",
-          icon: <Store/>,
-          variant: "primary",
+          category: "management",
+          icon: <Store />,
+          variant: "info",
           link: ClientRoutes.StoreManagement,
         },
         {
           label: "Banned Users",
-          icon: <Ban/>,
+          category: "tools",
+          icon: <Ban />,
           variant: "danger",
           link: ClientRoutes.BannedUsers,
         },
@@ -345,6 +356,7 @@ export const DashboardContent: FC<{
       stats: [
         {
           label: "Total Users",
+          category: "history",
           value: Number(staticStatesData?.users) || 0,
           link: ClientRoutes.Users,
           hoverText: "group-hover:text-red-500",
@@ -437,18 +449,21 @@ export const DashboardContent: FC<{
         // { label: "Create Host", icon: UserPlus, modal: "createHost" },
         {
           label: "Withdraw History",
+          category: "history",
           icon: DollarSign,
           variant: "info",
           link: ClientRoutes.WithdrawHistory,
         },
         {
           label: "Create Host",
+          category: "history",
           icon: Coins,
           variant: "primary",
           modal: "createHost",
         },
         {
           label: "Withdraw Apply",
+          category: "history",
           icon: Coins,
           variant: "primary",
           modal: "withdrawApplyForm",
@@ -469,18 +484,21 @@ export const DashboardContent: FC<{
       actions: [
         {
           label: "Sell Coin to Reseller",
+          category: "history",
           icon: Coins,
           variant: "success",
           modal: "sellCoinToReseller",
         },
         {
           label: "Sell Coin to User",
+          category: "history",
           icon: Coins,
           variant: "success",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
+          category: "history",
           icon: DollarSign,
           variant: "primary",
           link: ClientRoutes.PortalsTransactions,
@@ -517,12 +535,14 @@ export const DashboardContent: FC<{
       actions: [
         {
           label: "Sell Coin to User",
+          history: "coins",
           icon: Coins,
           variant: "success",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
+          history: "coins",
           icon: DollarSign,
           variant: "primary",
           link: ClientRoutes.PortalsTransactions,
@@ -645,7 +665,13 @@ export const DashboardContent: FC<{
   );
 };
 
-const Dashboard = ({ actions , openModal}: { actions: DashboardAction[], openModal: any }) => (
+const Dashboard = ({
+  actions,
+  openModal,
+}: {
+  actions: DashboardAction[];
+  openModal: any;
+}) => (
   <section className="flex-grow p-4 w-full space-y-8">
     <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
       <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
@@ -655,44 +681,48 @@ const Dashboard = ({ actions , openModal}: { actions: DashboardAction[], openMod
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <ActionGroupHead title="Finance & Coins">
-          <button className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white rounded-lg shadow-sm transition-all hover:shadow-md group">
-            <div className="flex items-center gap-3">
-              <span className="bg-white/20 p-1.5 rounded-md">
-                <Coins className="w-5 h-5" />
-              </span>
-              <span className="font-medium">Sell Coin</span>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/70 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white rounded-lg shadow-sm transition-all hover:shadow-md group">
-            <div className="flex items-center gap-3">
-              <span className="bg-white/20 p-1.5 rounded-md">
-                <PlusCircle className="w-5 h-5" />
-              </span>
-              <span className="font-medium">Add Coin</span>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/70 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg shadow-sm transition-all group">
-            <div className="flex items-center gap-3">
-              <ArrowLeftRight className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-              <span className="font-medium text-sm">Coin History</span>
-            </div>
-            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
-              <ChevronRight />
-            </span>
-          </button>
+          {actions
+            ?.filter((a) => a.category === "coins")
+            .map((item) => {
+              if (item.link) {
+                return (
+                  <LinkedButton
+                    label={item.label}
+                    icon={item.icon}
+                    variant={item.variant}
+                    link={item.link}
+                  />
+                );
+              }
+              return (
+                <AppButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  onclick={() => openModal(item.modal)}
+                />
+              );
+            })}
         </ActionGroupHead>
 
         <ActionGroupHead title="Management">
-          {actions?.map((item) => {
-            if (item.link) {
+          {actions
+            ?.filter((a) => a.category === "management")
+            .map((item) => {
+              if (item.link) {
+                return (
+                  <LinkedButton
+                    label={item.label}
+                    icon={item.icon}
+                    variant={item.variant}
+                    link={item.link}
+                  />
+                );
+              }
               return (
-                <Link
-                  to={item.link}
+                <button
                   key={item.label}
+                  onClick={() => openModal(item.modal!)}
                   className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
                 >
                   <div className="flex items-center gap-3">
@@ -701,53 +731,35 @@ const Dashboard = ({ actions , openModal}: { actions: DashboardAction[], openMod
                     </span>
                     <span className="font-medium">{item.label}</span>
                   </div>
-                  <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
-                    <ChevronRight />
-                  </span>
-                </Link>
-              );
-            }
-            return(
-              <button
-                key={item.label}
-                onClick={()=> openModal(item.modal!)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-gray-300 group-hover:text-white transition-colors">
-                    {item.icon}
-                  </span>
-                  <span className="font-medium">{item.label}</span>
-                </div>
-                {/*<span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
+                  {/*<span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
                   <ChevronRight />
                 </span>*/}
-              </button>
-            )
-          })}
+                </button>
+              );
+            })}
         </ActionGroupHead>
 
         <ActionGroupHead title="History">
-          {["Agency Withdraw", "Host Withdraw"].map((label, idx) => (
-            <button
-              key={label}
-              className="w-full flex items-center justify-between px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg shadow-sm transition-all group border border-transparent hover:border-gray-300 dark:hover:border-gray-500"
-            >
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-gray-500 dark:text-gray-400">
-                  {idx === 0 ? (
-                    <HistoryIcon className="w-5 h-5" />
-                  ) : (
-                    <Receipt className="w-5 h-5" />
-                  )}
-                </span>
-                <span className="font-medium">{label}</span>
-              </div>
-              <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
-                <ChevronRight />
-              </span>
-            </button>
-          ))}
+          {actions
+            ?.filter((a) => a.category === "history")
+            .map((item, idx) => {
+              if(item.link){
+                <LinkedButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  link={item.link}
+                />
+              }
+              return (
+                <AppButton
+                  label={item.label}
+                  icon={item.icon}
+                  variant={item.variant}
+                  link={item.link}
+                />
+              );
+            })}
         </ActionGroupHead>
 
         <ActionGroupHead title="Admin Tools">

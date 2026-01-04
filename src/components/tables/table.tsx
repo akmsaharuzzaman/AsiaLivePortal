@@ -13,10 +13,10 @@ export const Table = ({
   rowRenderer: (arg: any) => ReactNode;
 }) => (
   <div className="min-h-screen overflow-x-auto font-sans">
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md">
-      <table className="min-w-full text-sm text-gray-800">
+    <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md">
+      <table className="min-w-full text-sm text-gray-800 dark:text-gray-200">
         <TableHeader columns={columns} />
-        <tbody className="divide-y divide-gray-100 bg-white">
+        <tbody className="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800">
           {data?.map((row, index) => (
             <TableRow key={index}>{rowRenderer(row)}</TableRow>
           ))}
