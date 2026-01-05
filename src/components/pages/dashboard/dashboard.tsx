@@ -1,5 +1,4 @@
-import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
-import { DashboardCard } from "@/components/cards/dashboard-card";
+
 import { ClientRoutes, Roles } from "@/constants/route.enum";
 import { UseSocket } from "@/hook/useSocket";
 import {
@@ -14,22 +13,18 @@ import { useAppSelector } from "@/redux/hooks";
 import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
-  ArrowLeftRight,
+
   Ban,
-  ChevronRight,
+
   Coins,
-  CreditCard,
+
   DollarSign,
   Gamepad2,
   Gift,
-  History as HistoryIcon,
   LucideIcon,
-  PlusCircle,
-  Receipt,
   Store,
 } from "lucide-react";
-import { FC, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { FC } from "react";
 import {
   Bar,
   BarChart,
@@ -46,7 +41,8 @@ import { AppButton, LinkedButton } from "@/components/buttons";
 // Dashboard action button config
 interface DashboardAction {
   label: string;
-  icon: LucideIcon;
+  category: string;
+  icon: any;
   variant?: IApp_LinkedButtonProps["variant"];
   modal?: ModalName;
   link?: string;
@@ -55,12 +51,12 @@ interface DashboardAction {
 // Dashboard card config
 interface DashboardStat {
   label: string;
-  value: number;
+  value: number | string;
   hoverText: string;
-  icon?: string;
+  icon?: any;
   iconWrapper: string;
   bar: string;
-  link?: ClientRoutes.Users;
+  link?: string;
 }
 
 // Dashboard config for each role
@@ -202,17 +198,17 @@ export const DashboardContent: FC<{
           iconWrapper: "text-red-600 dark:text-red-400",
           bar: "bg-red-500",
           link: ClientRoutes.Rooms,
-          value: staticStatesData?.activeRooms || 0,
+
         },
-        {
-          label: "Total Resellers",
-          value: staticStatesData.totalReseller || 0,
-          hoverText: "group-hover:text-red-500",
-          icon: "live_tv",
-          iconWrapper: "text-red-600 dark:text-red-400",
-          bar: "bg-red-500",
-          link: ClientRoutes.Resellers,
-        },
+        // {
+        //   label: "Total Resellers",
+        //   value: staticStatesData.totalReseller || 0,
+        //   hoverText: "group-hover:text-red-500",
+        //   icon: "live_tv",
+        //   iconWrapper: "text-red-600 dark:text-red-400",
+        //   bar: "bg-red-500",
+        //   link: ClientRoutes.Resellers,
+        // },
         // {
         //   title: "Total Users",
         //   value: staticStatesData?.users || 0,
@@ -356,7 +352,6 @@ export const DashboardContent: FC<{
       stats: [
         {
           label: "Total Users",
-          category: "history",
           value: Number(staticStatesData?.users) || 0,
           link: ClientRoutes.Users,
           hoverText: "group-hover:text-red-500",
@@ -486,14 +481,14 @@ export const DashboardContent: FC<{
           label: "Sell Coin to Reseller",
           category: "history",
           icon: Coins,
-          variant: "success",
+          variant: "secondary",
           modal: "sellCoinToReseller",
         },
         {
           label: "Sell Coin to User",
           category: "history",
           icon: Coins,
-          variant: "success",
+          variant: "secondary",
           modal: "sellCoinToUser",
         },
         {
