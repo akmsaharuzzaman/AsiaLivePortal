@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +13,7 @@ import { useAdminProfileQuery } from "@/redux/api/auth.api";
 import { useGetPortalProfileQuery } from "@/redux/api/power-shared";
 import { logOut } from "@/redux/features/auth.slice";
 import { useAppDispatch } from "@/redux/hooks";
-import { DollarSign, LogOut, Moon, Sparkles, Sun, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 

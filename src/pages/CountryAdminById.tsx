@@ -3,7 +3,6 @@ import { subCountryAdminData } from "@/assets/data/sub-country-admin";
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { CountryAdminTable } from "@/components/pages/country-admin/table-list";
 import { SearchBar } from "@/components/shared/search-bar";
-import { colors } from "@/constants/constant";
 import { useMemo, useState } from "react";
 
 const CountryAdminById = () => {

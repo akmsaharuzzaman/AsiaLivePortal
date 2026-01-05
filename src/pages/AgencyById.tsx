@@ -1,5 +1,4 @@
 import { HostTable } from "@/components/pages/agency-by-id/table-list";
-import { colors } from "@/constants/constant";
 import { useLowerPortalManagementQuery } from "@/redux/api/power-shared";
 import { Dispatch, useState } from "react";
 import { useParams } from "react-router-dom";

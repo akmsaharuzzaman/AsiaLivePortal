@@ -1,7 +1,6 @@
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { MerchantTable } from "@/components/pages/merchants/table-list";
 import { SearchBar } from "@/components/shared/search-bar";
-import { colors } from "@/constants/constant";
 import { useGetMerchantsQuery } from "@/redux/api/power-shared";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";

@@ -3,7 +3,6 @@
 
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { AgencyTable } from "@/components/pages/sub-admin-by-id/table-list";
-import { colors } from "@/constants/constant";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
 import { useGetMidPortalManagementQuery } from "@/redux/api/power-shared";
 import { Dispatch, useState } from "react";

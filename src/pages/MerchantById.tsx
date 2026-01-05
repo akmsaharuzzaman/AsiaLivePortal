@@ -1,7 +1,6 @@
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { MerchantByIdTable } from "@/components/pages/merchants-by-id/table-list";
 import { SearchBar } from "@/components/shared/search-bar";
-import { colors } from "@/constants/constant";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
 import { useGetMidPortalManagementQuery } from "@/redux/api/power-shared";
 import { useState } from "react";

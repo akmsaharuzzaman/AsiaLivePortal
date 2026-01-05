@@ -14,7 +14,6 @@ export const StatusCard = ({
   label,
   value,
   hoverText,
-  icon,
   iconWrapper,
   bar,
   link,

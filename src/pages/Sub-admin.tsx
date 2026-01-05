@@ -3,7 +3,6 @@
 
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { SubAdminTable } from "@/components/pages/sub-admin/table-list";
-import { colors } from "@/constants/constant";
 import { useGetSubAdminsQuery } from "@/redux/api/power-shared";
 import { Dispatch, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
