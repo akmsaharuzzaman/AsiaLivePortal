@@ -21,7 +21,7 @@ import {
   DollarSign,
   Gamepad2,
   Gift,
-  LucideIcon,
+
   Store,
 } from "lucide-react";
 import { FC } from "react";
@@ -51,7 +51,7 @@ interface DashboardAction {
 // Dashboard card config
 interface DashboardStat {
   label: string;
-  value: number | string;
+  value: number;
   hoverText: string;
   icon?: any;
   iconWrapper: string;
@@ -156,7 +156,7 @@ export const DashboardContent: FC<{
       stats: [
         {
           label: "Total Users",
-          value: staticStatesData?.users || 0,
+          value: Number(staticStatesData?.users) || 0,
           hoverText: "group-hover:text-primary",
           icon: "group",
           iconWrapper: "text-purple-600 dark:text-purple-400",
@@ -425,7 +425,7 @@ export const DashboardContent: FC<{
         },
         {
           label: "Total Hosts",
-          value: isHostLoading ? "..." : hosts || 0,
+          value: isHostLoading ? 0 : hosts || 0,
           link: `${ClientRoutes.Agencies}/${user?.id}`,
           hoverText: "group-hover:text-red-500",
           // icon: "live_tv",
@@ -530,14 +530,14 @@ export const DashboardContent: FC<{
       actions: [
         {
           label: "Sell Coin to User",
-          history: "coins",
+          category: "coins",
           icon: Coins,
-          variant: "success",
+          variant: "secondary",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
-          history: "coins",
+          category: "coins",
           icon: DollarSign,
           variant: "primary",
           link: ClientRoutes.PortalsTransactions,
@@ -586,7 +586,7 @@ export const DashboardContent: FC<{
             icon={card.icon}
             iconWrapper={card.iconWrapper}
             bar={card.bar}
-            link={card.link}
+            link={card.link!}
           />
         ))}
       </section>
@@ -694,7 +694,7 @@ const Dashboard = ({
                   label={item.label}
                   icon={item.icon}
                   variant={item.variant}
-                  onclick={() => openModal(item.modal)}
+                  onClick={() => openModal(item.modal)}
                 />
               );
             })}
@@ -728,7 +728,7 @@ const Dashboard = ({
         <ActionGroupHead title="History">
           {actions
             ?.filter((a) => a.category === "history")
-            .map((item, idx) => {
+            .map((item) => {
               if(item.link){
                return (<LinkedButton
                   label={item.label}
@@ -751,7 +751,7 @@ const Dashboard = ({
         <ActionGroupHead title="Admin Tools">
           {actions
             ?.filter((a) => a.category === "tools")
-            .map((item, idx) => {
+            .map((item) => {
               if(item.link){
                return (<LinkedButton
                   label={item.label}
