@@ -4,11 +4,11 @@ import { tagTypesList } from "../tag.types";
 import { logOut } from "../features/auth.slice";
 import { persistStor } from "../store"; // Make sure you export persistor from your store
 
-const baseURL = "http://dlstarliveplan1.com:8000/api"; // hosted server
+// const baseURL = "http://dlstarliveplan1.com:8000/api"; // hosted server
 // const baseURL = "http://dlstarlive.com:8000/api"; // staging mode
-
+const asiaLiveBaseURL = "http://69.62.74.36/api" // production mode
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: baseURL,
+  baseUrl: asiaLiveBaseURL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
