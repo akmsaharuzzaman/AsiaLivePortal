@@ -30,7 +30,7 @@ export const Footer = () => {
               <p className="text-sm text-(--footer-link-color)! tiptap">
                 © 2025{" "}
                 <Link className="font-bold" to="/">
-                  DlStar Admin
+                  Asia Live Pro Admin
                 </Link>{" "}
                 All Rights are reserved️
               </p>

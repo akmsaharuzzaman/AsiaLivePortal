@@ -26,14 +26,14 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="space-y-2">
-        <Label htmlFor="email" className="text-slate-400 dark:text-slate-500 text-sm">
+        <Label htmlFor="email" className="text-gray-200 dark:text-gray-900 text-sm">
           Username
         </Label>
         <Input
           id="username"
           type="username"
           {...register("username")}
-          className="bg-white dark:bg-gray-800 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
+          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
           placeholder="Enter your username"
           autoComplete="username"
         />
@@ -43,14 +43,14 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="password" className="text-slate-400 dark:text-slate-500 text-sm">
+        <Label htmlFor="password" className="text-gray-200 dark:text-gray-900 text-sm">
           Password
         </Label>
         <Input
           id="password"
           type="password"
           {...register("password")}
-          className="bg-white dark:bg-gray-800 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
+          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
           placeholder="Password"
           autoComplete="current-password"
         />

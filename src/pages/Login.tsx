@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-purple-100 to-blue-200">
+    <div className="w-full min-h-screen flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8 space-y-6">
         {/* Logo / Title */}
         <div className="text-center space-y-2">
@@ -40,5 +41,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+    </main>
   );
 }

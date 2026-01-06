@@ -141,7 +141,7 @@ export default function SalaryManagementPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900 px-6 py-10 text-gray-900 dark:text-gray-100">
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-transparent px-6 py-10 text-gray-900 dark:text-gray-100">
       <div className="max-w-5xl mx-auto space-y-10">
         {/* Header */}
         <div className="flex items-center justify-between">

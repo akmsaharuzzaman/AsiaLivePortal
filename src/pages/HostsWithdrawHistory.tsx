@@ -94,7 +94,7 @@ export const HostsWithdrawHistoryPage = ({
   };
 
   return (
-    <div className="mx-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="mx-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-transparent text-gray-900 dark:text-gray-100">
       <header className="mb-8 flex justify-between items-center">
         {/*left side*/}
         <div>
@@ -157,7 +157,7 @@ const HistoryTable = ({
   data: TWidrawRequest[];
   isLoading: boolean;
 }) => (
-  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+  <div className="bg-white dark:bg-transparent p-6 rounded-lg shadow-md">
     <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{title}</h2>
     <Alternative data={data} loading={isLoading} />
   </div>

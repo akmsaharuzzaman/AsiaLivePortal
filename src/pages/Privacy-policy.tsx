@@ -80,7 +80,7 @@ export const PrivacyPolicy = () => {
           href=""
           className="text-pink-500 dark:text-pink-400 underline"
         >
-          support@dlstar.info
+          support@asialivepro.info
         </a>
       </p>
     </div>

@@ -1,4 +1,4 @@
-# DlStar Admin Panel with features of:
+# Asia Live Pro Admin Panel with features of:
 - sell coins
 - withdraw requests
 - admin transactions

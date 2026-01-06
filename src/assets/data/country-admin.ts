@@ -258,7 +258,7 @@ export const countryAdminData = [
     createdAt: "2025-07-09T17:04:39.188Z",
     updatedAt: "2025-07-19T11:20:11.099Z",
     __v: 0,
-    bio: "Welcome to DLStar Live",
+    bio: "Welcome to Asia Live Pro",
     birthday: "1999-07-15T00:00:00.000Z",
     country: "Bangladesh",
     gender: "Male",

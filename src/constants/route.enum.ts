@@ -26,7 +26,8 @@ export enum ClientRoutes {
   // realtime data
   Rooms = "/live-lists",
   // External Links
-  GreedyGameDashboardPanel = "http://31.97.222.97:9001",
+  GreedyGameDashboardPanel = "http://69.62.74.36:9001",
+  TinPattiGameDashboardPanel = "http://69.62.74.36:9000",
 
   // user related
   BannedUsers = "/banned-users",

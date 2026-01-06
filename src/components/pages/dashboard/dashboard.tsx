@@ -304,6 +304,13 @@ export const DashboardContent: FC<{
           link: ClientRoutes.GreedyGameDashboardPanel,
         },
         {
+          label: "Teen Patti Panel",
+          category: 'tools',
+          icon: <Gamepad2 className="w-5 h-5 text-sky-400"/>,
+          variant: "secondary",
+          link: ClientRoutes.TinPattiGameDashboardPanel
+        },
+        {
           label: "Stores",
           category: "management",
           icon: <Store className="w-4 h-4" />,

@@ -71,7 +71,7 @@ export const TermsAndConditions = () => {
       <p className="mb-2 text-gray-700 dark:text-gray-300">
         For questions, contact us at{" "}
         <a href="" className="text-pink-500 dark:text-pink-400 underline">
-          support@dlstar.info
+          support@asialivepro.info
         </a>
       </p>
     </div>

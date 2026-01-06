@@ -69,10 +69,10 @@ export default function PortalLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-200">
       {/* Background with geometric pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-slate-900 to-purple-800">
-        <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 bg-gradient-to-bl from-pink-100 via-purple-100 to-blue-300">
+        {/* <div className="absolute inset-0 opacity-20">
           <svg
             className="w-full h-full"
             viewBox="0 0 100 100"
@@ -100,7 +100,7 @@ export default function PortalLoginPage() {
           <div className="absolute top-1/4 left-1/4 w-96 h-px bg-gradient-to-r from-transparent via-purple-400/30 to-transparent rotate-45"></div>
           <div className="absolute top-3/4 right-1/4 w-96 h-px bg-gradient-to-r from-transparent via-purple-400/30 to-transparent -rotate-45"></div>
           <div className="absolute top-1/2 left-1/3 w-64 h-px bg-gradient-to-r from-transparent via-pink-400/20 to-transparent rotate-12"></div>
-        </div>
+        </div> */}
       </div>
 
       {/* Login Form */}
@@ -114,9 +114,9 @@ export default function PortalLoginPage() {
                 alt="Logo"
                 className="h-16 w-16 mx-auto mb-4 rounded-lg"
               />
-              <h1 className="text-3xl font-bold text-primary mb-4">DlStar</h1>
+              <h1 className="text-3xl font-bold text-primary mb-4">Asia Live Pro</h1>
             </Link>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-gray-50 text-sm leading-relaxed">
               Enter your email address and password to
               <br />
               access portal panel.

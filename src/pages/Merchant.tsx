@@ -30,7 +30,7 @@ const Merchant = () => {
   if (isLoading) return <div className="text-gray-900 dark:text-gray-100">Loading...</div>;
 
   return (
-    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="bg-white dark:bg-transparent text-gray-900 dark:text-gray-100">
       <div
         className="flex justify-between items-center mb-4"
       >

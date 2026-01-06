@@ -53,7 +53,7 @@ const CountryAdmin = () => {
           </Link>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="p-12 bg-white dark:bg-gray-800 rounded-xl text-center shadow-sm">
+        <div className="p-12 bg-white dark:bg-transparent rounded-xl text-center shadow-sm">
           <p className="text-gray-500 dark:text-gray-400 mb-4">
             No Country Admin matched your search.
           </p>
