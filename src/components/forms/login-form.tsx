@@ -33,7 +33,7 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
           id="username"
           type="username"
           {...register("username")}
-          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
+          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
           placeholder="Enter your username"
           autoComplete="username"
         />
@@ -50,7 +50,7 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
           id="password"
           type="password"
           {...register("password")}
-          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
+          className="bg-white dark:bg-gray-200 border-slate-300 dark:border-slate-600 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-pink-400 dark:focus:border-pink-500 focus:ring-pink-400 dark:focus:ring-pink-500"
           placeholder="Password"
           autoComplete="current-password"
         />

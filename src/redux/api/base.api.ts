@@ -4,9 +4,7 @@ import { tagTypesList } from "../tag.types";
 import { logOut } from "../features/auth.slice";
 import { persistStor } from "../store"; // Make sure you export persistor from your store
 
-// const baseURL = "http://dlstarliveplan1.com:8000/api"; // hosted server
-// const baseURL = "http://dlstarlive.com:8000/api"; // staging mode
-const asiaLiveBaseURL = "http://69.62.74.36/api" // production mode
+const asiaLiveBaseURL = "http://69.62.74.36:8000/api" // production mode
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: asiaLiveBaseURL,
   prepareHeaders: (headers, { getState }) => {
@@ -28,12 +26,6 @@ const baseQueryWith401Handler: typeof rawBaseQuery = async (
   const result = await rawBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    // just change with the E.G, result.err.statusCode === 401
-    // Handle 401 error, e.g., logout user
-    console.error("Unauthorized access - logging out");
-    // Optionally, you can dispatch an action to log out the user
-    // and clear any persisted state
-    // Logout and purge persisted state
     api.dispatch(logOut());
     persistStor.purge();
     // Redirect to login page
