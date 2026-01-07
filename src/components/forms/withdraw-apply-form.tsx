@@ -46,7 +46,6 @@ export const WithdrawApplyForm = () => {
 
   const { data: salaryRes, isLoading: salaryLoading } =
     useGetSalariesQuery(undefined);
-  console.log({ salaryRes });
   const [applyWithdraw, { isLoading: applyWithdrawLoading }] =
     useAgencyApplyWithdrawMutation();
   // type OptionType = {
@@ -60,10 +59,9 @@ export const WithdrawApplyForm = () => {
         id: salary.diamondCount.toString(),
         name: `${salary.diamondCount} Diamonds`,
       }));
-  console.log({ SALARIES });
 
   const onSubmit = async (data: SellCoinFormValues) => {
-    console.log("Form Data:", data);
+
 
     try {
       const payload = {
@@ -71,8 +69,6 @@ export const WithdrawApplyForm = () => {
         accountType: data.paymentMethod,
         accountNumber: data.accountNumber,
       };
-
-      console.log("Payload:", payload);
 
       const res = await applyWithdraw(payload).unwrap();
       toast.success(res.message || "Withdraw request submitted successfully!");

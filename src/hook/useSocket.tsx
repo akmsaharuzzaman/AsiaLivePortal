@@ -25,7 +25,7 @@ export function UseSocket() {
 
   const [socket, setSocket] = useState<any>(null);
   // getting user persi
-  console.log(socket);
+  console.log(socket)
   useEffect(() => {
     if (!userId) return;
 
@@ -37,13 +37,11 @@ export function UseSocket() {
 
     // 1️⃣ When backend sends "get-video-hosts"
     newSocket.on("get-video-hosts", (data: VideoHostsResponse) => {
-      console.log("VIDEO HOSTS:", data);
       setVideoHosts(data);
     });
 
     // 2️⃣ When backend sends "get-audio"
     newSocket.on("get-audio-hosts", (data: AudioResponse) => {
-      console.log("AUDIO DATA:", data);
       setAudioData(data);
     });
     // When backend sends "get-rooms"

@@ -81,7 +81,6 @@ export const CreateGiftForm: React.FC<
   };
 
   const onSubmit = form.handleSubmit(async (values) => {
-    console.log({ values });
     // if (onCreateGift) {
     //   console.log("Hello")
     //   onCreateGift(values);
@@ -99,16 +98,15 @@ export const CreateGiftForm: React.FC<
         previewImage: values.previewImage,
         svgaImage: values.svgaImage,
       };
-      console.log("Creating gift with payload:", payload);
+
       const response = await createGift(payload).unwrap();
-      console.log("response", response);
+
       toast.success(response.message);
       setTimeout(() => {
         onSave();
         form.reset();
       }, 1500);
     } catch (error: any) {
-      console.log(error);
       toast.error(
         error?.data?.message || "Failed to create gift. Please try again."
       );

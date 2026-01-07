@@ -20,7 +20,6 @@ const CountryAdminById = () => {
   );
   const onCreate = () => {
     // Logic to handle user creation
-    console.log("Create Sub Country Admin User button clicked");
     alert("Create Sub Country Admin User button clicked");
   };
   return (

@@ -81,7 +81,11 @@ export default function SalaryManagementPage() {
   });
 
   if (salariesLoading) {
-    return <h4 className="text-gray-900 dark:text-gray-100">Please wait for salaries...</h4>;
+    return (
+      <h4 className="text-gray-900 dark:text-gray-100">
+        Please wait for salaries...
+      </h4>
+    );
   }
   const salaries = salariesRes?.result;
   // const salaries = [
@@ -92,7 +96,6 @@ export default function SalaryManagementPage() {
   //     country: "BDT",
   //   },
   // ];
-  console.log(salariesRes, "sajuty");
 
   // const handleEdit = (salary: FormValues & { _id: string }) => {
   //   setEditingSalary(salary);
@@ -112,12 +115,10 @@ export default function SalaryManagementPage() {
     }
   };
   const handleDelete = async (salaryId: string) => {
-    console.log("deleting...");
     try {
       const res = await deleteSalary({ salaryId }).unwrap();
       toast.success(res.message || "salary deleted");
     } catch (error: any) {
-      console.log(error);
       toast.error(
         error.message || error.data.message || "salary cannot delete",
       );
@@ -128,7 +129,7 @@ export default function SalaryManagementPage() {
     try {
       const res = await agencySalaryAutoDistribute({}).unwrap();
       const message = `Salary Distributed: Total: ${res?.result?.total}, Paid: ${res?.result?.paid}, Success Rate: ${res?.result?.successRate}%`;
-      console.log(message, "distribution salary");
+
       if (res.success) {
         toast.success(message || res?.message || "auto distributed salaries");
       } else {
@@ -145,7 +146,9 @@ export default function SalaryManagementPage() {
       <div className="max-w-5xl mx-auto space-y-10">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Salary Management</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            Salary Management
+          </h1>
           <ActionTinyButton
             disabled={autoDistributionLoading}
             onClick={handleAutoDistribution}

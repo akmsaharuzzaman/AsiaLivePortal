@@ -51,9 +51,7 @@ export function CreateGiftDialog({ open, onClose }: CreateGiftDialogProps) {
         toast.error("Please upload both preview and SVGA images.");
         return;
       }
-      console.log("Creating gift with payload:", payload);
       const response = await createGift(payload).unwrap();
-      console.log("response", response);
       toast.success(response.message);
       setSuccessMsg(
         `Successfully added ${data.giftName} gift to category of ${data?.category}`
@@ -64,7 +62,6 @@ export function CreateGiftDialog({ open, onClose }: CreateGiftDialogProps) {
         reset();
       }, 1500);
     } catch (error: any) {
-      console.log(error);
       toast.error(
         error?.data?.message || "Failed to create gift. Please try again."
       );
@@ -158,7 +155,7 @@ export function CreateGiftDialog({ open, onClose }: CreateGiftDialogProps) {
             </label>
             <DropdownWithCreate
 
-     
+
 
             />
           </div>

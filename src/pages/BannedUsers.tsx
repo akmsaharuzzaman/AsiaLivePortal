@@ -94,7 +94,6 @@ export const BannedUsers = () => {
   if (bannedUsersLoading) {
     return <div>Loading...</div>;
   }
-  console.log({ bannedUsersData });
 
   const handleUnban = async (id: string) => {
     const payload = {
@@ -105,7 +104,6 @@ export const BannedUsers = () => {
 
     try {
       const res = await updateActivityZone(payload).unwrap();
-      console.log("API success:", res);
 
       // 🔥 TOAST MESSAGES BASED ON ZONE TYPE
       toast.success(res.message || "successfully unbanned!");

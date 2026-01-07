@@ -129,7 +129,6 @@ export const DashboardContent: FC<{
   const salary = portalIsLoading ? 0 : portalProfileRes?.result?.coins || 0;
 
   const agencies = agencyLoading ? "..." : agencyRes?.result?.data.length || 0;
-  console.log(salary, "hosts length");
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
@@ -146,7 +145,6 @@ export const DashboardContent: FC<{
     activeRooms:
       (audioData?.audio?.length || 0) + (videoHosts?.hosts?.length || 0),
   };
-  console.log(staticStatesData.activeRooms, "SSS");
   /**
    * dashboardConfigs: All dashboard stats, actions, and lists for each role.
    * This makes the dashboard fully config-driven and easy to extend.

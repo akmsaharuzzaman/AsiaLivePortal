@@ -44,7 +44,6 @@ export const AddCoinForm = () => {
         reset();
       }, 1500);
     } catch (error: any) {
-      console.log(error);
       toast.error(
         error?.data?.message || "Failed to sell coins. Please try again."
       );

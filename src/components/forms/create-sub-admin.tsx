@@ -46,7 +46,6 @@ export function CreateSubAdmin() {
   });
 
   const onSubmit = async (values: FormValues) => {
-    console.log("Submitted Values:", values);
     // TODO: integrate with API
     try {
       const body = {

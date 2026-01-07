@@ -22,7 +22,6 @@ const Users = () => {
     return <div>No user data found.</div>;
   }
 
-  console.log(userResponse, "userResponse");
   const users = userResponse?.result?.users || [];
   const userData = users
     ? [...users].sort((a, b) => {
@@ -32,7 +31,6 @@ const Users = () => {
       })
     : [];
 
-  console.log(userData, "userResponse");
 
   return (
     <div>

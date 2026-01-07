@@ -51,7 +51,6 @@ export const CreateSalaryForm = () => {
     useCreateSalaryMutation();
 
   const onSubmit = async (values: FormValues) => {
-    console.log(values, "form values");
     try {
       const salaryBody = {
         diamondCount: values.diamondCount,
@@ -63,7 +62,6 @@ export const CreateSalaryForm = () => {
       toast.success(res.message || "Salary created");
       form.reset();
     } catch (err: any) {
-      console.log(err);
       toast.error(err.data.message || err.message || "cannot created salary");
     }
   };

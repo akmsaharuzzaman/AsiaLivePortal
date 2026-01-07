@@ -47,7 +47,7 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
         : skipToken,
     );
 
-  console.log("searchedUsers response:", searchedUsers);
+
 
   const filteredUsers =
     debouncedSearch.length > 0 ? searchedUsers?.result?.users || [] : [];
@@ -82,7 +82,6 @@ export function SellCoinDialog({ open, onClose }: SellCoinDialogProps) {
         reset();
       }, 1500);
     } catch (error: any) {
-      console.log(error);
       toast.error(
         error?.data?.message || "Failed to sell coins. Please try again.",
       );

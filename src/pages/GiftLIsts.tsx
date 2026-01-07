@@ -172,13 +172,11 @@ export const GiftListsPage: React.FC<GiftListsPageProps> = ({
   const { data: allGiftData, isLoading } = useGetAllGiftsQuery(undefined);
 
   const initialCategories: string[] = giftCategories?.result || [];
-  console.log(initialCategories);
   const gifts = allGiftData?.result || [];
   // const [gifts, setGifts] = useState<Gift[]>(initialGifts);
   const [categories, setCategories] = useState<string[]>([
     ...initialCategories,
   ]);
-  console.log(categories);
   const [isCreateModalOpen, setCreateModalOpen] = useState<boolean>(false);
 
   const groupedGifts = gifts.reduce<Record<string, TGift[]>>((acc, gift) => {

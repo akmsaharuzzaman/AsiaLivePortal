@@ -14,7 +14,6 @@ export const RoleContext = createContext<RoleContextType | undefined>(
 
 export const RoleProvider = ({ children }: { children: ReactNode }) => {
   const user = useAppSelector(selectUser);
-  console.log(user, "current user in role provider");
   const [role, setRole] = useState<Role>(user?.role as Role);
   return (
     <RoleContext.Provider value={{ role, setRole }}>

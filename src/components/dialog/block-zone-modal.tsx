@@ -30,7 +30,6 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
-import { useUpdateActivityZoneMutation } from "@/redux/api/admin/user-activities";
 import { toast } from "sonner";
 
 // Local SVG icon to avoid external CDN issues
@@ -63,7 +62,7 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }: any) {
   });
 
   const [openCalendar, setOpenCalendar] = React.useState(false);
-  const [updateActivityZone] = useUpdateActivityZoneMutation();
+  // const [updateActivityZone] = useUpdateActivityZoneMutation();
   const onSubmit = async (values: any) => {
     const dateVal = values.date_till
       ? values.date_till instanceof Date
@@ -78,8 +77,7 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }: any) {
     };
 
     try {
-      const res = await updateActivityZone(payload).unwrap();
-      console.log("API success:", res);
+      // const res = await updateActivityZone(payload).unwrap();
 
       // --------------------------------------------------
       // 🔥 TOAST MESSAGES BASED ON ZONE TYPE
@@ -196,7 +194,6 @@ export function BlockZoneModal({ open, setOpen, liveId, liveTitle }: any) {
                           mode="single"
                           selected={field.value!}
                           onSelect={(date) => {
-                            console.log("hello saju", date);
                             field.onChange(date);
                             setOpenCalendar(false);
                           }}

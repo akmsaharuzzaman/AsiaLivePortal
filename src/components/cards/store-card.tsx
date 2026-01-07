@@ -27,7 +27,6 @@ export const StoreCard: React.FC<StoreCardProps> = ({ storeId }) => {
   if (storeIsLoading) <h2>wait for card api..</h2>;
   const stores = storesRes?.result?.items;
 
-  console.log({ stores });
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {stores ? (

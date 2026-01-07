@@ -61,7 +61,6 @@ export function CreateResellerForm({
     return <div>Parent Creator is required</div>;
   }
   const onSubmit = async (values: FormValues) => {
-    console.log("Submitted Values:", values);
     // TODO: integrate with API
     try {
       const body = {

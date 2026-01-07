@@ -125,8 +125,7 @@ export const LiveListsPage = () => {
   }, [connected]);
 
   const selectedLive = videoHosts.find((l) => l._id === selectedId) || audioHosts.find((l) => l._id === selectedId) || null;
-  console.log(videoHosts, "video");
-  console.log(audioHosts, "audio");
+
   return (
     <>
       <div className="min-h-screen p-4 sm:p-8 font-inter bg-white dark:bg-transparent text-gray-900 dark:text-gray-100">

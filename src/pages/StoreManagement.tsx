@@ -171,7 +171,7 @@ export const StoreManagement: React.FC<StoreManagementProps> = ({
   backRoute = "/",
 }) => {
   const [categories, setCategories] = useState<TStoreCategory[]>([]);
-  console.log({ categories });
+
   const [isCreateModalOpen, setCreateModalOpen] = useState<boolean>(false);
   const { data: storeCategories, isLoading: getCategoryLoading } =
     useGetStoreCategoriesQuery(undefined);
@@ -183,7 +183,6 @@ export const StoreManagement: React.FC<StoreManagementProps> = ({
   useEffect(() => {
     setCategories([...initialCategories]);
   }, [initialCategories]);
-  console.log({ initialCategories });
   // const gifts = allGiftData?.result || [];
   // const [gifts, setGifts] = useState<Gift[]>(initialGifts);
 
