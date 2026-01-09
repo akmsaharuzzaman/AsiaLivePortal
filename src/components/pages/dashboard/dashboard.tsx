@@ -1,6 +1,6 @@
-
+import { useEffect } from "react";
 import { ClientRoutes, Roles } from "@/constants/route.enum";
-import { UseSocket } from "@/hook/useSocket";
+import useLiveHosts from "@/hook/useLiveHosts";
 import {
   useGetMidPortalManagementQuery,
   useGetPortalProfileQuery,
@@ -12,18 +12,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
-import {
-
-  Ban,
-
-  Coins,
-
-  DollarSign,
-  Gamepad2,
-  Gift,
-
-  Store,
-} from "lucide-react";
+import { Ban, Coins, DollarSign, Gamepad2, Gift, Store } from "lucide-react";
 import { FC } from "react";
 import {
   Bar,
@@ -74,6 +63,14 @@ export const DashboardContent: FC<{
   role: Role;
   openModal: (modal: ModalName) => void;
 }> = ({ role, openModal }) => {
+  const {
+    videoHosts,
+    audioHosts,
+    // errors,
+    connected,
+    requestVideoHosts,
+    requestAudioHosts,
+  } = useLiveHosts("anything.ofthe.id.565255");
   // fetching data from server
   const user = useAppSelector((state) => state.auth.user);
   const { data: usersRes, isLoading: usersLoading } = useGetUsersQuery({
@@ -109,8 +106,6 @@ export const DashboardContent: FC<{
       type: Roles.CountryAdmin,
       // id: user!.id!,
     });
-  const { audioData, videoHosts } = UseSocket();
-  console.dir("dir");
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error occurred: {(error as any).message}</div>;
 
@@ -142,8 +137,7 @@ export const DashboardContent: FC<{
     subAdmins,
     merchants,
     countryAdmins,
-    activeRooms:
-      (audioData?.audio?.length || 0) + (videoHosts?.hosts?.length || 0),
+    activeRooms: (videoHosts.length || 0) + (audioHosts.length || 0),
   };
   /**
    * dashboardConfigs: All dashboard stats, actions, and lists for each role.
@@ -196,7 +190,6 @@ export const DashboardContent: FC<{
           iconWrapper: "text-red-600 dark:text-red-400",
           bar: "bg-red-500",
           link: ClientRoutes.Rooms,
-
         },
         // {
         //   label: "Total Resellers",
@@ -290,7 +283,7 @@ export const DashboardContent: FC<{
         {
           label: "Gifts",
           category: "management",
-          icon: <Gift className="w-4 h-4"/>,
+          icon: <Gift className="w-4 h-4" />,
           variant: "info",
           link: ClientRoutes.Gifts,
         },
@@ -303,10 +296,10 @@ export const DashboardContent: FC<{
         },
         {
           label: "Teen Patti Panel",
-          category: 'tools',
-          icon: <Gamepad2 className="w-5 h-5 text-sky-400"/>,
+          category: "tools",
+          icon: <Gamepad2 className="w-5 h-5 text-sky-400" />,
           variant: "secondary",
-          link: ClientRoutes.TinPattiGameDashboardPanel
+          link: ClientRoutes.TinPattiGameDashboardPanel,
         },
         {
           label: "Stores",
@@ -563,6 +556,16 @@ export const DashboardContent: FC<{
     name: stat.label,
     value: stat.value,
   }));
+
+
+  // when connected, automatically request latest hosts (safe to call repeatedly)
+  useEffect(() => {
+    if (!connected) return;
+    // request current lists after connect
+    requestVideoHosts();
+    requestAudioHosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connected]);
   return (
     <div>
       {/* Stats Cards */}
@@ -720,7 +723,7 @@ const Dashboard = ({
                 );
               }
               return (
-                 <AppButton
+                <AppButton
                   label={item.label}
                   icon={item.icon}
                   variant={item.variant}
@@ -734,13 +737,15 @@ const Dashboard = ({
           {actions
             ?.filter((a) => a.category === "history")
             .map((item) => {
-              if(item.link){
-               return (<LinkedButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  link={item.link}
-                />)
+              if (item.link) {
+                return (
+                  <LinkedButton
+                    label={item.label}
+                    icon={item.icon}
+                    variant={item.variant}
+                    link={item.link}
+                  />
+                );
               }
               return (
                 <AppButton
@@ -757,13 +762,15 @@ const Dashboard = ({
           {actions
             ?.filter((a) => a.category === "tools")
             .map((item) => {
-              if(item.link){
-               return (<LinkedButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  link={item.link}
-                />)
+              if (item.link) {
+                return (
+                  <LinkedButton
+                    label={item.label}
+                    icon={item.icon}
+                    variant={item.variant}
+                    link={item.link}
+                  />
+                );
               }
               return (
                 <AppButton

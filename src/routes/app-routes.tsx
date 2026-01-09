@@ -22,6 +22,7 @@ import SubAdminById from "@/pages/SubAdminById";
 import { TransactionHistoryPage } from "@/pages/TransactionHistory";
 import Users from "@/pages/Users";
 import { WithdrawHistoryPage } from "@/pages/WithdrawHistory";
+import { BannedLives } from "@/pages/BannedLives";
 
 export const appRoutes = [
   {
@@ -148,6 +149,11 @@ export const appRoutes = [
   {
     path: "/live-lists",
     element: <LiveListsPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/banned-lives",
+    element: <BannedLives />,
     roles: [Roles.Admin],
   },
   {

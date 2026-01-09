@@ -3,6 +3,10 @@ import { BlockZoneModal } from "@/components/dialog/block-zone-modal";
 import useLiveHosts from "@/hook/useLiveHosts";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
+import { Ban } from "lucide-react";
+import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
+import { ClientRoutes } from "@/constants/route.enum";
+import { Link } from "react-router-dom";
 
 const LiveStreamCard = ({
   uid,
@@ -129,6 +133,15 @@ export const LiveListsPage = () => {
   return (
     <>
       <div className="min-h-screen p-4 sm:p-8 font-inter bg-white dark:bg-transparent text-gray-900 dark:text-gray-100">
+        <div className="flex justify-end">
+          <Link to={ClientRoutes.BannedLives}>
+            <ActionTinyButton variant={"danger"}>
+              <Ban size={16} className="mr-2" />
+              Banned Lives
+            </ActionTinyButton>
+          </Link>
+        </div>
+
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200 mb-8">
             Video Hosts Live Streams

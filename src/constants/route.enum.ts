@@ -31,6 +31,7 @@ export enum ClientRoutes {
 
   // user related
   BannedUsers = "/banned-users",
+  BannedLives = "/banned-lives",
 }
 
 export enum Roles {
