@@ -24,3 +24,11 @@ export type TCreateHost = {
   userId: string;
   permissions: string[];
 };
+
+
+export type TBlockUserResult = {
+  email: string;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+};
