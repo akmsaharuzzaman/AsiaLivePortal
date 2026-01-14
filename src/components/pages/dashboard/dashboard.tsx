@@ -443,22 +443,22 @@ export const DashboardContent: FC<{
         {
           label: "Withdraw History",
           category: "history",
-          icon: DollarSign,
-          variant: "info",
+          icon: <DollarSign className="w-4 h-4" />,
+          variant: "primary",
           link: ClientRoutes.WithdrawHistory,
         },
         {
           label: "Create Host",
           category: "history",
-          icon: Coins,
-          variant: "primary",
+          icon: <Coins className="w-4 h-4"/>,
+          variant: "secondary",
           modal: "createHost",
         },
         {
           label: "Withdraw Apply",
           category: "history",
-          icon: Coins,
-          variant: "primary",
+          icon: <Coins className="w-4 h-4"/>,
+          variant: "secondary",
           modal: "withdrawApplyForm",
         },
       ],
@@ -478,22 +478,22 @@ export const DashboardContent: FC<{
         {
           label: "Sell Coin to Reseller",
           category: "history",
-          icon: Coins,
-          variant: "secondary",
+          icon: <Coins className="w-4 h-4"/>,
+          variant: "primary",
           modal: "sellCoinToReseller",
         },
         {
           label: "Sell Coin to User",
           category: "history",
-          icon: Coins,
+          icon: <Coins  className="w-4 h-4"/>,
           variant: "secondary",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
           category: "history",
-          icon: DollarSign,
-          variant: "primary",
+          icon: <DollarSign  className="w-4 h-4"/>,
+          variant: "secondary",
           link: ClientRoutes.PortalsTransactions,
         },
         // { label: "Create Reseller", icon: UserCog, modal: "createReseller" },
@@ -529,15 +529,15 @@ export const DashboardContent: FC<{
         {
           label: "Sell Coin to User",
           category: "coins",
-          icon: Coins,
-          variant: "secondary",
+          icon: <Coins className="w-4 h-4"/>,
+          variant: "primary",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
           category: "coins",
-          icon: DollarSign,
-          variant: "primary",
+          icon: <DollarSign className="w-4 h-4"/>,
+          variant: "secondary",
           link: ClientRoutes.PortalsTransactions,
         },
         // {
@@ -669,139 +669,134 @@ export const DashboardContent: FC<{
 };
 
 const Dashboard = ({
-  actions,
+  actions=[],
   openModal,
 }: {
   actions: DashboardAction[];
   openModal: any;
-}) => (
-  <section className="flex-grow p-4 w-full space-y-8">
-    <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
-      <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
-        <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full mr-3"></span>
-        Quick Actions
-      </h2>
+  }) => {
+  const coins = actions?.filter((a) => a.category === "coins")
+   const management = actions?.filter((a) => a.category === "management")
+  const tools = actions?.filter((a) => a.category === "tools")
+  const history = actions?.filter((a) => a.category === "history")
+  return (
+    <section className="flex-grow p-4 w-full space-y-8">
+      <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
+        <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+          <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full mr-3"></span>
+          Quick Actions
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <ActionGroupHead title="Finance & Coins">
-          {actions
-            ?.filter((a) => a.category === "coins")
-            .map((item) => {
-              if (item.link) {
-                return (
-                  <LinkedButton
-                    label={item.label}
-                    icon={item.icon}
-                    variant={item.variant}
-                    link={item.link}
-                  />
-                );
-              }
-              return (
-                <AppButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  onClick={() => openModal(item.modal)}
-                />
-              );
-            })}
-        </ActionGroupHead>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {
+            coins.length > 0  && (
+              <ActionGroupHead title="Finance & Coins">
+                {coins.map((item) => {
+                    if (item.link) {
+                      return (
+                        <LinkedButton
+                          label={item.label}
+                          icon={item.icon}
+                          variant={item.variant}
+                          link={item.link}
+                        />
+                      );
+                    }
+                    return (
+                      <AppButton
+                        label={item.label}
+                        icon={item.icon}
+                        variant={item.variant}
+                        onClick={() => openModal(item.modal)}
+                      />
+                    );
+                  })}
+              </ActionGroupHead>
+            )
+          }
 
-        <ActionGroupHead title="Management">
-          {actions
-            ?.filter((a) => a.category === "management")
-            .map((item) => {
-              if (item.link) {
-                return (
-                  <LinkedButton
-                    label={item.label}
-                    icon={item.icon}
-                    variant={item.variant}
-                    link={item.link}
-                  />
-                );
-              }
-              return (
-                <AppButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  link={item.link}
-                />
-              );
-            })}
-        </ActionGroupHead>
+          {
+            management.length > 0 && (
+              <ActionGroupHead title="Management">
+                {management.map((item) => {
+                    if (item.link) {
+                      return (
+                        <LinkedButton
+                          label={item.label}
+                          icon={item.icon}
+                          variant={item.variant}
+                          link={item.link}
+                        />
+                      );
+                    }
+                    return (
+                      <AppButton
+                        label={item.label}
+                        icon={item.icon}
+                        variant={item.variant}
+                        link={item.link}
+                      />
+                    );
+                  })}
+              </ActionGroupHead>
+            )
+          }
 
-        <ActionGroupHead title="History">
-          {actions
-            ?.filter((a) => a.category === "history")
-            .map((item) => {
-              if (item.link) {
-                return (
-                  <LinkedButton
-                    label={item.label}
-                    icon={item.icon}
-                    variant={item.variant}
-                    link={item.link}
-                  />
-                );
-              }
-              return (
-                <AppButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  link={item.link}
-                />
-              );
-            })}
-        </ActionGroupHead>
+          {
+            history.length > 0 && (
+              <ActionGroupHead title="History">
+                {history.map((item) => {
+                    if (item.link) {
+                      return (
+                        <LinkedButton
+                          label={item.label}
+                          icon={item.icon}
+                          variant={item.variant}
+                          link={item.link}
+                        />
+                      );
+                    }
+                    return (
+                      <AppButton
+                        label={item.label}
+                        icon={item.icon}
+                        variant={item.variant}
+                        link={item.link}
+                      />
+                    );
+                  })}
+              </ActionGroupHead>
+            )
+          }
 
-        <ActionGroupHead title="Admin Tools">
-          {actions
-            ?.filter((a) => a.category === "tools")
-            .map((item) => {
-              if (item.link) {
-                return (
-                  <LinkedButton
-                    label={item.label}
-                    icon={item.icon}
-                    variant={item.variant}
-                    link={item.link}
-                  />
-                );
-              }
-              return (
-                <AppButton
-                  label={item.label}
-                  icon={item.icon}
-                  variant={item.variant}
-                  link={item.link}
-                />
-              );
-            })}
-          {/* <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg shadow-sm transition-all group">
-            <div className="flex items-center gap-3">
-              <Gamepad2 className="w-5 h-5 text-sky-400" />
-              <span className="font-medium">Game Admin</span>
-            </div>
-            <span className="material-symbols-outlined text-gray-500 text-sm group-hover:translate-x-1 transition-transform group-hover:text-gray-300">
-              <ChevronRight />
-            </span>
-          </button>
-
-          <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg shadow-sm transition-all group">
-            <div className="flex items-center gap-3">
-              <Ban className="w-5 h-5 text-red-500" />
-              <span className="font-medium">Banned Users</span>
-            </div>
-            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:translate-x-1 transition-transform">
-              <ChevronRight />
-            </span>
-          </button> */}
-        </ActionGroupHead>
-      </div>
+          {
+            tools.length > 0 && (
+              <ActionGroupHead title="Admin Tools">
+                {tools.map((item) => {
+                    if (item.link) {
+                      return (
+                        <LinkedButton
+                          label={item.label}
+                          icon={item.icon}
+                          variant={item.variant}
+                          link={item.link}
+                        />
+                      );
+                    }
+                    return (
+                      <AppButton
+                        label={item.label}
+                        icon={item.icon}
+                        variant={item.variant}
+                        link={item.link}
+                      />
+                    );
+                  })}
+              </ActionGroupHead>
+            )
+          }
+        </div>
+      </section>
     </section>
-  </section>
-);
+  )
+};
