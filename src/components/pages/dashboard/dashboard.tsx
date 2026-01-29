@@ -505,14 +505,14 @@ export const DashboardContent: FC<{
         },
         {
           label: "Assigned Withdraws",
-          category: "Diamond Withdrawals",
+          category: "diamond-withdrawals",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.AssignedWithdrawals,
         },
         {
           label: "Claim Withdrawals",
-          category: "Diamond Withdrawals",
+          category: "diamond-withdrawals",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.ClaimWithdrawals
@@ -700,6 +700,8 @@ const Dashboard = ({
    const management = actions?.filter((a) => a.category === "management")
   const tools = actions?.filter((a) => a.category === "tools")
   const history = actions?.filter((a) => a.category === "history")
+  const diamondWithdrawals = actions?.filter(a => a.category === "diamond-withdrawals");
+
   return (
     <section className="flex-grow p-4 w-full space-y-8">
       <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
@@ -810,6 +812,32 @@ const Dashboard = ({
                         icon={item.icon}
                         variant={item.variant}
                         link={item.link}
+                      />
+                    );
+                  })}
+              </ActionGroupHead>
+            )
+          }
+          {
+            diamondWithdrawals.length > 0  && (
+              <ActionGroupHead title="Diamond Withdrawals">
+                {diamondWithdrawals.map((item) => {
+                    if (item.link) {
+                      return (
+                        <LinkedButton
+                          label={item.label}
+                          icon={item.icon}
+                          variant={item.variant}
+                          link={item.link}
+                        />
+                      );
+                    }
+                    return (
+                      <AppButton
+                        label={item.label}
+                        icon={item.icon}
+                        variant={item.variant}
+                        onClick={() => openModal(item.modal)}
                       />
                     );
                   })}
