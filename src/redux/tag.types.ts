@@ -10,7 +10,8 @@ export const tagTypes = {
   salary: "Salary",
   withdraw: "Withdraw",
   transaction: "Transaction",
-  blockUser: "BlockUser"
+  blockUser: "BlockUser",
+  diamondWithdrawals: "DiamondWithdrawals"
 };
 
 export const tagTypesList = [
@@ -23,5 +24,6 @@ export const tagTypesList = [
   tagTypes.salary,
   tagTypes.withdraw,
   tagTypes.transaction,
-  tagTypes.blockUser
+  tagTypes.blockUser,
+    tagTypes.diamondWithdrawals
 ];

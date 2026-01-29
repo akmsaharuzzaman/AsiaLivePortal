@@ -23,6 +23,9 @@ import { TransactionHistoryPage } from "@/pages/TransactionHistory";
 import Users from "@/pages/Users";
 import { WithdrawHistoryPage } from "@/pages/WithdrawHistory";
 import { BannedLives } from "@/pages/BannedLives";
+import { DiamondWithdraws } from "@/pages/DiamondWithdraws";
+import { AssignedWithdrawals } from "@/pages/AssignedWithdrawals";
+import { ClaimWithdrawals } from "@/pages/ClaimWithdrawals";
 
 export const appRoutes = [
   {
@@ -161,4 +164,19 @@ export const appRoutes = [
     element: <BannedUsers />,
     roles: [Roles.Admin],
   },
+  {
+    path: "/diamond-withdraws",
+    element: <DiamondWithdraws />,
+    roles: [Roles.Admin]
+  },
+  {
+    path: "/assigned-withdrawals",
+    element: <AssignedWithdrawals/>,
+    roles: [ Roles.Merchant] // replace with merchant
+  },
+  {
+    path: "/claim-withdrawals",
+    element: <ClaimWithdrawals />,
+    roles: [ Roles.Merchant]
+  }
 ];

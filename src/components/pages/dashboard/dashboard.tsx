@@ -12,7 +12,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
-import { Ban, Coins, DollarSign, Gamepad2, Gift, Store } from "lucide-react";
+import { Ban, Coins, Diamond, DollarSign, Gamepad2, Gift, Store } from "lucide-react";
 import { FC } from "react";
 import {
   Bar,
@@ -250,6 +250,13 @@ export const DashboardContent: FC<{
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.AgencyWithdrawHistory,
+        },
+        {
+          label: "Diamonds Withdraws",
+          category: "history",
+          icon: <Diamond className="w-4 h-4" />,
+          variant: "secondary",
+          link: ClientRoutes.DiamondWithdraws,
         },
         {
           label: "Host Withdraws",
@@ -495,6 +502,20 @@ export const DashboardContent: FC<{
           icon: <DollarSign  className="w-4 h-4"/>,
           variant: "secondary",
           link: ClientRoutes.PortalsTransactions,
+        },
+        {
+          label: "Assigned Withdraws",
+          category: "Diamond Withdrawals",
+          icon: <DollarSign className="w-4 h-4" />,
+          variant: "secondary",
+          link: ClientRoutes.AssignedWithdrawals,
+        },
+        {
+          label: "Claim Withdrawals",
+          category: "Diamond Withdrawals",
+          icon: <DollarSign className="w-4 h-4" />,
+          variant: "secondary",
+          link: ClientRoutes.ClaimWithdrawals
         },
         // { label: "Create Reseller", icon: UserCog, modal: "createReseller" },
         // {
