@@ -7,46 +7,6 @@ import { toast } from "sonner";
 import { useApprovedBankWithdrawalsQuery } from "../redux/api/diamond-withdraw";
 import { TDiamondBankWithdraw } from "@/types/api/diamond-withdrawals";
 
-// --- Updated Demo Data based on your JSON structure ---
-const INITIAL_DATA = [
-  {
-    _id: "6977340e0e8652099c63c0ab",
-    userId: "686e47f59edb3a9f2d80e208",
-    country: "BD",
-    method: "bkash",
-    diamondAmount: 5000,
-    moneyshare: 5,
-    adminApproval: false,
-    paidStatus: false,
-    assignedMerchant: null,
-    createdAt: "2026-01-26T09:29:50.300Z",
-  },
-  {
-    _id: "697737558c6505d2399fe881",
-    userId: "User_002",
-    country: "BD",
-    method: "bkash",
-    diamondAmount: 12000,
-    moneyshare: 12,
-    adminApproval: true,
-    paidStatus: false,
-    assignedMerchant: null,
-    createdAt: "2026-01-26T09:43:49.104Z",
-  },
-  {
-    _id: "697738888c6505d2399fe999",
-    userId: "User_003",
-    country: "US",
-    method: "Paypal",
-    diamondAmount: 25000,
-    moneyshare: 25,
-    adminApproval: true,
-    paidStatus: false,
-    assignedMerchant: "6890c2e497933c9195f5dc14", // Already assigned
-    createdAt: "2026-01-26T10:15:20.104Z",
-  },
-];
-
 export const ClaimWithdrawals = () => {
   const { data: adminApprovedBankWithdrawals } =
     useApprovedBankWithdrawalsQuery();
@@ -54,7 +14,7 @@ export const ClaimWithdrawals = () => {
     useMerchantSelfAssignMutation();
   // Admin Portal Lists
   const withdrawals =
-    adminApprovedBankWithdrawals?.result?.data || INITIAL_DATA;
+    adminApprovedBankWithdrawals?.result?.data || [];
 
   // --- Logic handlers ---
   const selfAssign = async (id: string) => {

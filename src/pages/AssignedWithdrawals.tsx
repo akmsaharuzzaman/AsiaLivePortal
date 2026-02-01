@@ -6,52 +6,11 @@ import { TDiamondBankWithdraw } from "@/types/api/diamond-withdrawals";
 import { Gem, Globe } from "lucide-react";
 import { toast } from "sonner";
 
-// --- Updated Demo Data based on your JSON structure ---
-const INITIAL_DATA = [
-  {
-    _id: "6977340e0e8652099c63c0ab",
-    userId: "686e47f59edb3a9f2d80e208",
-    country: "BD",
-    method: "bkash",
-    diamondAmount: 5000,
-    moneyshare: 5,
-    adminApproval: false,
-    paidStatus: false,
-    assignedMerchant: null,
-    createdAt: "2026-01-26T09:29:50.300Z",
-  },
-  {
-    _id: "697737558c6505d2399fe881",
-    userId: "User_002",
-    country: "BD",
-    method: "bkash",
-    diamondAmount: 12000,
-    moneyshare: 12,
-    adminApproval: true,
-    paidStatus: false,
-    assignedMerchant: null,
-    createdAt: "2026-01-26T09:43:49.104Z",
-  },
-  {
-    _id: "697738888c6505d2399fe999",
-    userId: "User_003",
-    country: "US",
-    method: "Paypal",
-    diamondAmount: 25000,
-    moneyshare: 25,
-    adminApproval: true,
-    paidStatus: false,
-    assignedMerchant: "6890c2e497933c9195f5dc14", // Already assigned
-    createdAt: "2026-01-26T10:15:20.104Z",
-  },
-];
-
 export const AssignedWithdrawals = () => {
   const { data: merchantAssignedDiamondWithdrawals } =
     useSpecificMerchantAssignedDiamondWithdrawalsQuery();
   const [updateWithdrawPaidStatus] = useUpdateWithdrawPaidStatusMutation();
-  const withdrawals =
-    merchantAssignedDiamondWithdrawals?.result?.data || INITIAL_DATA;
+  const withdrawals = merchantAssignedDiamondWithdrawals?.result?.data || [];
 
   // --- Logic handlers ---
   const handleApprove = async (id: string) => {
@@ -79,7 +38,7 @@ export const AssignedWithdrawals = () => {
       <DataTable
         data={withdrawals}
         emptyMessage="Hooray! No pending requests to review."
-        actions={(item:any) => (
+        actions={(item: any) => (
           <button
             onClick={() => handleApprove(item._id)}
             className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all shadow-md shadow-emerald-100"
@@ -149,7 +108,7 @@ const DataTable = ({ data, actions, emptyMessage }: any) => (
               </td>
             </tr>
           ) : (
-            data.map((item:any) => (
+            data.map((item: any) => (
               <tr
                 key={item._id}
                 className="hover:bg-slate-50/80 transition-colors"
