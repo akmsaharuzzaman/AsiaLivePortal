@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-const BASE_URL = "http://31.97.222.97:8000";
+const BASE_URL = "http://69.62.74.36:8000";
 
 let socketInstance: Socket | null = null;
 

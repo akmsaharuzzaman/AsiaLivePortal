@@ -12,7 +12,15 @@ import { useAppSelector } from "@/redux/hooks";
 
 import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
-import { Ban, Coins, Diamond, DollarSign, Gamepad2, Gift, Store } from "lucide-react";
+import {
+  Ban,
+  Coins,
+  Diamond,
+  DollarSign,
+  Gamepad2,
+  Gift,
+  Store,
+} from "lucide-react";
 import { FC } from "react";
 import {
   Bar,
@@ -25,7 +33,7 @@ import {
 } from "recharts";
 import { ActionGroupHead } from "./action-group-head";
 import { StatusCard } from "./status-card";
-import { AppButton, LinkedButton } from "@/components/buttons";
+import { DashboardActionItems } from "./action-items";
 
 // Dashboard action button config
 interface DashboardAction {
@@ -245,21 +253,21 @@ export const DashboardContent: FC<{
           modal: "sellCoinToMerchant",
         },
         {
-          label: "Agnecy Withdraws",
+          label: "Agnecy Withdrawals",
           category: "history",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.AgencyWithdrawHistory,
         },
         {
-          label: "Diamonds Withdraws",
+          label: "Bank Withdrawals",
           category: "history",
           icon: <Diamond className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.DiamondWithdraws,
         },
         {
-          label: "Host Withdraws",
+          label: "Host Withdrawals",
           category: "history",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "info",
@@ -457,14 +465,14 @@ export const DashboardContent: FC<{
         {
           label: "Create Host",
           category: "history",
-          icon: <Coins className="w-4 h-4"/>,
+          icon: <Coins className="w-4 h-4" />,
           variant: "secondary",
           modal: "createHost",
         },
         {
           label: "Withdraw Apply",
           category: "history",
-          icon: <Coins className="w-4 h-4"/>,
+          icon: <Coins className="w-4 h-4" />,
           variant: "secondary",
           modal: "withdrawApplyForm",
         },
@@ -485,26 +493,26 @@ export const DashboardContent: FC<{
         {
           label: "Sell Coin to Reseller",
           category: "history",
-          icon: <Coins className="w-4 h-4"/>,
+          icon: <Coins className="w-4 h-4" />,
           variant: "primary",
           modal: "sellCoinToReseller",
         },
         {
           label: "Sell Coin to User",
           category: "history",
-          icon: <Coins  className="w-4 h-4"/>,
+          icon: <Coins className="w-4 h-4" />,
           variant: "secondary",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
           category: "history",
-          icon: <DollarSign  className="w-4 h-4"/>,
+          icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.PortalsTransactions,
         },
         {
-          label: "Assigned Withdraws",
+          label: "Assigned Withdrawals",
           category: "diamond-withdrawals",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
@@ -515,7 +523,7 @@ export const DashboardContent: FC<{
           category: "diamond-withdrawals",
           icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
-          link: ClientRoutes.ClaimWithdrawals
+          link: ClientRoutes.ClaimWithdrawals,
         },
         // { label: "Create Reseller", icon: UserCog, modal: "createReseller" },
         // {
@@ -550,14 +558,14 @@ export const DashboardContent: FC<{
         {
           label: "Sell Coin to User",
           category: "coins",
-          icon: <Coins className="w-4 h-4"/>,
+          icon: <Coins className="w-4 h-4" />,
           variant: "primary",
           modal: "sellCoinToUser",
         },
         {
           label: "Coin Transaction History",
           category: "coins",
-          icon: <DollarSign className="w-4 h-4"/>,
+          icon: <DollarSign className="w-4 h-4" />,
           variant: "secondary",
           link: ClientRoutes.PortalsTransactions,
         },
@@ -577,7 +585,6 @@ export const DashboardContent: FC<{
     name: stat.label,
     value: stat.value,
   }));
-
 
   // when connected, automatically request latest hosts (safe to call repeatedly)
   useEffect(() => {
@@ -620,7 +627,7 @@ export const DashboardContent: FC<{
         ))}
       </section>
       {/* Action Buttons */}
-      <Dashboard actions={config?.actions} openModal={openModal} />
+      <DashboardActionItems actions={config?.actions} openModal={openModal} />
       {/*<div className="flex flex-wrap gap-4 mb-8">
         {config?.actions?.map((action) => {
           if (action.link) {
@@ -687,165 +694,4 @@ export const DashboardContent: FC<{
       </div>
     </div>
   );
-};
-
-const Dashboard = ({
-  actions=[],
-  openModal,
-}: {
-  actions: DashboardAction[];
-  openModal: any;
-  }) => {
-  const coins = actions?.filter((a) => a.category === "coins")
-   const management = actions?.filter((a) => a.category === "management")
-  const tools = actions?.filter((a) => a.category === "tools")
-  const history = actions?.filter((a) => a.category === "history")
-  const diamondWithdrawals = actions?.filter(a => a.category === "diamond-withdrawals");
-
-  return (
-    <section className="flex-grow p-4 w-full space-y-8">
-      <section className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
-          <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full mr-3"></span>
-          Quick Actions
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            coins.length > 0  && (
-              <ActionGroupHead title="Finance & Coins">
-                {coins.map((item) => {
-                    if (item.link) {
-                      return (
-                        <LinkedButton
-                          label={item.label}
-                          icon={item.icon}
-                          variant={item.variant}
-                          link={item.link}
-                        />
-                      );
-                    }
-                    return (
-                      <AppButton
-                        label={item.label}
-                        icon={item.icon}
-                        variant={item.variant}
-                        onClick={() => openModal(item.modal)}
-                      />
-                    );
-                  })}
-              </ActionGroupHead>
-            )
-          }
-
-          {
-            management.length > 0 && (
-              <ActionGroupHead title="Management">
-                {management.map((item) => {
-                    if (item.link) {
-                      return (
-                        <LinkedButton
-                          label={item.label}
-                          icon={item.icon}
-                          variant={item.variant}
-                          link={item.link}
-                        />
-                      );
-                    }
-                    return (
-                      <AppButton
-                        label={item.label}
-                        icon={item.icon}
-                        variant={item.variant}
-                        link={item.link}
-                      />
-                    );
-                  })}
-              </ActionGroupHead>
-            )
-          }
-
-          {
-            history.length > 0 && (
-              <ActionGroupHead title="History">
-                {history.map((item) => {
-                    if (item.link) {
-                      return (
-                        <LinkedButton
-                          label={item.label}
-                          icon={item.icon}
-                          variant={item.variant}
-                          link={item.link}
-                        />
-                      );
-                    }
-                    return (
-                      <AppButton
-                        label={item.label}
-                        icon={item.icon}
-                        variant={item.variant}
-                        link={item.link}
-                      />
-                    );
-                  })}
-              </ActionGroupHead>
-            )
-          }
-
-          {
-            tools.length > 0 && (
-              <ActionGroupHead title="Admin Tools">
-                {tools.map((item) => {
-                    if (item.link) {
-                      return (
-                        <LinkedButton
-                          label={item.label}
-                          icon={item.icon}
-                          variant={item.variant}
-                          link={item.link}
-                        />
-                      );
-                    }
-                    return (
-                      <AppButton
-                        label={item.label}
-                        icon={item.icon}
-                        variant={item.variant}
-                        link={item.link}
-                      />
-                    );
-                  })}
-              </ActionGroupHead>
-            )
-          }
-          {
-            diamondWithdrawals.length > 0  && (
-              <ActionGroupHead title="Diamond Withdrawals">
-                {diamondWithdrawals.map((item) => {
-                    if (item.link) {
-                      return (
-                        <LinkedButton
-                          label={item.label}
-                          icon={item.icon}
-                          variant={item.variant}
-                          link={item.link}
-                        />
-                      );
-                    }
-                    return (
-                      <AppButton
-                        label={item.label}
-                        icon={item.icon}
-                        variant={item.variant}
-                        onClick={() => openModal(item.modal)}
-                      />
-                    );
-                  })}
-              </ActionGroupHead>
-            )
-          }
-        </div>
-      </section>
-    </section>
-  )
 };

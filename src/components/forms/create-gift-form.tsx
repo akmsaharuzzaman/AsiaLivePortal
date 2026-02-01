@@ -121,7 +121,7 @@ export const CreateGiftForm: React.FC<
           name="giftName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Gift Name</FormLabel>
+              <FormLabel className="text-black font-semibold">Gift Name</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="e.g., Golden Crown" />
               </FormControl>
@@ -134,7 +134,7 @@ export const CreateGiftForm: React.FC<
           name="category"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel className="text-black font-semibold">Category</FormLabel>
               <FormControl>
                 <Select
                   value={field.value}
@@ -190,7 +190,7 @@ export const CreateGiftForm: React.FC<
             name="diamonds"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Diamonds</FormLabel>
+                <FormLabel className="text-black font-semibold">Diamonds</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -208,7 +208,7 @@ export const CreateGiftForm: React.FC<
             name="coinPrice"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Coin Price</FormLabel>
+                <FormLabel className="text-black font-semibold">Coin Price</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -227,7 +227,7 @@ export const CreateGiftForm: React.FC<
           name="previewImage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Preview Image</FormLabel>
+              <FormLabel className="text-black font-semibold">Preview Image</FormLabel>
               <FormControl>
                 <Input
                   type="file"
@@ -244,7 +244,7 @@ export const CreateGiftForm: React.FC<
           name="svgaImage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>SVGA Image</FormLabel>
+              <FormLabel className="text-black font-semibold">SVGA Image</FormLabel>
               <FormControl>
                 <Input
                   type="file"
