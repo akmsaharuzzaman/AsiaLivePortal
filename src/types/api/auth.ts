@@ -55,6 +55,7 @@ export type TChangePassword = {
 export type TUser = {
   _id: string;
   email: string;
+  phone:string;
   userStateInApp: string;
   userPermissions: string[];
   avatar: string;
@@ -66,6 +67,7 @@ export type TUser = {
   countryLanguages: string[];
   isViewer: false;
   coins: number;
+  verified: boolean;
   activityZone: {
     zone: string;
     expire?: string;

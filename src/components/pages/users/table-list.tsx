@@ -34,7 +34,7 @@ export const UserTable = ({ data }: { data: any[] }) => {
         "User",
         "User ID",
         "Gender",
-        "Country",
+        "Country Language",
         "Coins / Diamonds",
         "Level",
         "Activity Zone",
