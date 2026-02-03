@@ -4,6 +4,8 @@ export type TDiamondBankWithdraw = {
   country: string;
   method: string;
   diamondAmount: number;
+  accountName: string;
+  accountNumber: string;
   moneyshare: number;
   adminApproval: boolean;
   paidStatus: boolean;

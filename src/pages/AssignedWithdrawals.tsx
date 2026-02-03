@@ -3,14 +3,29 @@ import {
   useUpdateWithdrawPaidStatusMutation,
 } from "@/redux/api/diamond-withdraw";
 import { TDiamondBankWithdraw } from "@/types/api/diamond-withdrawals";
-import { Gem, Globe } from "lucide-react";
+import { Flag} from "lucide-react";
 import { toast } from "sonner";
 
 export const AssignedWithdrawals = () => {
   const { data: merchantAssignedDiamondWithdrawals } =
     useSpecificMerchantAssignedDiamondWithdrawalsQuery();
   const [updateWithdrawPaidStatus] = useUpdateWithdrawPaidStatusMutation();
-  const withdrawals = merchantAssignedDiamondWithdrawals?.result?.data || [];
+  const withdrawals = merchantAssignedDiamondWithdrawals?.result?.data || [{
+                "_id": "6977340e0e8652099c63c0ab",
+                "userId": "686e47f59edb3a9f2d80e208",
+                "country": "BD",
+                "method": "bkash",
+                "diamondAmount": 5000,
+                "moneyshare": 5,
+                accountNumber: "01712345678",
+                accountName: "John Doe",
+                "assignedMerchant": "68a8f4e59edb3a9f2d80d123",
+                "adminApproval": false,
+                "paidStatus": false,
+                "createdAt": "2026-01-26T09:29:50.300Z",
+                "updatedAt": "2026-01-26T09:29:50.300Z",
+                "__v": 0
+            }];
 
   // --- Logic handlers ---
   const handleApprove = async (id: string) => {
@@ -66,7 +81,7 @@ const StatusBadge = ({ item }: { item: TDiamondBankWithdraw }) => {
     );
   return (
     <span className="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-200">
-      PENDING
+      UNPAID
     </span>
   );
 };
@@ -77,22 +92,22 @@ const DataTable = ({ data, actions, emptyMessage }: any) => (
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-slate-50 border-b border-slate-200">
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider">
-              ID / Date
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider">
+              User ID / Date
             </th>
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider">
-              User / Method
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider">
+              Account Name & Number
             </th>
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider text-right">
-              Diamonds
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider text-right">
+              Country
             </th>
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider text-right">
-              Money ($)
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider text-right">
+              Assigned Merchant
             </th>
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider text-center">
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider text-center">
               Status
             </th>
-            <th className="p-4 font-semibold text-slate-600 text-xs uppercase tracking-wider text-right">
+            <th className="p-4 font-semibold text-slate-600 text-xs tracking-wider text-right">
               Action
             </th>
           </tr>
@@ -115,7 +130,7 @@ const DataTable = ({ data, actions, emptyMessage }: any) => (
               >
                 <td className="p-4">
                   <div className="text-xs font-mono text-slate-400">
-                    #{item._id.slice(-8)}
+                    #{item.userId.slice(-10)}
                   </div>
                   <div className="text-[10px] text-slate-400 mt-1">
                     {new Date(item.createdAt).toLocaleDateString()}
@@ -123,27 +138,28 @@ const DataTable = ({ data, actions, emptyMessage }: any) => (
                 </td>
                 <td className="p-4">
                   <div className="text-sm font-semibold text-slate-800">
-                    {item.userId.slice(0, 8)}...
+                    {item?.accountName || "N/A"}
                   </div>
                   <div className="flex items-center gap-1 mt-1">
                     <span className="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 uppercase font-bold">
-                      {item.method}
+                      {item.accountNumber || "N/A"}
                     </span>
-                    <span className="text-[10px] flex items-center gap-0.5 text-slate-400">
-                      <Globe size={10} /> {item.country}
-                    </span>
+                    {/* <span className="text-[10px] flex items-center gap-0.5 text-slate-400">
+                      <Account size={10} /> {item.country}
+                    </span> */}
                   </div>
                 </td>
                 <td className="p-4 text-right">
-                  <div className="flex items-center justify-end gap-1 text-indigo-600 font-bold">
-                    <Gem size={14} />
-                    {item.diamondAmount.toLocaleString()}
+                  <div className="flex items-center justify-end gap-1 text-gray-600 font-bold">
+                    <Flag size={14} fill="#000"/>
+                    {item.country}
                   </div>
                 </td>
-                <td className="p-4 text-right">
-                  <div className="text-sm font-bold text-slate-900">
-                    ${item.moneyshare.toFixed(2)}
+               <td className="p-4 text-right">
+                  <div className="text-xs font-mono text-slate-400">
+                    #{item?.assignedMerchant?.slice(-10) || "N/A"}
                   </div>
+                  
                 </td>
                 <td className="p-4 text-center">
                   <StatusBadge item={item} />
