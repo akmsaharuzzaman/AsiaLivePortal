@@ -17,7 +17,6 @@ const rawBaseQuery = fetchBaseQuery({
   credentials: "include",
 });
 
-// Custom baseQuery to handle 401
 const baseQueryWith401Handler: typeof rawBaseQuery = async (
   args,
   api,
@@ -25,10 +24,24 @@ const baseQueryWith401Handler: typeof rawBaseQuery = async (
 ) => {
   const result = await rawBaseQuery(args, api, extraOptions);
 
-  if (result.error && result.error.status === 401) {
-    api.dispatch(logOut());
-    persistStor.purge();
-    // Redirect to login page
+  if (result?.error?.status === 403) {
+    const state = api.getState() as RootState;
+
+    if (state?.auth?.token) {
+      Promise.resolve().then(() => {
+        api.dispatch(logOut());
+
+        persistStor.flush().then(() => {
+          persistStor.purge();
+        });
+
+        setTimeout(() => {
+          api.dispatch(
+            onuliveCloneDashboardBaseApi.util.resetApiState()
+          );
+        }, Math.random() * 50);
+      });
+    }
   }
 
   return result;
@@ -40,3 +53,4 @@ export const onuliveCloneDashboardBaseApi = createApi({
   tagTypes: tagTypesList,
   endpoints: () => ({}),
 });
+
