@@ -54,7 +54,7 @@ export const appRoutes = [
   {
     path: "/users",
     element: <Users />,
-    roles: [Roles.Admin, Roles.SubAdmin],
+    roles: [Roles.Admin, Roles.SubAdmin, Roles.CountryAdmin],
   },
   {
     path: "/create-agency/:subAdminId",
@@ -157,12 +157,12 @@ export const appRoutes = [
   {
     path: "/banned-lives",
     element: <BannedLives />,
-    roles: [Roles.Admin],
+    roles: [Roles.Admin, Roles.SubAdmin, Roles.CountryAdmin],
   },
   {
     path: "/banned-users",
     element: <BannedUsers />,
-    roles: [Roles.Admin],
+    roles: [Roles.Admin, Roles.SubAdmin, Roles.CountryAdmin],
   },
   {
     path: "/diamond-withdraws",

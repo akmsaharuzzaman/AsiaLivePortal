@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ClientRoutes, Roles } from "@/constants/route.enum";
+import { ClientRoutes, Permissions, Roles } from "@/constants/route.enum";
 import useLiveHosts from "@/hook/useLiveHosts";
 import {
   useGetMidPortalManagementQuery,
@@ -33,7 +33,6 @@ import {
 import { ActionGroupHead } from "./action-group-head";
 import { StatusCard } from "./status-card";
 import { DashboardActionItems } from "./action-items";
-import { string } from "zod";
 
 // Dashboard action button config
 interface DashboardAction {
@@ -43,6 +42,7 @@ interface DashboardAction {
   variant?: IApp_LinkedButtonProps["variant"];
   modal?: ModalName;
   link?: string;
+  permission?: string;
 }
 
 // Dashboard card config
@@ -325,6 +325,7 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
           icon: <Coins className="w-4 h-4" />,
           variant: "primary",
           modal: "sellCoinToMerchant",
+          permission: Permissions.CoinDistribution
         },
          {
           label: "Banned Users",
@@ -332,6 +333,7 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
           icon: <Ban className="w-4 h-4 text-red-500" />,
           variant: "secondary",
           link: ClientRoutes.BannedUsers,
+          permission: Permissions.BlockUser
         },
       ],
       lists: [
@@ -484,6 +486,51 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
       ],
       // No lists for re-seller
     },
+      "country-admin": {
+      stats: [
+        {
+          label: "Total Users",
+          value: Number(staticStatesData?.users) || 0,
+          link: ClientRoutes.Users,
+          hoverText: "group-hover:text-red-500",
+          // icon: "live_tv",
+          iconWrapper:
+            "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+          bar: "bg-red-500",
+        },
+        {
+          label: "Total Agencies",
+          value: Number(staticStatesData?.agencies), //TODO: staticStatesData?.agencies || 0,
+          link: `${ClientRoutes.SubAdmins}/${user?.id}`,
+          hoverText: "group-hover:text-green-500",
+          icon: "storefront",
+          iconWrapper:
+            "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400",
+          bar: "bg-green-500",
+        },
+      ],
+      actions: [
+  {
+          label: "Sell Coin to Merchant",
+          category: "coins",
+          icon: <Coins className="w-4 h-4" />,
+          variant: "primary",
+          modal: "sellCoinToMerchant",
+          permission: Permissions.CoinDistribution
+        },
+         {
+          label: "Banned Users",
+          category: "tools",
+          icon: <Ban className="w-4 h-4 text-red-500" />,
+          variant: "secondary",
+          link: ClientRoutes.BannedUsers,
+          permission: Permissions.BlockUser
+        },
+      ],
+      lists: [
+        { title: "User List", emptyText: "User data would appear here." },
+      ],
+    },
   };
   const config = dashboardConfigs[role];
   // Prepare data for the chart
@@ -519,7 +566,7 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
       </section>
 
       {/* Action Buttons */}
-      <DashboardActionItems actions={config?.actions} openModal={openModal} />
+      <DashboardActionItems actions={config?.actions} openModal={openModal} role={user!.role!} permissions={permissions} />
 
       {/* Visual Graph */}
       <div className="rounded-lg shadow p-4 md:p-6 mb-6 md:mb-8 w-full">

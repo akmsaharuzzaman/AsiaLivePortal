@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // All possible roles in the dashboard
-export type Role = "admin" | "sub-admin" | "agency" | "merchant" | "re-seller";
+export type Role = "admin" | "sub-admin" | "agency" | "merchant" | "re-seller" | "country-admin";
 
 // Modal names for actions
 // Extend this as you add more modals

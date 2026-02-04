@@ -3,6 +3,8 @@ import { ModalName } from "@/types/pages/dashboard";
 import { ActionGroupHead } from "./action-group-head";
 import { AppButton, LinkedButton } from "@/components/buttons";
 
+import { Roles } from "@/constants/route.enum";
+
 // Dashboard action button config
 interface DashboardAction {
   label: string;
@@ -11,14 +13,19 @@ interface DashboardAction {
   variant?: IApp_LinkedButtonProps["variant"];
   modal?: ModalName;
   link?: string;
+  permission?: string;
 }
 
 export const DashboardActionItems = ({
   actions = [],
   openModal,
+  role,
+  permissions = [],
 }: {
   actions: DashboardAction[];
   openModal: any;
+  role: string;
+  permissions?: string[];
 }) => {
   const coins = actions?.filter((a) => a.category === "coins");
   const management = actions?.filter((a) => a.category === "management");
@@ -40,6 +47,9 @@ export const DashboardActionItems = ({
           {coins.length > 0 && (
             <ActionGroupHead title="Finance & Coins">
               {coins.map((item) => {
+                if ((role === Roles.SubAdmin || role === Roles.CountryAdmin) && !permissions.includes(item.permission as string)) {
+                  return null;
+                }
                 if (item.link) {
                   return (
                     <LinkedButton
@@ -65,6 +75,9 @@ export const DashboardActionItems = ({
           {management.length > 0 && (
             <ActionGroupHead title="Management">
               {management.map((item) => {
+              if ((role === Roles.SubAdmin || role === Roles.CountryAdmin) && !permissions.includes(item.permission as string)) {
+                  return null;
+                }
                 if (item.link) {
                   return (
                     <LinkedButton
@@ -90,6 +103,9 @@ export const DashboardActionItems = ({
           {history.length > 0 && (
             <ActionGroupHead title="History">
               {history.map((item) => {
+                if ((role === Roles.SubAdmin || role === Roles.CountryAdmin) && !permissions.includes(item.permission as string)) {
+                  return null;
+                }
                 if (item.link) {
                   return (
                     <LinkedButton
@@ -115,6 +131,9 @@ export const DashboardActionItems = ({
           {tools.length > 0 && (
             <ActionGroupHead title="Admin Tools">
               {tools.map((item) => {
+                if ((role === Roles.SubAdmin || role === Roles.CountryAdmin) && !permissions.includes(item.permission as string)) {
+                  return null;
+                }
                 if (item.link) {
                   return (
                     <LinkedButton
@@ -139,6 +158,9 @@ export const DashboardActionItems = ({
           {diamondWithdrawals.length > 0 && (
             <ActionGroupHead title="Bank Withdrawals">
               {diamondWithdrawals.map((item) => {
+                if ((role === Roles.SubAdmin || role === Roles.CountryAdmin) && !permissions.includes(item.permission as string)) {
+                  return null;
+                }
                 if (item.link) {
                   return (
                     <LinkedButton
