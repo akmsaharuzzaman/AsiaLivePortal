@@ -142,6 +142,9 @@ const DataTable = ({ data, actions, emptyMessage }: any) => (
                     {item?.accountName || "N/A"}
                   </div>
                   <div className="flex items-center gap-1 mt-1">
+                    <span className={`px-1 py-0.5 rounded-sm text-[10px] font-bold bg-sky-100 text-sky-700 border border-sky-200`}>
+                    {item?.method}
+                    </span>
                     <span className="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 uppercase font-bold">
                       {item.accountNumber || "N/A"}
                     </span>
