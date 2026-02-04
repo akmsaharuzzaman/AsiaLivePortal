@@ -56,15 +56,11 @@ export default function PortalLoginPage() {
       navigate("/");
       // window.location.reload();
 
-      toast.success(response.message);
+      toast.success(response.message || "Login successful!");
       // redirect after login
     } catch (error: any) {
       console.error("Login failed:", error);
-      if (typeof error === "object" && error !== null && "message" in error) {
-        toast.success(error.data.message || error.message || "Login failed");
-      } else {
-        toast.error("Login failed");
-      }
+        toast.error(error.data.message ||  error.message || "Login failed");
     }
   };
 

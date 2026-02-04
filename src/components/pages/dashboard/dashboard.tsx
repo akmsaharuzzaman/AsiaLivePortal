@@ -9,7 +9,6 @@ import {
   useLowerPortalManagementQuery,
 } from "@/redux/api/power-shared";
 import { useAppSelector } from "@/redux/hooks";
-
 import { IApp_LinkedButtonProps } from "@/types/buttons";
 import { ModalName, Role } from "@/types/pages/dashboard";
 import {
@@ -34,6 +33,7 @@ import {
 import { ActionGroupHead } from "./action-group-head";
 import { StatusCard } from "./status-card";
 import { DashboardActionItems } from "./action-items";
+import { string } from "zod";
 
 // Dashboard action button config
 interface DashboardAction {
@@ -130,7 +130,7 @@ export const DashboardContent: FC<{
     : countryAdminRes?.result?.pagination.total || 0;
   const hosts = portalIsLoading ? 0 : hostsRes?.result?.users?.length || 0;
   const salary = portalIsLoading ? 0 : portalProfileRes?.result?.coins || 0;
-
+const permissions = portalProfileRes?.result?.userPermissions || [];
   const agencies = agencyLoading ? "..." : agencyRes?.result?.data.length || 0;
 
   // if (isLoading) {
@@ -199,50 +199,6 @@ export const DashboardContent: FC<{
           bar: "bg-red-500",
           link: ClientRoutes.Rooms,
         },
-        // {
-        //   label: "Total Resellers",
-        //   value: staticStatesData.totalReseller || 0,
-        //   hoverText: "group-hover:text-red-500",
-        //   icon: "live_tv",
-        //   iconWrapper: "text-red-600 dark:text-red-400",
-        //   bar: "bg-red-500",
-        //   link: ClientRoutes.Resellers,
-        // },
-        // {
-        //   title: "Total Users",
-        //   value: staticStatesData?.users || 0,
-        //   link: ClientRoutes.Users,
-        // },
-        // {
-        //   title: "Total Sub-Admins",
-        //   value: staticStatesData?.subAdmins || 0,
-        //   link: ClientRoutes.SubAdmins,
-        // // },
-        // // {
-        // //   title: "Total Agencies",
-        // //   value: staticStatesData.totalAgency || 0, // after added new theme on site then will commt thiss totally
-        // //   link: ClientRoutes.Agencies,
-        // // },
-        // {
-        //   title: "Total Merchants",
-        //   value: staticStatesData?.merchants || 0,
-        //   link: ClientRoutes.Merchants,
-        // },
-        // {
-        //   title: "Total Country Admins",
-        //   value: staticStatesData?.countryAdmins || 0,
-        //   link: ClientRoutes.CountryAdmins,
-        // },
-        // {
-        //   title: "Active Live",
-        //   value: staticStatesData?.activeRooms || 0,
-        //   link: ClientRoutes.Rooms,
-        // },
-        // {
-        //   title: "Total Resellers",
-        //   value: staticStatesData.totalReseller || 0,
-        //   link: ClientRoutes.Resellers,
-        // },
       ],
       actions: [
         {
@@ -330,28 +286,6 @@ export const DashboardContent: FC<{
           variant: "secondary",
           link: ClientRoutes.BannedUsers,
         },
-
-        // { label: "Create Sub-Admin", icon: UserPlus, modal: "createSubAdmin" },
-        // { label: "Create Merchant", icon: Store, modal: "createMerchant" },
-        // { label: "Create Reseller", icon: UserCog, modal: "createReseller" },
-        // {
-        //   label: "Block User",
-        //   icon: UserX,
-        //   variant: "danger",
-        //   modal: "blockUser",
-        // },
-        // {
-        //   label: "History",
-        //   icon: History,
-        //   variant: "secondary",
-        //   modal: "history",
-        // },
-        // {
-        //   label: "Blocked Users",
-        //   icon: ListX,
-        //   variant: "secondary",
-        //   modal: "blockedUsers",
-        // },
       ],
       lists: [
         { title: "User List", emptyText: "User data would appear here." },
@@ -383,43 +317,22 @@ export const DashboardContent: FC<{
             "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400",
           bar: "bg-green-500",
         },
-        // {
-        //   title: "Total Agencies",
-        //   value: staticStatesData?.agencies, //TODO: staticStatesData?.agencies || 0,
-        //   link: `${ClientRoutes.SubAdmins}/${user?.id}`,
-        // },
-
-        // {
-        //   title: "Total Agencies",
-        //   value: staticStatesData.totalAgency,
-        //   link: ClientRoutes.Agencies,
-        // },
-        // {
-        //   title: "Total Resellers",
-        //   value: staticStatesData.totalReseller,
-        //   link: ClientRoutes.Resellers,
-        // },
       ],
       actions: [
-        // {
-        //   label: "Sell Coin",
-        //   icon: Coins,
-        //   variant: "success",
-        //   modal: "sellCoin",
-        // },
-        // { label: "Create Agency", icon: Building, modal: "createAgency" },
-        // {
-        //   label: "Block User",
-        //   icon: UserX,
-        //   variant: "danger",
-        //   modal: "blockUser",
-        // },
-        // {
-        //   label: "History",
-        //   icon: History,
-        //   variant: "secondary",
-        //   modal: "history",
-        // },
+  {
+          label: "Sell Coin to Merchant",
+          category: "coins",
+          icon: <Coins className="w-4 h-4" />,
+          variant: "primary",
+          modal: "sellCoinToMerchant",
+        },
+         {
+          label: "Banned Users",
+          category: "tools",
+          icon: <Ban className="w-4 h-4 text-red-500" />,
+          variant: "secondary",
+          link: ClientRoutes.BannedUsers,
+        },
       ],
       lists: [
         { title: "User List", emptyText: "User data would appear here." },
@@ -525,13 +438,6 @@ export const DashboardContent: FC<{
           variant: "secondary",
           link: ClientRoutes.ClaimWithdrawals,
         },
-        // { label: "Create Reseller", icon: UserCog, modal: "createReseller" },
-        // {
-        //   label: "History",
-        //   icon: History,
-        //   variant: "secondary",
-        // modal: "history",
-        // },
       ],
       lists: [
         {
@@ -597,21 +503,6 @@ export const DashboardContent: FC<{
   return (
     <div>
       {/* Stats Cards */}
-      {/*<div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${
-          role === Roles.Admin ? "xl:grid-cols-5" : ""
-        } gap-6 mb-8`}
-      >
-        {config?.stats?.map((stat) => (
-          <DashboardCard
-            key={stat.title}
-            title={stat.title}
-            value={stat.value}
-            link={stat.link}
-          />
-        ))}
-      </div>*/}
-
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {config?.stats?.map((card, index) => (
           <StatusCard
@@ -626,59 +517,13 @@ export const DashboardContent: FC<{
           />
         ))}
       </section>
+
       {/* Action Buttons */}
       <DashboardActionItems actions={config?.actions} openModal={openModal} />
-      {/*<div className="flex flex-wrap gap-4 mb-8">
-        {config?.actions?.map((action) => {
-          if (action.link) {
-            return (
-              <Link to={action.link} key={action.label}>
-                <ActionTinyButton variant={action.variant || "primary"}>
-                  <action.icon size={16} className="mr-2" />
-                  {action.label}
-                </ActionTinyButton>
-              </Link>
-            );
-          }
-          return (
-            <ActionTinyButton
-              key={action.label}
-              variant={action.variant}
-              onClick={() => openModal(action.modal!)}
-            >
-              <action.icon size={16} className="mr-2" />
-              {action.label}
-            </ActionTinyButton>
-          );
-        })}
-      </div>*/}
-      {/*{role === Roles.Admin && (
-          <Link to={ClientRoutes.Gifts}>
-            <ActionTinyButton variant="info">
-              <Gift size={16} className="mr-2" />
-              Manage Gifts
-            </ActionTinyButton>
-          </Link>
-        )}*/}
-      {/* Data Lists (if any) */}
-      {/* {config.lists && (
-        <div className={config.lists.length > 1 ? "space-y-8" : undefined}>
-          {config.lists.map((list) => (
-            <div key={list.title} className="bg-white p-6 rounded-lg shadow">
-              <h2 className="text-xl font-semibold mb-4">{list.title}</h2>
-              <div className="text-center py-4 text-gray-500">
-                {list.emptyText}
-              </div>
-            </div>
-          ))}
-        </div>
-      )} */}
+
       {/* Visual Graph */}
       <div className="rounded-lg shadow p-4 md:p-6 mb-6 md:mb-8 w-full">
         <ActionGroupHead title={"Statistics Overview"}>
-          {/*<h3 className="text-base md:text-lg font-semibold mb-2 md:mb-4">
-          Statistics Overview
-        </h3>*/}
           <div className="w-full h-[200px] md:h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData}>
