@@ -9,3 +9,6 @@ export { UpdateSubAdminPermissionsPage } from "./UpdateSubAdminPermissions";
 export { default as BannersPage } from "./Banners";
 export { default as CreateBannerPage } from "./CreateBanner";
 export { default as UpdateBannerPage } from "./UpdateBanner";
+export { default as VersionManagementPage } from "./VersionManagement";
+export { default as CreateVersionPage } from "./CreateVersion";
+export { default as UpdateVersionPage } from "./UpdateVersion";

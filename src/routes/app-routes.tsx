@@ -14,6 +14,9 @@ import { UpdateSubAdminPermissionsPage } from "@/pages/UpdateSubAdminPermissions
 import BannersPage from "@/pages/Banners";
 import CreateBannerPage from "@/pages/CreateBanner";
 import UpdateBannerPage from "@/pages/UpdateBanner";
+import VersionManagementPage from "@/pages/VersionManagement";
+import CreateVersionPage from "@/pages/CreateVersion";
+import UpdateVersionPage from "@/pages/UpdateVersion";
 import { GiftListsPage } from "@/pages/GiftLIsts";
 import LiveListsPage from "@/pages/LiveLists";
 import Merchant from "@/pages/Merchant";
@@ -110,6 +113,22 @@ export const appRoutes = [
   {
     path: "/update-banner/:id",
     element: <UpdateBannerPage />,
+    roles: [Roles.Admin],
+  },
+  // Version management routes
+  {
+    path: "/version-management",
+    element: <VersionManagementPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/create-version",
+    element: <CreateVersionPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/update-version",
+    element: <UpdateVersionPage />,
     roles: [Roles.Admin],
   },
   {

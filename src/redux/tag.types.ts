@@ -13,7 +13,7 @@ export const tagTypes = {
   blockUser: "BlockUser",
   diamondWithdrawals: "DiamondWithdrawals",
   banner: "Banner", // Added banner tag type
-
+  release: "Release",
 };
 
 export const tagTypesList = [
@@ -29,6 +29,7 @@ export const tagTypesList = [
   tagTypes.blockUser,
   tagTypes.diamondWithdrawals,
   tagTypes.banner,
+  tagTypes.release,
 ];
 
 
