@@ -5,3 +5,7 @@ export { PrivacyPolicy } from "./Privacy-policy";
 export { TermsAndConditions } from "./Terms-and-conditions";
 export { UserListsPage } from "./User-lists";
 export { DashboardPage } from "./Dashboard";
+export { UpdateSubAdminPermissionsPage } from "./UpdateSubAdminPermissions";
+export { default as BannersPage } from "./Banners";
+export { default as CreateBannerPage } from "./CreateBanner";
+export { default as UpdateBannerPage } from "./UpdateBanner";

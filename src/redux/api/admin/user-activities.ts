@@ -29,8 +29,22 @@ const userActivityApi = onuliveCloneDashboardBaseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    updatePermissionById: builder.mutation({
+      query: (payload: {
+        userId: string;
+        permissions: string[];
+      }) => ({
+        url: "/admin/users/remove-permissions",
+        method: "PUT",
+        body: {
+          userId: payload.userId,
+          permissions: payload.permissions,
+        },
+      }),
+    }),
+
   }),
 });
 
-export const { useUpdateActivityZoneMutation, useGetBannedUsersQuery } =
+export const { useUpdateActivityZoneMutation, useGetBannedUsersQuery, useUpdatePermissionByIdMutation } =
   userActivityApi;

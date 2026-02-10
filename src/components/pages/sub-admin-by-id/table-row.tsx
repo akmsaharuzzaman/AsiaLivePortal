@@ -1,15 +1,41 @@
 import { ClientRoutes } from "@/constants/route.enum";
 import { RoleContext } from "@/provider/role-provider";
+import { useDeleteAgencyByIdMutation } from "@/redux/api/power-shared";
 import { TUser } from "@/types/api/auth";
+import { Delete } from "lucide-react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export const RenderAgencyRow = (user: TUser) => {
   const context = useContext(RoleContext);
+  const [deleteAgencyById] = useDeleteAgencyByIdMutation();
   if (!context) {
     throw new Error("Sub-admin lists table must be used within a RoleProvider");
   }
   const { role } = context;
+  const handleDeleteAgency = async (agencyId: string) => {
+    try {
+      let res;
+      const confirm = window.confirm("Are you sure you want to delete this agency?");
+      if (confirm) {
+        // Call the delete API here with user._id
+        console.log("Deleting agency with ID:", agencyId);
+        res = await deleteAgencyById({agencyId}).unwrap();
+        if (res?.success) {
+          toast.success("Agency deleted successfully");
+          alert("Agency deleted successfully");
+          // Optionally, you can trigger a refetch of the agency list here
+        } else {
+          alert("Failed to delete agency");
+        }
+      }
+    } catch (error:any) {
+      toast.error(error?.data?.message || error?.message || "An error occurred while deleting the agency");
+      alert("An error occurred while deleting the agency");
+      console.error("Delete agency error:", error);
+    }
+  }
   return (
     <>
       <td className="px-6 py-5">
@@ -78,7 +104,9 @@ export const RenderAgencyRow = (user: TUser) => {
       </td>
       <td className="px-6 py-5 text-right">
         {role === "sub-admin" ? (
-          ""
+          <button  onClick={() => handleDeleteAgency(user?._id)}>
+            <Delete className="text-red-500 hover:text-red-700 cursor-pointer" />
+          </button>
         ) : (
           <Link
             to={`${ClientRoutes.Agencies}/${user?._id}`}

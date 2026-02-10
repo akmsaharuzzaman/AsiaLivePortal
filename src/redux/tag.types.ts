@@ -11,7 +11,9 @@ export const tagTypes = {
   withdraw: "Withdraw",
   transaction: "Transaction",
   blockUser: "BlockUser",
-  diamondWithdrawals: "DiamondWithdrawals"
+  diamondWithdrawals: "DiamondWithdrawals",
+  banner: "Banner", // Added banner tag type
+
 };
 
 export const tagTypesList = [
@@ -25,5 +27,8 @@ export const tagTypesList = [
   tagTypes.withdraw,
   tagTypes.transaction,
   tagTypes.blockUser,
-    tagTypes.diamondWithdrawals
+  tagTypes.diamondWithdrawals,
+  tagTypes.banner,
 ];
+
+

@@ -207,9 +207,14 @@ const sharedPowerApi = onuliveCloneDashboardBaseApi.injectEndpoints({
       }),
       // invalidatesTags: [tagTypes.user],
     }),
+    deleteAgencyById: builder.mutation<TResponse<any>, {agencyId: string}>({
+      query: ({agencyId}) => ({
+        url: `power-shared/portal-user/agency/${agencyId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
-
 export const {
   usePortalLoginMutation,
   useGetPortalProfileQuery,
@@ -224,4 +229,5 @@ export const {
   useLowerPortalManagementQuery,
   useCreateHostMutation,
   useAgencyApplyWithdrawMutation,
+  useDeleteAgencyByIdMutation
 } = sharedPowerApi;

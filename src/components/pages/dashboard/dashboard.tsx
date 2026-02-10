@@ -18,6 +18,7 @@ import {
   DollarSign,
   Gamepad2,
   Gift,
+  Shield,
   Store,
 } from "lucide-react";
 import { FC } from "react";
@@ -264,6 +265,13 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
           icon: <Gamepad2 className="w-5 h-5 text-sky-400" />,
           variant: "secondary",
           link: ClientRoutes.GreedyGameDashboardPanel,
+        },
+         {
+          label: "Remove Permissions",
+          category: "tools",
+          icon: <Shield className="w-5 h-5 text-sky-400" />,
+          variant: "secondary",
+          link: "removePermissions",
         },
         {
           label: "Teen Patti Panel",

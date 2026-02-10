@@ -12,6 +12,7 @@ export type ModalName =
   | "sellCoinToMerchant"
   | "sellCoinToReseller"
   | "createHost"
+  | "removePermissions"
   | "withdrawApplyForm";
 // | "createSubAdmin"
 // | "createMerchant"

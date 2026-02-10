@@ -80,6 +80,11 @@ const SubAdmin = () => {
         </h3>
         <div className="flex gap-3 items-center">
           <SearchBar value={q} onChange={setQ} />
+          <Link to="/update-sub-admin-permissions">
+            <ActionTinyButton variant="secondary">
+              Update Permissions
+            </ActionTinyButton>
+          </Link>
           <Link to="/create-sub-admin">
             <ActionTinyButton variant="primary">
               Create Sub-admin

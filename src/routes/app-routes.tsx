@@ -10,6 +10,10 @@ import { CreateCountryAdminPage } from "@/pages/CreateCountryAdmin";
 import { CreateMerchantPage } from "@/pages/CreateMerchant";
 import { CreateResellerPage } from "@/pages/CreateReseller";
 import { CreateSubAdminPage } from "@/pages/CreateSubAdmin";
+import { UpdateSubAdminPermissionsPage } from "@/pages/UpdateSubAdminPermissions";
+import BannersPage from "@/pages/Banners";
+import CreateBannerPage from "@/pages/CreateBanner";
+import UpdateBannerPage from "@/pages/UpdateBanner";
 import { GiftListsPage } from "@/pages/GiftLIsts";
 import LiveListsPage from "@/pages/LiveLists";
 import Merchant from "@/pages/Merchant";
@@ -74,6 +78,11 @@ export const appRoutes = [
     roles: [Roles.Admin],
   },
   {
+    path: "/update-sub-admin-permissions",
+    element: <UpdateSubAdminPermissionsPage backRoute={"/sub-admins"} />,
+    roles: [Roles.Admin],
+  },
+  {
     path: "/create-merchant",
     element: <CreateMerchantPage backRoute={"/"} />,
     roles: [Roles.Admin],
@@ -86,6 +95,21 @@ export const appRoutes = [
   {
     path: "/create-reseller/:merchantId",
     element: <CreateResellerPage backRoute={"/"} />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/banners",
+    element: <BannersPage />,
+    roles: [Roles.Admin],
+  },  
+  {
+    path: "/create-banner",
+    element: <CreateBannerPage />,
+    roles: [Roles.Admin],
+  },
+  {
+    path: "/update-banner/:id",
+    element: <UpdateBannerPage />,
     roles: [Roles.Admin],
   },
   {

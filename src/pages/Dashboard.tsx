@@ -53,6 +53,11 @@ const modalContentConfig: Record<ModalName, ModalContentConfig> = {
     description: "Create withdraw for request salary.",
     content: <WithdrawApplyForm />,
   },
+  removePermissions:{
+    title: "Remove Permissions",
+    description: "Remove permissions from a user.",
+    content: <p>Remove permissions form goes here.</p>,
+  }
   // createSubAdmin: {
   //   title: "Create Sub-Admin",
   //   content: <CreateSubAdmin />,
