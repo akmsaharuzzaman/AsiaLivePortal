@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
@@ -16,8 +17,11 @@ type Props = {
 export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mode = "create" }) => {
   const [preview, setPreview] = useState<string | null>(initial?.image || null);
   const [file, setFile] = useState<File | null>(null);
-  const [alt, setAlt] = useState(initial?.alt || "");
-  const [progress, setProgress] = useState<number>(0);
+
+  type BannerFormValues = { alt: string };
+  const form = useForm<BannerFormValues>({
+    defaultValues: { alt: initial?.alt || "" },
+  });
 
   const [createBanner, { isLoading: isCreating }] = useCreateBannerMutation();
   const [updateBanner, { isLoading: isUpdating }] = useUpdateBannerMutation();
@@ -36,20 +40,19 @@ export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mo
     if (f) setPreview(URL.createObjectURL(f));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (values: BannerFormValues) => {
     if (mode === "create" && !file) return toast.error("Please select an image");
     try {
-      const form = new FormData();
-      if (file) form.append("image", file);
-      if (alt) form.append("alt", alt);
+      const body = new FormData();
+      if (file) body.append("image", file);
+      if (values.alt) body.append("alt", values.alt);
 
       if (mode === "create") {
-        const res: any = await createBanner(form).unwrap();
+        const res: any = await createBanner(body).unwrap();
         toast.success(res?.message || "Banner created");
         onSuccess && onSuccess();
       } else if (mode === "update" && initial?._id) {
-        await updateBanner({ id: initial._id, body: form }).unwrap();
+        await updateBanner({ id: initial._id, body }).unwrap();
         toast.success("Banner updated");
         onSuccess && onSuccess();
       }
@@ -59,8 +62,8 @@ export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mo
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 bg-white dark:bg-gray-800 p-6 rounded-lg">
-      <Form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4 bg-white dark:bg-gray-800 p-6 rounded-lg">
         <div>
           <FormItem>
             <FormLabel>Image</FormLabel>
@@ -73,18 +76,24 @@ export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mo
 
         {preview && (
           <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
-            <img src={preview} alt={alt || "preview"} className="object-cover w-full h-full" />
+            <img src={preview} alt={(form.getValues("alt") as string) || "preview"} className="object-cover w-full h-full" />
           </div>
         )}
 
         <div>
-          <FormItem>
-            <FormLabel>Alt Text</FormLabel>
-            <FormControl>
-              <Input value={alt} onChange={(e) => setAlt(e.target.value)} placeholder="Alt text for the image" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <FormField
+            control={form.control}
+            name="alt"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Alt Text</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Alt text for the image" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="flex items-center gap-3">
@@ -92,8 +101,8 @@ export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mo
             {mode === "create" ? (isCreating ? "Uploading..." : "Create Banner") : isUpdating ? "Updating..." : "Update Banner"}
           </ActionTinyButton>
         </div>
-      </Form>
-    </form>
+      </form>
+    </Form>
   );
 };
 
