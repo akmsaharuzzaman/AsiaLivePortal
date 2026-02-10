@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 
 const VersionManagementPage: React.FC = () => {
-  const { data, isLoading, isError, refetch } = useGetLatestReleaseQuery();
-  const release = data?.result || null;
+  const { data, isLoading, refetch } = useGetLatestReleaseQuery();
+  const release = data || null;
+  console.log("Latest release data:", release);
+  console.log(data)
   const navigate = useNavigate();
 
   return (
@@ -13,7 +15,7 @@ const VersionManagementPage: React.FC = () => {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Version Management</h1>
         <div className="flex gap-3">
-          <ActionTinyButton variant="default" onClick={() => refetch()}>Refresh</ActionTinyButton>
+          <ActionTinyButton variant="primary" onClick={() => refetch()}>Refresh</ActionTinyButton>
           {!release && (
             <Link to="/create-version">
               <ActionTinyButton variant="primary">Create Version</ActionTinyButton>
@@ -27,8 +29,6 @@ const VersionManagementPage: React.FC = () => {
 
       {isLoading ? (
         <div>Loading...</div>
-      ) : isError ? (
-        <div className="p-4 bg-red-50 text-red-700 rounded">Failed to load version data.</div>
       ) : !release ? (
         <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded">No version data found. Create latest release.</div>
       ) : (

@@ -68,17 +68,35 @@ export const CreateUpdateBannerForm: React.FC<Props> = ({ initial, onSuccess, mo
           <FormItem>
             <FormLabel>Image</FormLabel>
             <FormControl>
-              <input type="file" accept="image/*" onChange={onFileChange} />
+              <label className="relative block w-full rounded border-2 border-dashed border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-8 text-center cursor-pointer hover:border-gray-300">
+                <input type="file" accept="image/*" onChange={onFileChange} className="sr-only" />
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16V8a4 4 0 014-4h2a4 4 0 014 4v8m-9 0h10" />
+                  </svg>
+                  <div className="text-sm text-gray-500">Click to upload or drag and drop</div>
+                  <div className="text-xs text-muted-foreground">PNG, JPG, GIF up to 5MB</div>
+                </div>
+              </label>
             </FormControl>
             <FormMessage />
           </FormItem>
         </div>
 
-        {preview && (
-          <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
-            <img src={preview} alt={(form.getValues("alt") as string) || "preview"} className="object-cover w-full h-full" />
-          </div>
-        )}
+        <div>
+          {preview ? (
+            <div className="relative w-full h-48 rounded overflow-hidden border bg-gray-50 dark:bg-gray-700">
+              <img src={preview} alt={(form.getValues("alt") as string) || "preview"} className="object-cover w-full h-full" />
+              <div className="absolute top-2 right-2 flex gap-2">
+                <button type="button" onClick={() => { setFile(null); setPreview(null); }} className="inline-flex items-center px-3 py-1 text-sm bg-white/80 dark:bg-black/40 rounded-md">Remove</button>
+                <label className="inline-flex items-center px-3 py-1 text-sm bg-white/80 dark:bg-black/40 rounded-md cursor-pointer">
+                  Replace
+                  <input type="file" accept="image/*" onChange={onFileChange} className="sr-only" />
+                </label>
+              </div>
+            </div>
+          ) : null}
+        </div>
 
         <div>
           <FormField

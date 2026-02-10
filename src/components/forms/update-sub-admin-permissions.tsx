@@ -19,6 +19,13 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import {  useUpdatePermissionByIdMutation } from "@/redux/api/admin/user-activities";
 import { Loader } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const formSchema = z.object({
   subAdminId: z.string().min(1, "Please select a sub-admin"),
@@ -88,19 +95,38 @@ export function UpdateSubAdminPermissions() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Select Sub-Admin</FormLabel>
-                    <FormControl>
-                      <select
-                        {...field}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option value="">-- Select a Sub-Admin --</option>
-                        {subAdmins.map((admin: any) => (
-                          <option key={admin._id} value={admin._id}>
-                            {admin.name} ({admin.email})
-                          </option>
-                        ))}
-                      </select>
-                    </FormControl>
+                            <FormControl>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <button className="w-full text-left px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 flex items-center justify-between">
+                                    <span>{subAdmins.find((a: any) => a._id === field.value)?.name || "-- Select a Sub-Admin --"}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clipRule="evenodd"/></svg>
+                                  </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                  {subAdmins.length === 0 && <div className="px-3 py-2 text-sm text-gray-500">No sub-admins</div>}
+                                  {subAdmins.map((admin: any) => (
+                                    <DropdownMenuItem
+                                      key={admin._id}
+                                      className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                      onClick={() => field.onChange(admin._id)}
+                                    >
+                                      <Avatar className="h-8 w-8">
+                                        {admin.avatar ? (
+                                          <AvatarImage src={admin.avatar} alt={admin.name} />
+                                        ) : (
+                                          <AvatarFallback>{(admin.name || " ").charAt(0).toUpperCase()}</AvatarFallback>
+                                        )}
+                                      </Avatar>
+                                      <div className="flex-1 min-w-0">
+                                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{admin.name}</div>
+                                        <div className="text-xs text-gray-500 truncate">{admin.email}</div>
+                                      </div>
+                                    </DropdownMenuItem>
+                                  ))}
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -121,10 +147,10 @@ export function UpdateSubAdminPermissions() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Email
+                      Role
                     </p>
                     <p className="text-gray-900 dark:text-gray-100">
-                      {selectedAdmin.email}
+                      {selectedAdmin.userRole || "N/A"}
                     </p>
                   </div>
                   <div>
@@ -140,7 +166,7 @@ export function UpdateSubAdminPermissions() {
                       UID
                     </p>
                     <p className="text-gray-900 dark:text-gray-100">
-                      {selectedAdmin.uid}
+                      <b>{selectedAdmin.userId} </b>
                     </p>
                   </div>
                 </div>

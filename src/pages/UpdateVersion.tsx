@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export const UpdateVersionPage: React.FC = () => {
   const { data, isLoading } = useGetLatestReleaseQuery();
-  const release = data?.result || null;
+  const release = data || null;
   const [update, { isLoading: isUpdating }] = useUpdateLatestReleaseMutation();
   const navigate = useNavigate();
 

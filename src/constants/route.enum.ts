@@ -35,6 +35,8 @@ export enum ClientRoutes {
   // user related
   BannedUsers = "/banned-users",
   BannedLives = "/banned-lives",
+  VersionManagement = "/version-management",
+  Banners = "/banners",
 }
 
 export enum Roles {

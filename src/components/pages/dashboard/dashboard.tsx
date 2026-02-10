@@ -18,6 +18,8 @@ import {
   DollarSign,
   Gamepad2,
   Gift,
+  Image,
+  Info,
   Shield,
   Store,
 } from "lucide-react";
@@ -294,6 +296,20 @@ const permissions = portalProfileRes?.result?.userPermissions || [];
           variant: "secondary",
           link: ClientRoutes.BannedUsers,
         },
+        {
+          label: "Version Management",
+          category: "management",
+          icon: <Info className="w-5 h-5 text-sky-400" />,
+          variant: "secondary",
+          link: ClientRoutes.VersionManagement
+        },
+        {
+          label: "Banners",
+          category: "management",
+          icon: <Image className="w-5 h-5 text-sky-400" />,
+          variant: "secondary",
+          link: ClientRoutes.Banners
+        }
       ],
       lists: [
         { title: "User List", emptyText: "User data would appear here." },
