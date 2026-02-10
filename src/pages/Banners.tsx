@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useGetBannerDocsQuery } from "@/redux/api/admin/banners";
 import { BannerCard } from "@/components/pages/banners/banner-card";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const BannersPage = () => {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Banners</h1>
         <div className="flex gap-3">
-          <ActionTinyButton variant="default" onClick={() => refetch()}>
+          <ActionTinyButton variant="primary" onClick={() => refetch()}>
             {isFetching ? "Refreshing..." : "Refresh"}
           </ActionTinyButton>
           <Link to="/create-banner">

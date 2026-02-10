@@ -27,9 +27,9 @@ export const BannerCard: React.FC<BannerCardProps> = ({ banner, onDeleted, onEdi
   return (
     <div className="bg-white dark:bg-gray-800 border rounded-lg shadow-sm overflow-hidden">
       <div className="h-48 w-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-        {banner.image ? (
+        {banner.url ? (
           // image URL may be in banner.image
-          <img src={banner.image} alt={banner.alt || "banner"} className="object-cover h-48 w-full" />
+          <img src={banner.url} alt={banner.alt || "banner"} className="object-cover h-48 w-full" />
         ) : (
           <div className="text-gray-400">No image</div>
         )}
@@ -37,10 +37,10 @@ export const BannerCard: React.FC<BannerCardProps> = ({ banner, onDeleted, onEdi
       <div className="p-4 space-y-2">
         <div className="text-sm text-gray-600 dark:text-gray-300">{banner.alt || "-"}</div>
         <div className="flex gap-2 mt-2">
-          <ActionTinyButton variant="default" onClick={() => onEdit && onEdit(banner._id)}>
+          <ActionTinyButton variant="primary" onClick={() => onEdit && onEdit(banner._id)}>
             Update
           </ActionTinyButton>
-          <ActionTinyButton variant="destructive" onClick={() => setIsOpen(true)}>
+          <ActionTinyButton variant="danger" onClick={() => setIsOpen(true)}>
             Delete
           </ActionTinyButton>
         </div>
