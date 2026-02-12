@@ -24,8 +24,17 @@ const blockedEmails = onuliveCloneDashboardBaseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.blockUser],
     }),
+    deleteBlockedEmail: builder.mutation<TBlockUserByIdResponse, { _id: string }>({
+      query: (userInfo) => ({
+        url: `/blocked-emails/${userInfo._id}`,
+        method: "DELETE",
+        body: { _id: userInfo._id },
+      }),
+      invalidatesTags: [tagTypes.blockUser],
+    }),
+    
   }),
 });
 
-export const { useBlockUserByEmailMutation, useGetBlockedUsersQuery } =
+export const { useBlockUserByEmailMutation, useGetBlockedUsersQuery, useDeleteBlockedEmailMutation } =
   blockedEmails;

@@ -1,12 +1,10 @@
-import { useUpdateActivityZoneMutation } from "@/redux/api/admin/user-activities";
-
 import { useState } from "react";
 import { Mail, ShieldAlert, UserCheck, ArrowLeft, Ban } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { BlockNewUserForm } from "../components/forms/block-new-user-form";
 import { TBlockUserResult } from "@/types/api/user";
-import { useGetBlockedUsersQuery } from "@/redux/api/admin/blocked-emails";
+import { useDeleteBlockedEmailMutation, useGetBlockedUsersQuery } from "@/redux/api/admin/blocked-emails";
 import { ActionTinyButton } from "@/components/buttons/action-tiny-buttons";
 import { ModalContentConfig } from "@/types/pages/dashboard";
 import { ModalDialog } from "@/components/dialog/modal-dialog";
@@ -26,11 +24,11 @@ const modalContentConfig: Record<TModalName, ModalContentConfig> = {
 const UserRow = ({
   user,
   onUnban,
-  updateActivityLoading,
+  deleteBlockedEmailLoading,
 }: {
   user: TBlockUserResult;
   onUnban: (id: string) => Promise<void>;
-  updateActivityLoading: boolean;
+  deleteBlockedEmailLoading: boolean;
 }) => {
   return (
     <tr className="group hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors duration-200">
@@ -72,10 +70,10 @@ const UserRow = ({
         <button
           onClick={() => onUnban(user._id)}
           className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-600 hover:text-white border border-emerald-100 dark:border-emerald-800 rounded-lg transition-all duration-200 shadow-sm"
-          disabled={updateActivityLoading}
+          disabled={deleteBlockedEmailLoading}
         >
           <UserCheck size={16} />
-          {updateActivityLoading ? "Please wait.." : "Unban User"}
+          {deleteBlockedEmailLoading ? "Please wait.." : "Unban User"}
         </button>
       </td>
     </tr>
@@ -95,9 +93,11 @@ export const BannedUsers = () => {
 
   const { data: bannedUsersData, isLoading: bannedUsersLoading } =
     useGetBlockedUsersQuery(undefined);
-  const [updateActivityZone, { isLoading: updateActivityLoading }] =
-    useUpdateActivityZoneMutation();
-  const bannedUsers = bannedUsersData?.result || [];
+  // const [updateActivityZone, { isLoading: updateActivityLoading }] =
+  //   useUpdateActivityZoneMutation();
+    const [deleteBlockedEmail, {isLoading: deleteBlockedEmailLoading}] = useDeleteBlockedEmailMutation();
+  const bannedUsers = bannedUsersData?.result || []
+     
 
   // const filteredUsers = useMemo(() => {
   //   return bannedUsers
@@ -114,15 +114,15 @@ export const BannedUsers = () => {
   }
 
   const handleUnban = async (id: string) => {
-    const payload = {
-      id: id,
-      zone: "safe",
-      date_till: "",
-    };
+    // const payload = {
+    //   id: id,
+    //   zone: "safe",
+    //   date_till: "",
+    // };
 
     try {
-      const res = await updateActivityZone(payload).unwrap();
-
+      // const res = await updateActivityZone(payload).unwrap();
+      const res = await deleteBlockedEmail({_id: id}).unwrap();
       // 🔥 TOAST MESSAGES BASED ON ZONE TYPE
       toast.success(res.message || "successfully unbanned!");
     } catch (err: any) {
@@ -209,7 +209,7 @@ export const BannedUsers = () => {
                         key={user._id}
                         user={user}
                         onUnban={handleUnban}
-                        updateActivityLoading={updateActivityLoading}
+                        deleteBlockedEmailLoading={deleteBlockedEmailLoading}
                       />
                     ))
                   ) : (
