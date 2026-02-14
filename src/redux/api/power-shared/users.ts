@@ -13,6 +13,7 @@ const becomeAgency = onuliveCloneDashboardBaseApi.injectEndpoints({
             query: ({ shortId }) => ({
                 url: `/power-shared/users/exact-search?shortid=${shortId}`,
                 method: "GET",
+                // body: {shortId: shortId}
             }),
         }),
 

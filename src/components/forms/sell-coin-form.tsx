@@ -11,6 +11,7 @@ import { useGetExactUserByShortIdQuery } from "@/redux/api/power-shared/users";
 const sellCoinSchema = z.object({
   userId: z.string().min(1, "User ID is required"),
   coinAmount: z.number().min(1, "Amount must be at least 1"),
+  userRole: z.string().min(1, "User role is required"), // This will be set internally
 });
 type SellCoinFormValues = z.infer<typeof sellCoinSchema>;
 
@@ -35,7 +36,7 @@ export const SellCoinForm = () => {
     reset,
   } = useForm<SellCoinFormValues>({
     resolver: zodResolver(sellCoinSchema),
-    defaultValues: { userId: "", coinAmount: 1 },
+    defaultValues: { userId: "", coinAmount: 1, userRole: "" },
   });
 
   // When user selects a user from search, set userId in form
@@ -48,6 +49,7 @@ export const SellCoinForm = () => {
       const payload = {
         userId: data.userId,
         coins: data.coinAmount,
+        userRole: data.userRole
       };
       const response = await asignCoinToUser(payload).unwrap();
       toast.success(response.message || "Coins sold successfully!");
