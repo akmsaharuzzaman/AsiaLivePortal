@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useForm, UseFormSetValue } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useAsignCoinToUserByIdMutation } from "@/redux/api/power-shared";
 import { useGetExactUserByShortIdQuery } from "@/redux/api/power-shared/users";
