@@ -1,11 +1,15 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useState, useEffect } from "react";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
-import { useAsignCoinToUserByIdMutation } from "@/redux/api/power-shared";
+import { TUser } from "@/types/api/auth";
+import {
+  useAsignCoinToUserByIdMutation,
+} from "@/redux/api/power-shared";
 import { useGetExactUserByShortIdQuery } from "@/redux/api/power-shared/users";
 
 const sellCoinSchema = z.object({
@@ -16,17 +20,27 @@ const sellCoinSchema = z.object({
 type SellCoinFormValues = z.infer<typeof sellCoinSchema>;
 
 export const SellCoinForm = () => {
-  const [shortId, setShortId] = useState("");
-  const [debouncedShortId, setDebouncedShortId] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
   const [asignCoinToUser, { isLoading }] = useAsignCoinToUserByIdMutation();
 
-  // Debounce short ID input
+  // debounce search input
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedShortId(shortId.trim());
+      setDebouncedSearch(searchName);
     }, 400);
     return () => clearTimeout(handler);
-  }, [shortId]);
+  }, [searchName]);
+
+  // Use backend search for email
+  const { data: userDetailsRes, isLoading: isSearching } =
+    useGetExactUserByShortIdQuery(
+      debouncedSearch
+        ? { shortId: debouncedSearch }
+        : skipToken,
+    );
+  const userDetails = userDetailsRes?.result;
 
   const {
     register,
@@ -39,58 +53,66 @@ export const SellCoinForm = () => {
     defaultValues: { userId: "", coinAmount: 1, userRole: "" },
   });
 
-  // When user selects a user from search, set userId in form
-  const handleUserSelect = (userId: string) => {
-    setValue("userId", userId);
-  };
-
   const onSubmit = async (data: SellCoinFormValues) => {
     try {
       const payload = {
         userId: data.userId,
         coins: data.coinAmount,
-        userRole: data.userRole
+        userRole: data.userRole || "user", // Default to "user" if not set
       };
+
       const response = await asignCoinToUser(payload).unwrap();
       toast.success(response.message || "Coins sold successfully!");
+      // setSuccessMsg(
+      //   `Successfully added ${data.coinAmount} coins to user ${data.userId}`
+      // );
       setTimeout(() => {
+        // onClose();
+        // setSuccessMsg("");
         reset();
-        setShortId("");
-        setDebouncedShortId("");
       }, 1500);
     } catch (error: any) {
       toast.error(
-        error?.data?.message || "Failed to sell coins. Please try again."
+        error?.data?.message || "Failed to sell coins. Please try again.",
       );
+      // setSuccessMsg("Failed to sell coins. Please try again.");
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label
-          htmlFor="sell-short-id"
+          htmlFor="sell-email"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Search by Short ID
+          Search Short ID
         </label>
         <Input
-          id="sell-short-id"
+          id="short_id"
           type="text"
           placeholder="100001"
-          value={shortId}
-          onChange={(e) => setShortId(e.target.value)}
+          onChange={(e) => setSearchName(e.target.value)}
         />
-        {debouncedShortId && debouncedShortId.length > 0 && (
-          <SearchingResultAppear
-            shortId={debouncedShortId}
-            onUserSelect={handleUserSelect}
-          />
+        {searchName && (
+          <div className="mt-2 max-h-32 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
+            {
+              (isSearching) ? (
+                <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm text-center">
+                  Searching...
+                </div>
+              ) : <SearchingResultAppear
+
+                user={userDetails!}
+                setValue={setValue}
+                setSearchName={setSearchName}
+              />
+            }
+          </div>
         )}
       </div>
       <div>
         <label
-          htmlFor="sell-user-id"
+          htmlFor="user-id"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           User ID
@@ -131,38 +153,19 @@ export const SellCoinForm = () => {
   );
 };
 
-
 const SearchingResultAppear = ({
-  shortId,
-  onUserSelect,
+  setSearchName,
+  setValue,
+  user,
 }: {
-  shortId: string;
-  onUserSelect: (userId: string) => void;
+  user: TUser;
+  setValue: UseFormSetValue<{
+    userId: string;
+    coinAmount: number;
+    userRole: string;
+  }>;
+  setSearchName: (name: string) => void;
 }) => {
-  const { data: userDetailsRes, isLoading, error, isFetching } = useGetExactUserByShortIdQuery(
-    { shortId },
-    { skip: !shortId || shortId.length === 0 }
-  );
-  const user = userDetailsRes?.result;
-
-  if (isLoading || isFetching) {
-    return (
-      <div className="mt-2 max-h-40 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
-        <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm text-center">
-          Searching...
-        </div>
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="mt-2 max-h-40 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
-        <div className="px-3 py-2 text-red-500 dark:text-red-400 text-sm text-center">
-          User not found
-        </div>
-      </div>
-    );
-  }
   if (!user) {
     return (
       <div className="mt-2 max-h-40 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
@@ -173,27 +176,29 @@ const SearchingResultAppear = ({
     );
   }
   return (
-    <div className="mt-2 max-h-40 overflow-y-auto border rounded bg-white dark:bg-gray-800 shadow">
-      <div
-        className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-pink-50 dark:hover:bg-pink-900/20 text-sm"
-        onClick={() => onUserSelect(user._id)}
-      >
-        {user.avatar ? (
-          <img
-            src={user.avatar}
-            alt={user.name}
-            className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
-          />
-        ) : (
-          <div className="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 dark:text-pink-400 font-bold border border-gray-200 dark:border-gray-600">
-            {user.name?.charAt(0).toUpperCase()}
-          </div>
-        )}
-        <div className="flex flex-col">
-          <span className="font-medium text-gray-800 dark:text-gray-200">{user.name}</span>
-          <span className="text-xs text-gray-500 dark:text-gray-400">{user.email}</span>
-          <span className="text-xs text-gray-400 dark:text-gray-500">ID: {user._id}</span>
+    <div
+      className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-pink-50 dark:hover:bg-pink-900/20 text-sm"
+      onClick={() => {
+        setValue("userId", user?._id);
+        setSearchName(user?.name);
+        setValue("userRole", user?.userRole);
+      }}
+    >
+      {user?.avatar ? (
+        <img
+          src={user?.avatar}
+          alt={user?.name}
+          className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
+        />
+      ) : (
+        <div className="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 dark:text-pink-400 font-bold border border-gray-200 dark:border-gray-600">
+          {user?.name?.charAt(0).toUpperCase()}
         </div>
+      )}
+      <div className="flex flex-col">
+        <span className="font-medium text-gray-800 dark:text-gray-200">{user?.name}</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">ID: {user?._id}</span>
       </div>
     </div>
   );
